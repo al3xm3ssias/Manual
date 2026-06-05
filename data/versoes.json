@@ -1,0 +1,16 @@
+{
+  "systemVersion": "1.0.0",
+  "systemUpdatedAt": "2026-06-03",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "date": "2026-06-03",
+      "type": "init",
+      "modules": ["*"],
+      "summary": "Criação inicial do sistema",
+      "description": "Estrutura criada pelo script de inicialização.",
+      "author": "[A definir]"
+    }
+  ],
+  "modules": {}
+}

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manual Interativo do Escriturário Escolar - Lei 14.648 – Plano de Carreira">
+  <meta name="theme-color" content="#007bff">
+  <title>Lei 14.648 – Plano de Carreira – Manual do Escriturário</title>
+
+  <!-- Vendor CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #6c757d;
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f9;
+    }
+    .loading-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,.7); z-index:9999;
+      display:flex; justify-content:center; align-items:center;
+    }
+    .loading-spinner { background:white; padding:30px; border-radius:10px; text-align:center; }
+    .toast-container { position:fixed; bottom:20px; right:20px; z-index:9998; }
+    .custom-toast {
+      background:white; border-left:4px solid var(--primary-color);
+      padding:12px 20px; margin-top:10px; border-radius:8px;
+      box-shadow:0 2px 10px rgba(0,0,0,.2); animation:slideIn .3s ease;
+      display:flex; align-items:center; gap:10px;
+    }
+    @keyframes slideIn { from{transform:translateX(100%);opacity:0} to{transform:translateX(0);opacity:1} }
+    .search-results-dropdown {
+      position:absolute; top:100%; left:0; right:0; background:white;
+      border:1px solid #ddd; border-radius:4px; max-height:300px;
+      overflow-y:auto; z-index:1000; box-shadow:0 2px 10px rgba(0,0,0,.1);
+    }
+    .search-result-item { padding:10px; cursor:pointer; border-bottom:1px solid #eee; }
+    .search-result-item:hover { background:#f8f9fa; }
+    .favorite-item, .history-item {
+      padding:8px; margin-bottom:5px; background:rgba(255,255,255,.1);
+      border-radius:5px; cursor:pointer; transition:all .2s;
+    }
+    .favorite-item:hover, .history-item:hover { background:rgba(255,255,255,.2); }
+    .checklist-item {
+      background:#f8f9fa; border-left:3px solid var(--primary-color);
+      padding:12px; margin-bottom:10px; border-radius:5px; cursor:pointer;
+    }
+    .checklist-item.completed { background:#d4edda; border-left-color:var(--success-color); }
+    .btn-favorite { cursor:pointer; transition:all .2s; }
+    .btn-favorite:hover { transform:scale(1.1); }
+    .btn-favorite.active { color:var(--warning-color); }
+    #content-area { min-height:500px; }
+    @media print {
+      .main-sidebar, .main-header, .control-sidebar, .main-footer { display:none!important; }
+      .content-wrapper { margin-left:0!important; }
+    }
+    @media (max-width:768px) {
+      .brand-text, .user-panel .info { display:none; }
+    }
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<div class="wrapper">
+
+  <!-- NAVBAR SUPERIOR -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom shadow-sm">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+    <div class="ms-auto"></div>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item d-none d-md-inline-block">
+        <div class="input-group input-group-sm" style="position:relative;">
+          <input class="form-control form-control-navbar" type="search" id="global-search-input" placeholder="Buscar procedimentos..." autocomplete="off">
+          <div class="input-group-append">
+            <button class="btn btn-navbar" type="button"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="search-results-dropdown" id="search-dropdown" style="display:none;"></div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- SIDEBAR ESQUERDA -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="../../index.html" class="brand-link">
+      <span class="brand-text font-weight-light">Manual do Escriturário</span>
+    </a>
+    <div class="sidebar">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image"><i class="fas fa-user-circle fa-2x text-white"></i></div>
+        <div class="info">
+          <a href="#" class="d-block font-weight-bold">Escriturário(a)</a>
+          <span class="text-muted small">Sistema Online</span>
+        </div>
+      </div>
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+          <li class="nav-item">
+            <a href="../../index.html" class="nav-link"><i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p></a>
+          </li>
+          
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-plus"></i>
+              <p>Matrícula <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pre_matricula.html" class="nav-link ">
+                  <i class="fas fa-clipboard-list nav-icon text-success"></i>
+                  <p>Pré-Matrícula</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="documentacao.html" class="nav-link ">
+                  <i class="fas fa-folder-open nav-icon text-success"></i>
+                  <p>Documentação Necessária – Matrícula</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="matriculas.html" class="nav-link ">
+                  <i class="fas fa-user-check nav-icon text-success"></i>
+                  <p>Matrícula</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="anexo_de_documentos.html" class="nav-link ">
+                  <i class="fas fa-paperclip nav-icon text-success"></i>
+                  <p>Anexo de Documentos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-exchange-alt"></i>
+              <p>Transferências <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="transferencia-entrada.html" class="nav-link ">
+                  <i class="fas fa-sign-in-alt nav-icon text-info"></i>
+                  <p>Transferência – Entrada</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="transferencia-saida.html" class="nav-link ">
+                  <i class="fas fa-sign-out-alt nav-icon text-warning"></i>
+                  <p>Transferência – Saída</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="documentacao_transferencia.html" class="nav-link ">
+                  <i class="fas fa-folder-open nav-icon text-success"></i>
+                  <p>Documentação – Transferência</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-folder-open"></i>
+              <p>Documentos SERE <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="historicos.html" class="nav-link ">
+                  <i class="fas fa-scroll nav-icon text-danger"></i>
+                  <p>Históricos Escolares</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="declaracoes.html" class="nav-link ">
+                  <i class="fas fa-file-signature nav-icon text-primary"></i>
+                  <p>Declarações</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pareceres.html" class="nav-link ">
+                  <i class="fas fa-comments nav-icon text-secondary"></i>
+                  <p>Pareceres</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-desktop"></i>
+              <p>Procedimentos no RCO/SERE <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="abono_de_faltas.html" class="nav-link ">
+                  <i class="fas fa-user-check nav-icon text-danger"></i>
+                  <p>Abono de Faltas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="iniciar_ano_letivo_rco.html" class="nav-link ">
+                  <i class="fas fa-calendar-plus nav-icon text-primary"></i>
+                  <p>Iniciar Ano Letivo no RCO</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="grade_aulas.html" class="nav-link ">
+                  <i class="fas fa-table nav-icon text-secondary"></i>
+                  <p>Grade de Aulas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="lancar_livros_de_chamada.html" class="nav-link ">
+                  <i class="fas fa-book-open nav-icon text-secondary"></i>
+                  <p>Lançar Livros de Chamada</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="encerramento_ano_letivo.html" class="nav-link ">
+                  <i class="fas fa-flag-checkered nav-icon text-secondary"></i>
+                  <p>Encerramento do Ano Letivo</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-cog"></i>
+              <p>Criando Cadastros no SERE <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="cadastro_alunos.html" class="nav-link ">
+                  <i class="fas fa-user-graduate nav-icon text-danger"></i>
+                  <p>Cadastro de Alunos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="cadastro_funcionarios.html" class="nav-link ">
+                  <i class="fas fa-user-tie nav-icon text-primary"></i>
+                  <p>Cadastro de Funcionários</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="cadastro_professores.html" class="nav-link ">
+                  <i class="fas fa-chalkboard-teacher nav-icon text-secondary"></i>
+                  <p>Cadastro de Professores</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-poll"></i>
+              <p>Censo Escolar <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="censo-escolar.html" class="nav-link ">
+                  <i class="fas fa-chart-bar nav-icon text-info"></i>
+                  <p>Censo Escolar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="cadastro_dos_alunos.html" class="nav-link ">
+                  <i class="fas fa-child nav-icon text-success"></i>
+                  <p>Cadastro dos Alunos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="cadastro_dos_funcionarios.html" class="nav-link ">
+                  <i class="fas fa-id-badge nav-icon text-primary"></i>
+                  <p>Cadastro dos Funcionários</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="cadastro_da_escola.html" class="nav-link ">
+                  <i class="fas fa-school nav-icon text-success"></i>
+                  <p>Cadastro da Escola</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="erros_frequentes.html" class="nav-link ">
+                  <i class="fas fa-exclamation-triangle nav-icon text-warning"></i>
+                  <p>Erros Frequentes – Censo</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-calendar-check"></i>
+              <p>Justificativas e Quinzenal <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="justificativas.html" class="nav-link ">
+                  <i class="fas fa-comment-medical nav-icon text-secondary"></i>
+                  <p>Justificativas de Faltas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="quinzenal.html" class="nav-link ">
+                  <i class="fas fa-calendar-check nav-icon text-info"></i>
+                  <p>Frequência Quinzenal</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="atestados.html" class="nav-link ">
+                  <i class="fas fa-file-medical nav-icon text-danger"></i>
+                  <p>Atestados</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="encaminhamentos.html" class="nav-link ">
+                  <i class="fas fa-share-square nav-icon text-info"></i>
+                  <p>Encaminhamentos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="CAT.html" class="nav-link ">
+                  <i class="fas fa-hard-hat nav-icon text-warning"></i>
+                  <p>CAT – Comunicação de Acidente de Trabalho</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-gavel"></i>
+              <p>Legislação – Servidores <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="abonos.html" class="nav-link ">
+                  <i class="fas fa-calendar-check nav-icon text-success"></i>
+                  <p>Abonos de Faltas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="compensacao_de_horas.html" class="nav-link ">
+                  <i class="fas fa-redo-alt nav-icon text-warning"></i>
+                  <p>Compensação de Horas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="14648.html" class="nav-link active">
+                  <i class="fas fa-gavel nav-icon text-secondary"></i>
+                  <p>Lei 14.648 – Plano de Carreira</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="14936.html" class="nav-link ">
+                  <i class="fas fa-gavel nav-icon text-secondary"></i>
+                  <p>Lei 14.936 – Plano de Carreira (Atualização)</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="progressoes_14648.html" class="nav-link ">
+                  <i class="fas fa-arrow-up nav-icon text-success"></i>
+                  <p>Progressão Horizontal – Lei 14.648</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="progressoes_14936.html" class="nav-link ">
+                  <i class="fas fa-arrows-alt-v nav-icon text-success"></i>
+                  <p>Progressão Horizontal e Vertical – Lei 14.936</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-id-card"></i>
+              <p>Documentação – Servidores <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="carta_de_apresentacao.html" class="nav-link ">
+                  <i class="fas fa-envelope-open-text nav-icon text-primary"></i>
+                  <p>Carta de Apresentação</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="ficha_funcional.html" class="nav-link ">
+                  <i class="fas fa-id-card nav-icon text-info"></i>
+                  <p>Ficha Funcional</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="solicitacao_de_vale_transporte.html" class="nav-link ">
+                  <i class="fas fa-bus nav-icon text-primary"></i>
+                  <p>Solicitação de Vale-Transporte</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="ficha_epi.html" class="nav-link ">
+                  <i class="fas fa-hard-hat nav-icon text-warning"></i>
+                  <p>Ficha de EPI</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="estatisticas.html" class="nav-link ">
+              <i class="nav-icon fas fa-chart-bar"></i>
+              <p>Estatísticas</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0" id="page-title">Lei 14.648 – Plano de Carreira</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+              <li class="breadcrumb-item active">Lei 14.648 – Plano de Carreira</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="loading-overlay" class="loading-overlay" style="display:none;">
+      <div class="loading-spinner"><div class="spinner-border text-primary"></div><p>Carregando...</p></div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div id="content-area">
+          <div class="card">
+            <div class="card-header bg-warning text-white d-flex align-items-center">
+              <h3 class="card-title"><i class="fas fa-gavel mb-0"></i>Lei 14.648 – Plano de Carreira</h3>
+              <div class="ml-auto d-flex align-items-center">
+                <i class="fas fa-star btn-favorite" data-module="14648" onclick="toggleFavorite('14648', 'Lei 14.648 – Plano de Carreira')" style="font-size:1.2rem; margin-right:10px;"></i>
+                <button class="btn btn-sm btn-light" onclick="window.print()"><i class="fas fa-print"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="lead">Principais disposições da Lei Estadual 14.648 para servidores da educação.</p>
+              
+        <div class="card card-outline card-primary mb-4">
+            <div class="card-header">
+                <h3 class="card-title">Sobre a lei</h3>
+            </div>
+            <div class="card-body">
+                A Lei nº 14.648/2004 dispõe sobre o Plano de Cargos, Carreiras e Vencimentos dos servidores da educação do Estado do Paraná.
+                
+            </div>
+        </div>
+        
+        <div class="card card-outline card-primary mb-4">
+            <div class="card-header">
+                <h3 class="card-title">Pontos principais</h3>
+            </div>
+            <div class="card-body">
+                <ul>
+                        <li>Estrutura das classes e níveis de carreira</li>
+                        <li>Critérios para progressão horizontal (tempo de serviço)</li>
+                        <li>Critérios para progressão vertical (titulação)</li>
+                        <li>Jornada de trabalho e regime de dedicação</li>
+                    </ul>
+                
+            <div class="text-center my-4">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23f0f0f0'/%3E%3Ctext x='100' y='75' font-size='14' text-anchor='middle' fill='%23999' dy='.3em'%3E📷 Imagem tutorial%3C/text%3E%3C/svg%3E"
+                     class="img-fluid rounded shadow-sm" style="max-height: 180px;" alt="Placeholder - Pontos principais">
+                <p class="text-muted small mt-1">Figura: Pontos principais (substituir por imagem real)</p>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="card card-outline card-primary mb-4">
+            <div class="card-header">
+                <h3 class="card-title">Referência</h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info"><i class="fas fa-info-circle"></i>
+                        Consultar sempre a versão atualizada no portal da ALEP ou SEED-PR,
+                        pois a lei pode ter emendas posteriores.
+                    </div>
+                
+            </div>
+        </div>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SIDEBAR DIREITA (Favoritos + Histórico) -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <div class="control-sidebar-bg"></div>
+    <div class="p-3 control-sidebar-content">
+      <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-favorites"><i class="fas fa-star"></i> Favoritos</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-history"><i class="fas fa-history"></i> Histórico</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-favorites">
+          <div id="favorites-list" class="text-center text-muted"><i class="fas fa-star fa-2x mb-2"></i><br>Nenhum favorito.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-favorites" style="display:none;" onclick="clearFavorites()"><i class="fas fa-trash"></i> Limpar favoritos</button>
+        </div>
+        <div class="tab-pane fade" id="tab-history">
+          <div id="history-list" class="text-center text-muted"><i class="fas fa-history fa-2x mb-2"></i><br>Seu histórico aparecerá aqui.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-history" style="display:none;" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar histórico</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <footer class="main-footer text-center">
+    <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+
+<script>
+// ================== FAVORITOS ==================
+let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
+
+function saveFavorites() { localStorage.setItem('manual_favorites', JSON.stringify(favorites)); updateFavoritesUI(); }
+
+function toggleFavorite(id, title) {
+    const idx = favorites.findIndex(f => f.id === id);
+    if (idx > -1) favorites.splice(idx,1);
+    else favorites.push({ id, title });
+    saveFavorites();
+    updateFavoriteStar(id);
+    showToast(idx > -1 ? 'Removido dos favoritos' : 'Adicionado aos favoritos', idx > -1 ? 'info' : 'success');
+}
+
+function updateFavoriteStar(id) {
+    const isFav = favorites.some(f => f.id === id);
+    $('.btn-favorite[data-module="'+id+'"]').toggleClass('active text-warning', isFav);
+}
+
+function updateFavoritesUI() {
+    const container = $('#favorites-list');
+    if(favorites.length === 0) {
+        container.html('<i class="fas fa-star fa-2x mb-2 d-block"></i> Nenhum favorito ainda.');
+        $('#btn-clear-favorites').hide();
+    } else {
+        let html = '';
+        favorites.forEach(f => html += `<div class="favorite-item" onclick="window.location.href='${f.id}.html'"><i class="fas fa-star text-warning"></i> ${f.title}</div>`);
+        container.html(html);
+        $('#btn-clear-favorites').show();
+    }
+}
+
+function clearFavorites() { if(confirm('Limpar todos os favoritos?')) { favorites = []; saveFavorites(); showToast('Favoritos limpos','info'); } }
+
+// ================== HISTÓRICO ==================
+let history = JSON.parse(localStorage.getItem('manual_history') || '[]');
+
+function addToHistory(id, title) {
+    history = history.filter(h => h.id !== id);
+    history.unshift({ id, title, timestamp: new Date().toISOString() });
+    if(history.length > 20) history.pop();
+    localStorage.setItem('manual_history', JSON.stringify(history));
+    updateHistoryUI();
+}
+
+function updateHistoryUI() {
+    const container = $('#history-list');
+    if(history.length === 0) {
+        container.html('<i class="fas fa-history fa-2x mb-2 d-block"></i> Seu histórico aparecerá aqui.');
+        $('#btn-clear-history').hide();
+    } else {
+        let html = '';
+        history.slice(0,10).forEach(h => html += `<div class="history-item" onclick="window.location.href='${h.id}.html'"><i class="fas fa-history"></i> ${h.title}</div>`);
+        container.html(html);
+        $('#btn-clear-history').show();
+    }
+}
+
+function clearHistory() { if(confirm('Limpar histórico?')) { history = []; localStorage.setItem('manual_history', JSON.stringify(history)); updateHistoryUI(); showToast('Histórico limpo','info'); } }
+
+// ================== CHECKLIST INTERATIVO ==================
+function initializeChecklists() {
+    $('.checklist-item').each(function() {
+        const id = $(this).data('id');
+        if(localStorage.getItem('checklist_'+id) === 'true') $(this).addClass('completed');
+        $(this).off('click').on('click', function() {
+            $(this).toggleClass('completed');
+            const done = $(this).hasClass('completed');
+            localStorage.setItem('checklist_'+id, done);
+            showToast(done ? 'Item concluído ✓' : 'Item desmarcado', done ? 'success' : 'info');
+        });
+    });
+}
+
+// ================== TOAST ==================
+function showToast(msg, type='success') {
+    const container = $('#toast-container');
+    const icon = type === 'success' ? '✓' : 'ℹ️';
+    const toast = $(`<div class="custom-toast">${icon} ${msg}</div>`);
+    container.append(toast);
+    setTimeout(() => toast.fadeOut(300, () => toast.remove()), 3000);
+}
+
+// ================== BUSCA GLOBAL ==================
+function setupSearch() {
+    const searchInput = $('#global-search-input');
+    const dropdown = $('#search-dropdown');
+    const allPages = [{ id: "pre_matricula", title: "Pré-Matrícula" },
+        { id: "documentacao", title: "Documentação Necessária – Matrícula" },
+        { id: "matriculas", title: "Matrícula" },
+        { id: "anexo_de_documentos", title: "Anexo de Documentos" },
+        { id: "transferencia-entrada", title: "Transferência – Entrada" },
+        { id: "transferencia-saida", title: "Transferência – Saída" },
+        { id: "documentacao_transferencia", title: "Documentação – Transferência" },
+        { id: "historicos", title: "Históricos Escolares" },
+        { id: "declaracoes", title: "Declarações" },
+        { id: "pareceres", title: "Pareceres" },
+        { id: "abono_de_faltas", title: "Abono de Faltas" },
+        { id: "iniciar_ano_letivo_rco", title: "Iniciar Ano Letivo no RCO" },
+        { id: "grade_aulas", title: "Grade de Aulas" },
+        { id: "lancar_livros_de_chamada", title: "Lançar Livros de Chamada" },
+        { id: "encerramento_ano_letivo", title: "Encerramento do Ano Letivo" },
+        { id: "cadastro_alunos", title: "Cadastro de Alunos" },
+        { id: "cadastro_funcionarios", title: "Cadastro de Funcionários" },
+        { id: "cadastro_professores", title: "Cadastro de Professores" },
+        { id: "censo-escolar", title: "Censo Escolar" },
+        { id: "cadastro_dos_alunos", title: "Cadastro dos Alunos" },
+        { id: "cadastro_dos_funcionarios", title: "Cadastro dos Funcionários" },
+        { id: "cadastro_da_escola", title: "Cadastro da Escola" },
+        { id: "erros_frequentes", title: "Erros Frequentes – Censo" },
+        { id: "justificativas", title: "Justificativas de Faltas" },
+        { id: "quinzenal", title: "Frequência Quinzenal" },
+        { id: "atestados", title: "Atestados" },
+        { id: "encaminhamentos", title: "Encaminhamentos" },
+        { id: "CAT", title: "CAT – Comunicação de Acidente de Trabalho" },
+        { id: "abonos", title: "Abonos de Faltas" },
+        { id: "compensacao_de_horas", title: "Compensação de Horas" },
+        { id: "14648", title: "Lei 14.648 – Plano de Carreira" },
+        { id: "14936", title: "Lei 14.936 – Plano de Carreira (Atualização)" },
+        { id: "progressoes_14648", title: "Progressão Horizontal – Lei 14.648" },
+        { id: "progressoes_14936", title: "Progressão Horizontal e Vertical – Lei 14.936" },
+        { id: "carta_de_apresentacao", title: "Carta de Apresentação" },
+        { id: "ficha_funcional", title: "Ficha Funcional" },
+        { id: "solicitacao_de_vale_transporte", title: "Solicitação de Vale-Transporte" },
+        { id: "ficha_epi", title: "Ficha de EPI" },
+        { id: "estatisticas", title: "Estatísticas" }];
+    searchInput.on('input', function() {
+        const q = $(this).val().toLowerCase();
+        if(q.length < 2) { dropdown.hide(); return; }
+        const results = allPages.filter(p => p.title.toLowerCase().includes(q));
+        if(results.length) {
+            let html = '';
+            results.forEach(r => html += `<div class="search-result-item" onclick="window.location.href='${r.id}.html'"><i class="fas fa-file-alt"></i> ${r.title}</div>`);
+            dropdown.html(html).show();
+        } else dropdown.html('<div class="p-2 text-muted">Nenhum resultado</div>').show();
+    });
+    $(document).click(e => {
+        if(!$(e.target).closest('.input-group').length) dropdown.hide();
+    });
+}
+
+$(document).ready(function() {
+    updateFavoriteStar('14648');
+    addToHistory('14648', 'Lei 14.648 – Plano de Carreira');
+    updateFavoritesUI();
+    updateHistoryUI();
+    initializeChecklists();
+    setupSearch();
+});
+</script>
+</body>
+</html>

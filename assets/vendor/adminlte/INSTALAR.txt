@@ -1,0 +1,11 @@
+Baixe o AdminLTE 3.x em: https://github.com/ColorlibHQ/AdminLTE/releases
+Copie para esta pasta:
+  - adminlte.min.css
+  - adminlte.min.js
+  - plugins/bootstrap/js/bootstrap.bundle.min.js
+  - plugins/bootstrap/css/bootstrap.min.css
+  - plugins/fontawesome-free/css/all.min.css
+  - plugins/fontawesome-free/webfonts/* (todos os arquivos)
+  - plugins/overlayScrollbars/css/OverlayScrollbars.min.css
+  - plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js
+  - plugins/jquery/jquery.min.js

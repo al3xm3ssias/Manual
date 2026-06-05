@@ -1,0 +1,23 @@
+{
+  "categories": [
+    {
+      "id": "procedimentos",
+      "label": "Procedimentos",
+      "icon": "fas fa-list-check",
+      "color": "primary",
+      "description": "Procedimentos operacionais da secretaria escolar",
+      "subcategories": [
+        { "id": "vida-escolar", "label": "Vida Escolar" },
+        { "id": "documentacao", "label": "Documentação" },
+        { "id": "transferencias", "label": "Transferências" }
+      ]
+    },
+    { "id": "documentos",   "label": "Documentos",          "icon": "fas fa-folder-open",   "color": "info" },
+    { "id": "secretaria",   "label": "Rotinas da Secretaria","icon": "fas fa-building",       "color": "warning" },
+    { "id": "legislacao",   "label": "Legislação",           "icon": "fas fa-balance-scale",  "color": "danger" },
+    { "id": "plano-cargos", "label": "Plano de Cargos",      "icon": "fas fa-briefcase",      "color": "success" },
+    { "id": "tutoriais",    "label": "Tutoriais",            "icon": "fas fa-laptop",         "color": "info" },
+    { "id": "faq",          "label": "FAQ",                  "icon": "fas fa-question-circle","color": "secondary" },
+    { "id": "templates",    "label": "Templates",            "icon": "fas fa-copy",           "color": "secondary" }
+  ]
+}

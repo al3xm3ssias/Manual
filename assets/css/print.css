@@ -1,0 +1,684 @@
+/**
+ * PRINT.CSS - Estilos para Impressão e Export PDF
+ * Otimizado para impressão em papel e export em PDF
+ */
+
+@media print {
+  /* ============================================================
+     RESET E BASE
+  ============================================================ */
+
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html, body {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    background: white;
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    line-height: 1.6;
+  }
+
+  /* ============================================================
+     OCULTAR ELEMENTOS DESNECESSÁRIOS
+  ============================================================ */
+
+  .main-header,
+  .main-sidebar,
+  .control-sidebar,
+  .main-footer,
+  .no-print,
+  .loading-overlay,
+  .toast-container,
+  .btn,
+  .card-tools,
+  .nav-link,
+  .dropdown,
+  .navbar-nav,
+  .breadcrumb,
+  [data-widget="pushmenu"],
+  [data-toggle="dropdown"],
+  [data-widget="control-sidebar"],
+  .print-hide,
+  .d-print-none {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* ============================================================
+     LAYOUT PRINCIPAL
+  ============================================================ */
+
+  .wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .content-wrapper {
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    padding: 0;
+    width: 100%;
+  }
+
+  .content-header {
+    padding: 0.5cm 0 1cm 0;
+    page-break-after: avoid;
+    border: none;
+    box-shadow: none;
+    background: white;
+  }
+
+  .content-header h1 {
+    margin-top: 0;
+    margin-bottom: 0.5cm;
+    font-size: 24pt;
+    font-weight: bold;
+    color: black;
+  }
+
+  .content {
+    padding: 0;
+    width: 100%;
+  }
+
+  /* ============================================================
+     CABEÇALHO DE IMPRESSÃO
+  ============================================================ */
+
+  .print-header {
+    display: block !important;
+    page-break-after: avoid;
+    margin-bottom: 1cm;
+    padding-bottom: 0.5cm;
+    border-bottom: 2pt solid black;
+    text-align: center;
+  }
+
+  .print-header-title {
+    font-size: 18pt;
+    font-weight: bold;
+    margin-bottom: 0.25cm;
+  }
+
+  .print-header-subtitle {
+    font-size: 10pt;
+    color: #333;
+    margin-bottom: 0.25cm;
+  }
+
+  .print-header-meta {
+    font-size: 9pt;
+    color: #666;
+  }
+
+  /* ============================================================
+     CARDS
+  ============================================================ */
+
+  .card {
+    background: white !important;
+    border: 1pt solid black !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    margin-bottom: 0.5cm;
+  }
+
+  .card-header {
+    background: white !important;
+    border-bottom: 2pt solid black !important;
+    color: black !important;
+    font-weight: bold;
+    padding: 0.5cm !important;
+    page-break-after: avoid;
+  }
+
+  .card-body {
+    padding: 0.5cm !important;
+    background: white !important;
+  }
+
+  /* ============================================================
+     TABELAS
+  ============================================================ */
+
+  .table {
+    width: 100% !important;
+    border-collapse: collapse;
+    background: white !important;
+    page-break-inside: avoid;
+  }
+
+  .table thead {
+    display: table-header-group;
+  }
+
+  .table tfoot {
+    display: table-footer-group;
+  }
+
+  .table tr {
+    page-break-inside: avoid;
+  }
+
+  .table th,
+  .table td {
+    background: white !important;
+    color: black !important;
+    border: 1pt solid #333 !important;
+    padding: 0.35cm !important;
+    text-align: left;
+    vertical-align: top;
+    font-size: 10pt;
+  }
+
+  .table thead th {
+    background: #f0f0f0 !important;
+    color: black !important;
+    font-weight: bold;
+    border: 1pt solid #333 !important;
+  }
+
+  .table tbody tr:nth-child(odd) {
+    background: #fafafa !important;
+  }
+
+  /* ============================================================
+     LISTAS
+  ============================================================ */
+
+  ul, ol {
+    page-break-inside: avoid;
+    margin-bottom: 0.5cm;
+  }
+
+  li {
+    page-break-inside: avoid;
+    margin-bottom: 0.25cm;
+  }
+
+  /* ============================================================
+     HEADINGS
+  ============================================================ */
+
+  h1 {
+    font-size: 18pt;
+    font-weight: bold;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    margin-top: 1cm;
+    margin-bottom: 0.5cm;
+    color: black;
+    border-bottom: 2pt solid #333;
+    padding-bottom: 0.25cm;
+  }
+
+  h2 {
+    font-size: 14pt;
+    font-weight: bold;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    margin-top: 0.75cm;
+    margin-bottom: 0.4cm;
+    color: #1a3a52;
+    border-bottom: 1pt solid #ccc;
+    padding-bottom: 0.2cm;
+  }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: bold;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    margin-top: 0.5cm;
+    margin-bottom: 0.3cm;
+    color: black;
+  }
+
+  h4, h5, h6 {
+    font-size: 11pt;
+    font-weight: bold;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    margin-top: 0.4cm;
+    margin-bottom: 0.2cm;
+    color: black;
+  }
+
+  /* ============================================================
+     PARÁGRAFOS E TEXTO
+  ============================================================ */
+
+  p {
+    page-break-inside: avoid;
+    margin-bottom: 0.5cm;
+    line-height: 1.5;
+    color: black;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: 'Courier New', monospace;
+    background: #f5f5f5 !important;
+    color: black !important;
+    padding: 0.1cm 0.3cm;
+    border-radius: 2px;
+    page-break-inside: avoid;
+  }
+
+  pre {
+    background: #f5f5f5 !important;
+    color: black !important;
+    padding: 0.5cm;
+    border: 1pt solid #ccc;
+    border-radius: 2px;
+    overflow: visible;
+    page-break-inside: avoid;
+    font-size: 9pt;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* ============================================================
+     BADGES E LABELS
+  ============================================================ */
+
+  .badge {
+    background: white !important;
+    border: 1pt solid black !important;
+    color: black !important;
+    padding: 0.2cm 0.3cm !important;
+    font-size: 8pt;
+  }
+
+  .label {
+    background: white !important;
+    border: 1pt solid black !important;
+    color: black !important;
+    padding: 0.2cm 0.3cm !important;
+    font-size: 8pt;
+  }
+
+  /* ============================================================
+     ALERTAS E CALLOUTS
+  ============================================================ */
+
+  .alert,
+  .callout {
+    background: white !important;
+    border-left: 3pt solid black !important;
+    border: 1pt solid #999 !important;
+    padding: 0.5cm !important;
+    margin-bottom: 0.5cm;
+    page-break-inside: avoid;
+  }
+
+  .alert p,
+  .callout p {
+    margin-bottom: 0;
+  }
+
+  /* ============================================================
+     LINKS
+  ============================================================ */
+
+  a {
+    text-decoration: underline;
+    color: black;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+    word-break: break-all;
+  }
+
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+
+  /* ============================================================
+     IMAGENS
+  ============================================================ */
+
+  img {
+    max-width: 100%;
+    height: auto;
+    page-break-inside: avoid;
+    margin-bottom: 0.5cm;
+    border: 1pt solid #ccc;
+  }
+
+  figure {
+    page-break-inside: avoid;
+  }
+
+  figcaption {
+    font-size: 9pt;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.25cm;
+  }
+
+  /* ============================================================
+     BLOCOS ESPECIAIS
+  ============================================================ */
+
+  .manual-section {
+    page-break-inside: avoid;
+    margin-bottom: 1cm;
+  }
+
+  .section-number {
+    font-weight: bold;
+    margin-right: 0.25cm;
+  }
+
+  .timeline {
+    padding: 0.5cm 0;
+  }
+
+  .timeline-item {
+    page-break-inside: avoid;
+    margin-left: 0 !important;
+    padding: 0.5cm 0;
+    border-left: 3pt solid #999 !important;
+    padding-left: 0.5cm;
+    margin-bottom: 0.75cm;
+  }
+
+  .timeline::before {
+    display: none;
+  }
+
+  .timeline > div > i {
+    display: none;
+  }
+
+  .time-label {
+    background: #f0f0f0 !important;
+    border: 1pt solid #999 !important;
+    padding: 0.5cm !important;
+    font-weight: bold;
+    margin-bottom: 0.5cm;
+  }
+
+  .accordion {
+    margin-bottom: 0.5cm;
+  }
+
+  .accordion .card {
+    margin-bottom: 0.25cm;
+  }
+
+  .accordion .collapse {
+    display: block !important;
+  }
+
+  .accordion .card-header {
+    background: #f0f0f0 !important;
+    padding: 0.3cm !important;
+  }
+
+  .accordion .card-header .btn-link {
+    color: black !important;
+    text-decoration: none;
+    padding: 0.3cm !important;
+  }
+
+  .accordion .card-header .btn-link::after {
+    content: "";
+  }
+
+  /* ============================================================
+     INFO BOX
+  ============================================================ */
+
+  .info-box {
+    background: white !important;
+    border: 1pt solid #999 !important;
+    padding: 0.5cm;
+    margin-bottom: 0.5cm;
+    page-break-inside: avoid;
+  }
+
+  .info-box-icon {
+    display: none;
+  }
+
+  .info-box-number {
+    font-weight: bold;
+    font-size: 14pt;
+  }
+
+  /* ============================================================
+     DEFINIÇÃO DE PÁGINA
+  ============================================================ */
+
+  @page {
+    size: A4;
+    margin: 2cm;
+  }
+
+  @page :first {
+    margin-top: 2cm;
+  }
+
+  @page :left {
+    margin-left: 2cm;
+    margin-right: 1.5cm;
+  }
+
+  @page :right {
+    margin-left: 1.5cm;
+    margin-right: 2cm;
+  }
+
+  /* Cabeçalho e Rodapé */
+  @page {
+    @top-left {
+      content: "Manual do Escriturário Escolar";
+      font-size: 10pt;
+      color: #666;
+    }
+
+    @top-right {
+      content: string(chapter);
+      font-size: 10pt;
+      color: #666;
+    }
+
+    @bottom-left {
+      content: "Página " counter(page);
+      font-size: 10pt;
+      color: #999;
+    }
+
+    @bottom-right {
+      content: "Data: " string(print-date);
+      font-size: 10pt;
+      color: #999;
+    }
+
+    @bottom-center {
+      content: "Confidencial";
+      font-size: 9pt;
+      color: #ccc;
+    }
+  }
+
+  /* Quebras de página */
+  .page-break {
+    page-break-after: always;
+  }
+
+  .page-break-before {
+    page-break-before: always;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+
+  /* ============================================================
+     ELEMENTOS RESPONSIVOS PARA IMPRESSÃO
+  ============================================================ */
+
+  .row {
+    display: block;
+  }
+
+  .col-sm-6,
+  .col-md-4,
+  .col-md-6,
+  .col-lg-3,
+  .col-lg-4,
+  .col-lg-6 {
+    display: block;
+    width: 100% !important;
+    margin-bottom: 0.5cm;
+  }
+
+  /* ============================================================
+     MARCAS VISUAIS
+  ============================================================ */
+
+  .print-visible {
+    display: block !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  /* Marker para corte */
+  .print-mark-corner {
+    position: fixed;
+    width: 1cm;
+    height: 1cm;
+    border: 1pt solid #ccc;
+  }
+
+  /* ============================================================
+     FONTES EM IMPRESSÃO
+  ============================================================ */
+
+  body {
+    font-family: Georgia, serif;
+    font-size: 11pt;
+  }
+
+  code, pre {
+    font-family: 'Courier New', monospace;
+    font-size: 9pt;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Arial, sans-serif;
+  }
+
+  /* ============================================================
+     CONTRASTE PARA IMPRESSÃO
+  ============================================================ */
+
+  body {
+    color: #000;
+    background: white;
+  }
+
+  a {
+    color: #000;
+  }
+
+  .text-muted {
+    color: #666 !important;
+  }
+
+  .text-primary {
+    color: #000 !important;
+  }
+
+  .text-success {
+    color: #000 !important;
+  }
+
+  .text-danger {
+    color: #000 !important;
+  }
+
+  .text-warning {
+    color: #000 !important;
+  }
+
+  .text-info {
+    color: #000 !important;
+  }
+
+  /* ============================================================
+     LAYOUT EM COLUNAS (opcional)
+  ============================================================ */
+
+  .print-columns-2 {
+    column-count: 2;
+    column-gap: 1cm;
+    column-rule: 1pt solid #ddd;
+  }
+
+  .print-columns-3 {
+    column-count: 3;
+    column-gap: 1cm;
+    column-rule: 1pt solid #ddd;
+  }
+
+  /* Impedir quebra dentro de elementos em colunas */
+  .print-columns-2 .card,
+  .print-columns-3 .card,
+  .print-columns-2 ul,
+  .print-columns-3 ul {
+    break-inside: avoid;
+  }
+}
+
+/* ============================================================
+   MEDIDAS DE IMPRESSÃO - SCREEN
+============================================================ */
+
+@media screen {
+  .print-mark-corner {
+    display: none;
+  }
+
+  .print-visible {
+    display: none !important;
+  }
+
+  .print-hidden {
+    display: block !important;
+  }
+
+  /* Preview de impressão */
+  .print-preview {
+    background: white;
+    padding: 2cm;
+    box-shadow: 0 0 1cm rgba(0, 0, 0, 0.3);
+    margin: 1rem auto;
+    max-width: 21cm;
+  }
+}

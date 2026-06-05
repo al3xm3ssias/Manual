@@ -1,0 +1,33 @@
+{
+  "school": {
+    "name": "E.M. [Nome da Escola]",
+    "shortName": "[Sigla]",
+    "cnpj": "XX.XXX.XXX/XXXX-XX",
+    "address": "Rua..., Nº..., Bairro...",
+    "city": "[Cidade]",
+    "state": "[UF]",
+    "phone": "(XX) XXXX-XXXX",
+    "email": "escola@sme.br",
+    "sme": "Secretaria Municipal de Educação de [Cidade]"
+  },
+  "system": {
+    "version": "1.0.0",
+    "theme": "light",
+    "language": "pt-BR",
+    "maxHistoryItems": 50,
+    "maxFavoriteItems": 30,
+    "searchDebounceMs": 300,
+    "cacheEnabled": true,
+    "aiEnabled": false,
+    "aiProvider": null,
+    "aiEndpoint": null
+  },
+  "ui": {
+    "sidebarCollapsed": false,
+    "defaultModule": "modulos/dashboard.html",
+    "showVersionBadge": true,
+    "showReadTime": true,
+    "enablePrint": true,
+    "enableExportPDF": false
+  }
+}
