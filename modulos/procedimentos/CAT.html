@@ -3,511 +3,326 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Manual Interativo do Escriturário Escolar - CAT – Comunicação de Acidente de Trabalho">
+  <meta name="description" content="">
   <meta name="theme-color" content="#007bff">
-  <title>CAT – Comunicação de Acidente de Trabalho – Manual do Escriturário</title>
-
-  <!-- Vendor CSS -->
+  <title>CAT – Manual do Escriturário</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
-
   <style>
-    :root {
-      --primary-color: #007bff;
-      --secondary-color: #6c757d;
-      --success-color: #28a745;
-      --warning-color: #ffc107;
-      --danger-color: #dc3545;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f6f9;
-    }
-    .loading-overlay {
-      position: fixed; top:0; left:0; width:100%; height:100%;
-      background: rgba(0,0,0,.7); z-index:9999;
-      display:flex; justify-content:center; align-items:center;
-    }
-    .loading-spinner { background:white; padding:30px; border-radius:10px; text-align:center; }
-    .toast-container { position:fixed; bottom:20px; right:20px; z-index:9998; }
-    .custom-toast {
-      background:white; border-left:4px solid var(--primary-color);
-      padding:12px 20px; margin-top:10px; border-radius:8px;
-      box-shadow:0 2px 10px rgba(0,0,0,.2); animation:slideIn .3s ease;
-      display:flex; align-items:center; gap:10px;
-    }
-    @keyframes slideIn { from{transform:translateX(100%);opacity:0} to{transform:translateX(0);opacity:1} }
-    .search-results-dropdown {
-      position:absolute; top:100%; left:0; right:0; background:white;
-      border:1px solid #ddd; border-radius:4px; max-height:300px;
-      overflow-y:auto; z-index:1000; box-shadow:0 2px 10px rgba(0,0,0,.1);
-    }
-    .search-result-item { padding:10px; cursor:pointer; border-bottom:1px solid #eee; }
-    .search-result-item:hover { background:#f8f9fa; }
-    .favorite-item, .history-item {
-      padding:8px; margin-bottom:5px; background:rgba(255,255,255,.1);
-      border-radius:5px; cursor:pointer; transition:all .2s;
-    }
-    .favorite-item:hover, .history-item:hover { background:rgba(255,255,255,.2); }
-    .checklist-item {
-      background:#f8f9fa; border-left:3px solid var(--primary-color);
-      padding:12px; margin-bottom:10px; border-radius:5px; cursor:pointer;
-    }
-    .checklist-item.completed { background:#d4edda; border-left-color:var(--success-color); }
-    .btn-favorite { cursor:pointer; transition:all .2s; }
-    .btn-favorite:hover { transform:scale(1.1); }
-    .btn-favorite.active { color:var(--warning-color); }
-    #content-area { min-height:500px; }
-    @media print {
-      .main-sidebar, .main-header, .control-sidebar, .main-footer { display:none!important; }
-      .content-wrapper { margin-left:0!important; }
-    }
-    @media (max-width:768px) {
-      .brand-text, .user-panel .info { display:none; }
-    }
+    :root{--primary-color:#007bff;--success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f4f6f9;}
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#007bff,#28a745);z-index:99999;width:0%;transition:width 0.1s linear;pointer-events:none;}
+    .back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:#007bff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.3s;font-size:16px;box-shadow:0 4px 14px rgba(0,123,255,0.35);border:none;z-index:1000;}
+    .back-to-top.visible{opacity:1;}
+    .page-info-card{border-radius:10px;border-left:5px solid var(--primary-color);margin-bottom:20px;}
+    .icon-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+    .toc-sticky{position:sticky;top:72px;}
+    .toc-nav a{display:block;padding:5px 14px;font-size:13px;color:#495057;text-decoration:none;border-left:3px solid transparent;transition:all 0.15s;}
+    .toc-nav a:hover,.toc-nav a.active{color:#007bff;border-left-color:#007bff;background:#f8f9fa;}
+    .lightbox-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);z-index:99990;display:none;align-items:center;justify-content:center;cursor:zoom-out;}
+    .lightbox-overlay.open{display:flex;}
+    .lightbox-overlay img{max-width:92%;max-height:92vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .lightbox-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;line-height:1;}
+    .img-zoomable{cursor:zoom-in;transition:transform 0.2s;}
+    .img-zoomable:hover{transform:scale(1.02);}
+    .toast-container{position:fixed;bottom:20px;right:20px;z-index:9998;}
+    .custom-toast{background:white;border-left:4px solid var(--primary-color);padding:12px 20px;margin-top:10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.2);animation:slideIn .3s ease;display:flex;align-items:center;gap:10px;}
+    @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    .favorite-item,.history-item{padding:8px;margin-bottom:5px;background:rgba(255,255,255,.1);border-radius:5px;cursor:pointer;transition:all .2s;}
+    .favorite-item:hover,.history-item:hover{background:rgba(255,255,255,.2);}
+    .search-results-dropdown{position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ddd;border-radius:4px;max-height:300px;overflow-y:auto;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+    .search-result-item{padding:10px;cursor:pointer;border-bottom:1px solid #eee;}
+    .search-result-item:hover{background:#f8f9fa;}
+    .btn-favorite{cursor:pointer;transition:all .2s;}
+    .btn-favorite:hover{transform:scale(1.1);}
+    .btn-favorite.active{color:var(--warning-color);}
+    .steps-container .step-num{width:36px;height:36px;border-radius:50%;background:#007bff;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;}
+    pre code{font-family:'Cascadia Code','Consolas','Monaco',monospace;}
+    @media print{.main-sidebar,.main-header,.control-sidebar,.main-footer,.back-to-top,#reading-progress{display:none!important;}.content-wrapper{margin-left:0!important;}}
+    @media(max-width:768px){.brand-text,.user-panel .info{display:none;}.toc-sticky{display:none;}}
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
 
-  <!-- NAVBAR SUPERIOR -->
+  <div id="reading-progress"></div>
+
+  <!-- NAVBAR -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom shadow-sm">
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-md-block">
+        <ol class="breadcrumb mb-0 ms-2" style="font-size:13px;align-items:center;background:none;padding:0;">
+          <li class="breadcrumb-item"><a href="../../index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Início</a></li>
+          <li class="breadcrumb-item text-muted">Justificativas e Quinzenal</li>
+          <li class="breadcrumb-item active">CAT</li>
+        </ol>
       </li>
     </ul>
-    <div class="ms-auto"></div>
     <ul class="navbar-nav ms-auto">
       <li class="nav-item d-none d-md-inline-block">
         <div class="input-group input-group-sm" style="position:relative;">
           <input class="form-control form-control-navbar" type="search" id="global-search-input" placeholder="Buscar procedimentos..." autocomplete="off">
-          <div class="input-group-append">
-            <button class="btn btn-navbar" type="button"><i class="fas fa-search"></i></button>
-          </div>
+          <div class="input-group-append"><button class="btn btn-navbar" type="button"><i class="fas fa-search"></i></button></div>
           <div class="search-results-dropdown" id="search-dropdown" style="display:none;"></div>
         </div>
       </li>
+      <li class="nav-item"><a class="nav-link" title="Imprimir" href="#" onclick="window.print();return false;"><i class="fas fa-print"></i></a></li>
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
+        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="CAT" title="Favoritar" onclick="toggleFavorite('CAT','CAT')"><i class="fas fa-star"></i></a>
       </li>
+      <li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a></li>
     </ul>
   </nav>
 
-  <!-- SIDEBAR ESQUERDA -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="../../index.html" class="brand-link">
-      <span class="brand-text font-weight-light">Manual do Escriturário</span>
-    </a>
-    <div class="sidebar">
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image"><i class="fas fa-user-circle fa-2x text-white"></i></div>
-        <div class="info">
-          <a href="#" class="d-block font-weight-bold">Escriturário(a)</a>
-          <span class="text-muted small">Sistema Online</span>
-        </div>
-      </div>
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-          <li class="nav-item">
-            <a href="../../index.html" class="nav-link"><i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p></a>
-          </li>
-          
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user-plus"></i>
-              <p>Matrícula <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pre_matricula.html" class="nav-link ">
-                  <i class="fas fa-clipboard-list nav-icon text-success"></i>
-                  <p>Pré-Matrícula</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="documentacao.html" class="nav-link ">
-                  <i class="fas fa-folder-open nav-icon text-success"></i>
-                  <p>Documentação Necessária – Matrícula</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="matriculas.html" class="nav-link ">
-                  <i class="fas fa-user-check nav-icon text-success"></i>
-                  <p>Matrícula</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="anexo_de_documentos.html" class="nav-link ">
-                  <i class="fas fa-paperclip nav-icon text-success"></i>
-                  <p>Anexo de Documentos</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-exchange-alt"></i>
-              <p>Transferências <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="transferencia-entrada.html" class="nav-link ">
-                  <i class="fas fa-sign-in-alt nav-icon text-info"></i>
-                  <p>Transferência – Entrada</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="transferencia-saida.html" class="nav-link ">
-                  <i class="fas fa-sign-out-alt nav-icon text-warning"></i>
-                  <p>Transferência – Saída</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="documentacao_transferencia.html" class="nav-link ">
-                  <i class="fas fa-folder-open nav-icon text-success"></i>
-                  <p>Documentação – Transferência</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-folder-open"></i>
-              <p>Documentos SERE <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="historicos.html" class="nav-link ">
-                  <i class="fas fa-scroll nav-icon text-danger"></i>
-                  <p>Históricos Escolares</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="declaracoes.html" class="nav-link ">
-                  <i class="fas fa-file-signature nav-icon text-primary"></i>
-                  <p>Declarações</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pareceres.html" class="nav-link ">
-                  <i class="fas fa-comments nav-icon text-secondary"></i>
-                  <p>Pareceres</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-desktop"></i>
-              <p>Procedimentos no RCO/SERE <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="abono_de_faltas.html" class="nav-link ">
-                  <i class="fas fa-user-check nav-icon text-danger"></i>
-                  <p>Abono de Faltas</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="iniciar_ano_letivo_rco.html" class="nav-link ">
-                  <i class="fas fa-calendar-plus nav-icon text-primary"></i>
-                  <p>Iniciar Ano Letivo no RCO</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="grade_aulas.html" class="nav-link ">
-                  <i class="fas fa-table nav-icon text-secondary"></i>
-                  <p>Grade de Aulas</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="lancar_livros_de_chamada.html" class="nav-link ">
-                  <i class="fas fa-book-open nav-icon text-secondary"></i>
-                  <p>Lançar Livros de Chamada</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="encerramento_ano_letivo.html" class="nav-link ">
-                  <i class="fas fa-flag-checkered nav-icon text-secondary"></i>
-                  <p>Encerramento do Ano Letivo</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user-cog"></i>
-              <p>Criando Cadastros no SERE <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="cadastro_alunos.html" class="nav-link ">
-                  <i class="fas fa-user-graduate nav-icon text-danger"></i>
-                  <p>Cadastro de Alunos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="cadastro_funcionarios.html" class="nav-link ">
-                  <i class="fas fa-user-tie nav-icon text-primary"></i>
-                  <p>Cadastro de Funcionários</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="cadastro_professores.html" class="nav-link ">
-                  <i class="fas fa-chalkboard-teacher nav-icon text-secondary"></i>
-                  <p>Cadastro de Professores</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-poll"></i>
-              <p>Censo Escolar <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="censo-escolar.html" class="nav-link ">
-                  <i class="fas fa-chart-bar nav-icon text-info"></i>
-                  <p>Censo Escolar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="cadastro_dos_alunos.html" class="nav-link ">
-                  <i class="fas fa-child nav-icon text-success"></i>
-                  <p>Cadastro dos Alunos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="cadastro_dos_funcionarios.html" class="nav-link ">
-                  <i class="fas fa-id-badge nav-icon text-primary"></i>
-                  <p>Cadastro dos Funcionários</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="cadastro_da_escola.html" class="nav-link ">
-                  <i class="fas fa-school nav-icon text-success"></i>
-                  <p>Cadastro da Escola</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="erros_frequentes.html" class="nav-link ">
-                  <i class="fas fa-exclamation-triangle nav-icon text-warning"></i>
-                  <p>Erros Frequentes – Censo</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-calendar-check"></i>
-              <p>Justificativas e Quinzenal <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="justificativas.html" class="nav-link ">
-                  <i class="fas fa-comment-medical nav-icon text-secondary"></i>
-                  <p>Justificativas de Faltas</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="quinzenal.html" class="nav-link ">
-                  <i class="fas fa-calendar-check nav-icon text-info"></i>
-                  <p>Frequência Quinzenal</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="atestados.html" class="nav-link ">
-                  <i class="fas fa-file-medical nav-icon text-danger"></i>
-                  <p>Atestados</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="encaminhamentos.html" class="nav-link ">
-                  <i class="fas fa-share-square nav-icon text-info"></i>
-                  <p>Encaminhamentos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="CAT.html" class="nav-link active">
-                  <i class="fas fa-hard-hat nav-icon text-warning"></i>
-                  <p>CAT – Comunicação de Acidente de Trabalho</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-gavel"></i>
-              <p>Legislação – Servidores <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="abonos.html" class="nav-link ">
-                  <i class="fas fa-calendar-check nav-icon text-success"></i>
-                  <p>Abonos de Faltas</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="compensacao_de_horas.html" class="nav-link ">
-                  <i class="fas fa-redo-alt nav-icon text-warning"></i>
-                  <p>Compensação de Horas</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="14648.html" class="nav-link ">
-                  <i class="fas fa-gavel nav-icon text-secondary"></i>
-                  <p>Lei 14.648 – Plano de Carreira</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="14936.html" class="nav-link ">
-                  <i class="fas fa-gavel nav-icon text-secondary"></i>
-                  <p>Lei 14.936 – Plano de Carreira (Atualização)</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="progressoes_14648.html" class="nav-link ">
-                  <i class="fas fa-arrow-up nav-icon text-success"></i>
-                  <p>Progressão Horizontal – Lei 14.648</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="progressoes_14936.html" class="nav-link ">
-                  <i class="fas fa-arrows-alt-v nav-icon text-success"></i>
-                  <p>Progressão Horizontal e Vertical – Lei 14.936</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-id-card"></i>
-              <p>Documentação – Servidores <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="carta_de_apresentacao.html" class="nav-link ">
-                  <i class="fas fa-envelope-open-text nav-icon text-primary"></i>
-                  <p>Carta de Apresentação</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="ficha_funcional.html" class="nav-link ">
-                  <i class="fas fa-id-card nav-icon text-info"></i>
-                  <p>Ficha Funcional</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="solicitacao_de_vale_transporte.html" class="nav-link ">
-                  <i class="fas fa-bus nav-icon text-primary"></i>
-                  <p>Solicitação de Vale-Transporte</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="ficha_epi.html" class="nav-link ">
-                  <i class="fas fa-hard-hat nav-icon text-warning"></i>
-                  <p>Ficha de EPI</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="estatisticas.html" class="nav-link ">
-              <i class="nav-icon fas fa-chart-bar"></i>
-              <p>Estatísticas</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+  <!-- SIDEBAR -->
+   <aside class="main-sidebar sidebar-dark-primary elevation-4" id="sidebar-container"></aside>
+    
   </aside>
 
-  <!-- CONTEÚDO PRINCIPAL -->
+  <!-- CONTENT WRAPPER -->
   <div class="content-wrapper">
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0" id="page-title">CAT – Comunicação de Acidente de Trabalho</h1>
+        <div class="row align-items-center">
+          <div class="col">
+            <h1 class="m-0 d-flex align-items-center gap-2">
+              <i class="fas fa-file-alt text-warning me-1"></i>
+              CAT
+            </h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
-              <li class="breadcrumb-item active">CAT – Comunicação de Acidente de Trabalho</li>
-            </ol>
+          <div class="col-auto">
+            <button onclick="window.print()" class="btn btn-outline-secondary btn-sm me-1">
+              <i class="fas fa-print me-1"></i>Imprimir
+            </button>
+            <button onclick="toggleFavorite('CAT','CAT')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="CAT">
+              <i class="fas fa-star me-1"></i>Favoritar
+            </button>
           </div>
         </div>
       </div>
-    </div>
-
-    <div id="loading-overlay" class="loading-overlay" style="display:none;">
-      <div class="loading-spinner"><div class="spinner-border text-primary"></div><p>Carregando...</p></div>
     </div>
 
     <section class="content">
       <div class="container-fluid">
-        <div id="content-area">
-          <div class="card">
-            <div class="card-header bg-warning text-white d-flex align-items-center">
-              <h3 class="card-title"><i class="fas fa-hard-hat mb-0"></i>CAT – Comunicação de Acidente de Trabalho</h3>
-              <div class="ml-auto d-flex align-items-center">
-                <i class="fas fa-star btn-favorite" data-module="CAT" onclick="toggleFavorite('CAT', 'CAT – Comunicação de Acidente de Trabalho')" style="font-size:1.2rem; margin-right:10px;"></i>
-                <button class="btn btn-sm btn-light" onclick="window.print()"><i class="fas fa-print"></i></button>
+        <div class="row">
+          <!-- MAIN CONTENT -->
+          <div class="col-xl-9">
+            <!-- Page info card -->
+            <div class="card page-info-card">
+              <div class="card-body">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="icon-circle bg-primary text-white">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h2 class="h4 mb-1">CAT</h2>
+                    
+                    <div class="d-flex flex-wrap gap-3 small text-muted">
+                      <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-10</span>
+                      <span><i class="fas fa-folder me-1"></i>Justificativas e Quinzenal</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="card-body">
-              <p class="lead">Procedimento para abertura de CAT em caso de acidente com servidor.</p>
+
+            <!-- CONTENT BLOCKS -->
+            <div id="page-content">
+              <p class="mb-3 lh-lg"><div class="card card-primary">
+
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-hard-hat"></i> Comunicação de Acidente de Trabalho (CAT)
+        </h3>
+    </div>
+
+    <div class="card-body">
+
+        <p>
+            A Comunicação de Acidente de Trabalho (CAT) é o procedimento utilizado para registrar acidentes ocorridos durante a execução das atividades laborais ou durante o trajeto entre a residência e o local de trabalho, assegurando ao servidor os direitos previstos na legislação previdenciária e trabalhista.
+        </p>
+
+        <div class="callout callout-danger">
+            <h5>
+                <i class="fas fa-exclamation-triangle"></i>
+                Comunicação Imediata
+            </h5>
+
+            <p>
+                Todo acidente ocorrido durante o trabalho ou no trajeto residência-trabalho e vice-versa deverá ser comunicado imediatamente à chefia da unidade escolar, para que sejam adotadas as providências necessárias e iniciado o processo de Comunicação de Acidente de Trabalho.
+            </p>
+
+        </div>
+
+        <hr>
+
+        <h4>
+            <i class="fas fa-clipboard-list"></i>
+            O que é considerado acidente de trabalho?
+        </h4>
+
+        <ul>
+
+            <li>Acidentes ocorridos durante a execução das atividades do servidor;</li>
+
+            <li>Acidentes ocorridos nas dependências da unidade escolar;</li>
+
+            <li>Acidentes sofridos em serviço externo;</li>
+
+            <li>Acidentes de trajeto entre a residência e o local de trabalho, e vice-versa;</li>
+
+            <li>Acidentes que ocasionem lesão corporal ou afastamento temporário ou permanente.</li>
+
+        </ul>
+
+        <hr>
+
+        <h4>
+            <i class="fas fa-file-alt"></i>
+            Preenchimento da Ficha de Análise de Acidente
+        </h4>
+
+        <p>
+            Após a ocorrência do acidente, deverá ser preenchida a <strong>Ficha de Análise de Acidente</strong>, contendo todas as informações referentes ao ocorrido.
+        </p>
+
+        <div class="callout callout-info">
+
+            <h5>
+                <i class="fas fa-pen"></i>
+                Informações importantes
+            </h5>
+
+            <p>
+                Recomenda-se descrever detalhadamente as circunstâncias do acidente, informando data, horário, local da ocorrência e a atividade que estava sendo realizada no momento do fato.
+            </p>
+
+        </div>
+
+        <hr>
+
+        <h4>
+            <i class="fas fa-envelope"></i>
+            Encaminhamento da CAT
+        </h4>
+
+        <p>
+            Após o preenchimento da Ficha de Análise de Acidente, o documento deverá ser encaminhado por e-mail aos responsáveis pelo recebimento das Comunicações de Acidente de Trabalho.
+        </p>
+
+        <div class="callout callout-warning">
+
+            <h5>
+                <i class="fas fa-paper-plane"></i>
+                Destinatários
+            </h5>
+
+            <ul>
+
+                <li>
+                    <strong>francisco.barros@pontagrossa.pr.gov.br</strong>
+                </li>
+
+                <li>
+                    <strong>neri.massutti@pontagrossa.pr.gov.br</strong>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <hr>
+
+        <h4>
+            <i class="fas fa-folder-open"></i>
+            Documentos que podem ser anexados
+        </h4>
+
+        <p>
+            Sempre que possível, recomenda-se encaminhar juntamente com a Ficha de Análise de Acidente:
+        </p>
+
+        <ul>
+
+            <li>Atestados médicos;</li>
+
+            <li>Receitas e laudos médicos;</li>
+
+            <li>Exames relacionados ao acidente;</li>
+
+            <li>Demais documentos que auxiliem na comprovação do ocorrido.</li>
+
+        </ul>
+
+        <hr>
+
+        <h4>
+            <i class="fas fa-lightbulb"></i>
+            Recomendações Importantes
+        </h4>
+
+        <ul>
+
+            <li>Comunicar imediatamente a chefia da unidade escolar;</li>
+
+            <li>Preencher a Ficha de Análise de Acidente o mais breve possível;</li>
+
+            <li>Registrar corretamente a data, horário e local da ocorrência;</li>
+
+            <li>Guardar exames, receitas e demais documentos médicos relacionados ao acidente;</li>
+
+            <li>Encaminhar a documentação aos responsáveis pelo recebimento da CAT;</li>
+
+            <li>Acompanhar o andamento do processo sempre que necessário.</li>
+
+        </ul>
+
+        <hr>
+
+        <div class="callout callout-danger">
+
+            <h5>
+                <i class="fas fa-exclamation-circle"></i>
+                Importante
+            </h5>
+
+            <p>
+                A Comunicação de Acidente de Trabalho não deve ser realizada apenas quando houver afastamento. Mesmo nos casos em que o servidor não necessite de licença médica, recomenda-se formalizar a ocorrência, uma vez que podem surgir consequências posteriores decorrentes do acidente.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</p>
+            </div>
+
+            <!-- FOOTER INFO -->
+            <div class="card mt-4 mb-4">
+              <div class="card-body text-muted small">
+                <i class="fas fa-info-circle me-1"></i>
+                Última atualização: <strong>2026-06-10</strong> — Autor: <strong>Secretaria Escolar</strong>
+                <span class="ms-3"><i class="fas fa-folder me-1"></i>Justificativas e Quinzenal</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOC / RIGHT SIDEBAR -->
+          <div class="col-xl-3 d-none d-xl-block">
+            <div class="toc-sticky">
               
-        <div class="card card-outline card-primary mb-4">
-            <div class="card-header">
-                <h3 class="card-title">O que é a CAT?</h3>
-            </div>
-            <div class="card-body">
-                A Comunicação de Acidente de Trabalho é um documento obrigatório que deve ser emitido sempre que ocorrer acidente com servidor no ambiente escolar ou no trajeto trabalho-residência.
-                
-            </div>
-        </div>
-        
-        <div class="card card-outline card-primary mb-4">
-            <div class="card-header">
-                <h3 class="card-title">Etapas</h3>
-            </div>
-            <div class="card-body">
-                <ol>
-                        <li>Registrar o ocorrido em ata no livro da escola</li>
-                        <li>Encaminhar o servidor para atendimento médico imediato</li>
-                        <li>Preencher o formulário CAT (disponível no portal da SEED)</li>
-                        <li>Enviar ao NRE em até 24 horas do acidente</li>
-                        <li>Guardar cópia na pasta funcional do servidor</li>
-                    </ol>
-                
-            <div class="text-center my-4">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23f0f0f0'/%3E%3Ctext x='100' y='75' font-size='14' text-anchor='middle' fill='%23999' dy='.3em'%3E📷 Imagem tutorial%3C/text%3E%3C/svg%3E"
-                     class="img-fluid rounded shadow-sm" style="max-height: 180px;" alt="Placeholder - Etapas">
-                <p class="text-muted small mt-1">Figura: Etapas (substituir por imagem real)</p>
-            </div>
-            
-            </div>
-        </div>
-        
-        <div class="card card-outline card-primary mb-4">
-            <div class="card-header">
-                <h3 class="card-title">Base legal</h3>
-            </div>
-            <div class="card-body">
-                <div class="alert alert-info"><i class="fas fa-info-circle"></i>
-                        Lei nº 8.213/91 – Art. 22: obrigatoriedade de emissão da CAT.
-                        Para servidores estaduais, seguir também as instruções da SEED-PR.
-                    </div>
-                
-            </div>
-        </div>
-        
+              <div class="card mt-3">
+                <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-share-alt me-1"></i>Ações rápidas</h6></div>
+                <div class="card-body py-2">
+                  <button onclick="window.print()" class="btn btn-outline-secondary btn-sm w-100 mb-2"><i class="fas fa-print me-1"></i>Imprimir</button>
+                  <button onclick="toggleFavorite('CAT','CAT')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="CAT"><i class="fas fa-star me-1"></i>Favoritar</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -515,185 +330,151 @@
     </section>
   </div>
 
-  <!-- SIDEBAR DIREITA (Favoritos + Histórico) -->
-  <aside class="control-sidebar control-sidebar-dark">
+  <!-- RIGHT SIDEBAR (Favoritos/Histórico) -->
+  <aside class="control-sidebar control-sidebar-dark" id="right-sidebar">
     <div class="control-sidebar-bg"></div>
     <div class="p-3 control-sidebar-content">
       <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-favorites"><i class="fas fa-star"></i> Favoritos</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-history"><i class="fas fa-history"></i> Histórico</a></li>
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-fav"><i class="fas fa-star"></i> Favoritos</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-hist"><i class="fas fa-history"></i> Histórico</a></li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane fade show active" id="tab-favorites">
-          <div id="favorites-list" class="text-center text-muted"><i class="fas fa-star fa-2x mb-2"></i><br>Nenhum favorito.</div>
+        <div class="tab-pane fade show active" id="tab-fav">
+          <div id="favorites-list" class="text-center text-muted"><i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.</div>
           <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-favorites" style="display:none;" onclick="clearFavorites()"><i class="fas fa-trash"></i> Limpar favoritos</button>
         </div>
-        <div class="tab-pane fade" id="tab-history">
-          <div id="history-list" class="text-center text-muted"><i class="fas fa-history fa-2x mb-2"></i><br>Seu histórico aparecerá aqui.</div>
+        <div class="tab-pane fade" id="tab-hist">
+          <div id="history-list" class="text-center text-muted"><i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.</div>
           <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-history" style="display:none;" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar histórico</button>
         </div>
       </div>
     </div>
   </aside>
 
-  <footer class="main-footer text-center">
-    <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lightbox-img" src="" alt=""></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <footer class="main-footer">
+    <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-10</div>
   </footer>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
-
 <script>
-// ================== FAVORITOS ==================
+const PAGE_ID = 'CAT';
+const PAGE_TITLE = 'CAT';
+
 let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
+function saveFavorites(){localStorage.setItem('manual_favorites',JSON.stringify(favorites));updateFavoritesUI();}
+function toggleFavorite(id,title){
+  const idx=favorites.findIndex(f=>f.id===id);
+  if(idx>-1) favorites.splice(idx,1); else favorites.push({id,title});
+  saveFavorites(); updateFavoriteStar(id);
+  showToast(idx>-1?'Removido dos favoritos':'Adicionado aos favoritos',idx>-1?'info':'success');
+}
+function updateFavoriteStar(id){
+  const isFav=favorites.some(f=>f.id===id);
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"]').forEach(el=>el.classList.toggle('active',isFav));
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"] i').forEach(el=>{el.className=isFav?'fas fa-star text-warning':'fas fa-star';});
+}
+function updateFavoritesUI(){
+  const c=document.getElementById('favorites-list');if(!c)return;
+  if(favorites.length===0){c.innerHTML='<i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.';document.getElementById('btn-clear-favorites')?.style&&(document.getElementById('btn-clear-favorites').style.display='none');return;}
+  c.innerHTML=favorites.map(f=>`<div class="favorite-item" onclick="location.href='${f.id}.html'"><i class="fas fa-star text-warning"></i> ${f.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-favorites');if(btn)btn.style.display='';
+}
+function clearFavorites(){if(confirm('Limpar todos os favoritos?')){favorites=[];saveFavorites();showToast('Favoritos limpos','info');}}
 
-function saveFavorites() { localStorage.setItem('manual_favorites', JSON.stringify(favorites)); updateFavoritesUI(); }
+let history2=JSON.parse(localStorage.getItem('manual_history')||'[]');
+function addToHistory(id,title){history2=history2.filter(h=>h.id!==id);history2.unshift({id,title,t:new Date().toISOString()});if(history2.length>20)history2.pop();localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();}
+function updateHistoryUI(){
+  const c=document.getElementById('history-list');if(!c)return;
+  if(history2.length===0){c.innerHTML='<i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.';return;}
+  c.innerHTML=history2.slice(0,10).map(h=>`<div class="history-item" onclick="location.href='${h.id}.html'"><i class="fas fa-history"></i> ${h.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-history');if(btn)btn.style.display='';
+}
+function clearHistory(){if(confirm('Limpar histórico?')){history2=[];localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();showToast('Histórico limpo','info');}}
 
-function toggleFavorite(id, title) {
-    const idx = favorites.findIndex(f => f.id === id);
-    if (idx > -1) favorites.splice(idx,1);
-    else favorites.push({ id, title });
-    saveFavorites();
-    updateFavoriteStar(id);
-    showToast(idx > -1 ? 'Removido dos favoritos' : 'Adicionado aos favoritos', idx > -1 ? 'info' : 'success');
+function showToast(msg,type='success'){
+  const c=document.getElementById('toast-container');if(!c)return;
+  const t=document.createElement('div');t.className='custom-toast';t.innerHTML=(type==='success'?'✓':'ℹ️')+' '+msg;
+  c.appendChild(t);setTimeout(()=>t.remove(),3000);
 }
 
-function updateFavoriteStar(id) {
-    const isFav = favorites.some(f => f.id === id);
-    $('.btn-favorite[data-module="'+id+'"]').toggleClass('active text-warning', isFav);
-}
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('reading-progress').style.width=Math.min(pct,100)+'%';
+  document.getElementById('back-to-top').classList.toggle('visible',d.scrollTop>300);
+  document.querySelectorAll('[id^="section-"]').forEach(sec=>{
+    const link=document.querySelector('.toc-nav a[href="#'+sec.id+'"]');if(!link)return;
+    const rect=sec.getBoundingClientRect();link.classList.toggle('active',rect.top<=80&&rect.bottom>0);
+  });
+});
 
-function updateFavoritesUI() {
-    const container = $('#favorites-list');
-    if(favorites.length === 0) {
-        container.html('<i class="fas fa-star fa-2x mb-2 d-block"></i> Nenhum favorito ainda.');
-        $('#btn-clear-favorites').hide();
-    } else {
-        let html = '';
-        favorites.forEach(f => html += `<div class="favorite-item" onclick="window.location.href='${f.id}.html'"><i class="fas fa-star text-warning"></i> ${f.title}</div>`);
-        container.html(html);
-        $('#btn-clear-favorites').show();
-    }
-}
 
-function clearFavorites() { if(confirm('Limpar todos os favoritos?')) { favorites = []; saveFavorites(); showToast('Favoritos limpos','info'); } }
 
-// ================== HISTÓRICO ==================
-let history = JSON.parse(localStorage.getItem('manual_history') || '[]');
-
-function addToHistory(id, title) {
-    history = history.filter(h => h.id !== id);
-    history.unshift({ id, title, timestamp: new Date().toISOString() });
-    if(history.length > 20) history.pop();
-    localStorage.setItem('manual_history', JSON.stringify(history));
-    updateHistoryUI();
-}
-
-function updateHistoryUI() {
-    const container = $('#history-list');
-    if(history.length === 0) {
-        container.html('<i class="fas fa-history fa-2x mb-2 d-block"></i> Seu histórico aparecerá aqui.');
-        $('#btn-clear-history').hide();
-    } else {
-        let html = '';
-        history.slice(0,10).forEach(h => html += `<div class="history-item" onclick="window.location.href='${h.id}.html'"><i class="fas fa-history"></i> ${h.title}</div>`);
-        container.html(html);
-        $('#btn-clear-history').show();
-    }
-}
-
-function clearHistory() { if(confirm('Limpar histórico?')) { history = []; localStorage.setItem('manual_history', JSON.stringify(history)); updateHistoryUI(); showToast('Histórico limpo','info'); } }
-
-// ================== CHECKLIST INTERATIVO ==================
-function initializeChecklists() {
-    $('.checklist-item').each(function() {
-        const id = $(this).data('id');
-        if(localStorage.getItem('checklist_'+id) === 'true') $(this).addClass('completed');
-        $(this).off('click').on('click', function() {
-            $(this).toggleClass('completed');
-            const done = $(this).hasClass('completed');
-            localStorage.setItem('checklist_'+id, done);
-            showToast(done ? 'Item concluído ✓' : 'Item desmarcado', done ? 'success' : 'info');
-        });
-    });
-}
-
-// ================== TOAST ==================
-function showToast(msg, type='success') {
-    const container = $('#toast-container');
-    const icon = type === 'success' ? '✓' : 'ℹ️';
-    const toast = $(`<div class="custom-toast">${icon} ${msg}</div>`);
-    container.append(toast);
-    setTimeout(() => toast.fadeOut(300, () => toast.remove()), 3000);
-}
-
-// ================== BUSCA GLOBAL ==================
-function setupSearch() {
-    const searchInput = $('#global-search-input');
-    const dropdown = $('#search-dropdown');
-    const allPages = [{ id: "pre_matricula", title: "Pré-Matrícula" },
-        { id: "documentacao", title: "Documentação Necessária – Matrícula" },
-        { id: "matriculas", title: "Matrícula" },
-        { id: "anexo_de_documentos", title: "Anexo de Documentos" },
-        { id: "transferencia-entrada", title: "Transferência – Entrada" },
-        { id: "transferencia-saida", title: "Transferência – Saída" },
-        { id: "documentacao_transferencia", title: "Documentação – Transferência" },
-        { id: "historicos", title: "Históricos Escolares" },
-        { id: "declaracoes", title: "Declarações" },
-        { id: "pareceres", title: "Pareceres" },
-        { id: "abono_de_faltas", title: "Abono de Faltas" },
-        { id: "iniciar_ano_letivo_rco", title: "Iniciar Ano Letivo no RCO" },
-        { id: "grade_aulas", title: "Grade de Aulas" },
-        { id: "lancar_livros_de_chamada", title: "Lançar Livros de Chamada" },
-        { id: "encerramento_ano_letivo", title: "Encerramento do Ano Letivo" },
-        { id: "cadastro_alunos", title: "Cadastro de Alunos" },
-        { id: "cadastro_funcionarios", title: "Cadastro de Funcionários" },
-        { id: "cadastro_professores", title: "Cadastro de Professores" },
-        { id: "censo-escolar", title: "Censo Escolar" },
-        { id: "cadastro_dos_alunos", title: "Cadastro dos Alunos" },
-        { id: "cadastro_dos_funcionarios", title: "Cadastro dos Funcionários" },
-        { id: "cadastro_da_escola", title: "Cadastro da Escola" },
-        { id: "erros_frequentes", title: "Erros Frequentes – Censo" },
-        { id: "justificativas", title: "Justificativas de Faltas" },
-        { id: "quinzenal", title: "Frequência Quinzenal" },
-        { id: "atestados", title: "Atestados" },
-        { id: "encaminhamentos", title: "Encaminhamentos" },
-        { id: "CAT", title: "CAT – Comunicação de Acidente de Trabalho" },
-        { id: "abonos", title: "Abonos de Faltas" },
-        { id: "compensacao_de_horas", title: "Compensação de Horas" },
-        { id: "14648", title: "Lei 14.648 – Plano de Carreira" },
-        { id: "14936", title: "Lei 14.936 – Plano de Carreira (Atualização)" },
-        { id: "progressoes_14648", title: "Progressão Horizontal – Lei 14.648" },
-        { id: "progressoes_14936", title: "Progressão Horizontal e Vertical – Lei 14.936" },
-        { id: "carta_de_apresentacao", title: "Carta de Apresentação" },
-        { id: "ficha_funcional", title: "Ficha Funcional" },
-        { id: "solicitacao_de_vale_transporte", title: "Solicitação de Vale-Transporte" },
-        { id: "ficha_epi", title: "Ficha de EPI" },
-        { id: "estatisticas", title: "Estatísticas" }];
-    searchInput.on('input', function() {
-        const q = $(this).val().toLowerCase();
-        if(q.length < 2) { dropdown.hide(); return; }
-        const results = allPages.filter(p => p.title.toLowerCase().includes(q));
-        if(results.length) {
-            let html = '';
-            results.forEach(r => html += `<div class="search-result-item" onclick="window.location.href='${r.id}.html'"><i class="fas fa-file-alt"></i> ${r.title}</div>`);
-            dropdown.html(html).show();
-        } else dropdown.html('<div class="p-2 text-muted">Nenhum resultado</div>').show();
-    });
-    $(document).click(e => {
-        if(!$(e.target).closest('.input-group').length) dropdown.hide();
-    });
-}
 
 $(document).ready(function() {
-    updateFavoriteStar('CAT');
-    addToHistory('CAT', 'CAT – Comunicação de Acidente de Trabalho');
-    updateFavoritesUI();
-    updateHistoryUI();
-    initializeChecklists();
-    setupSearch();
+ 
+  // Sobe 2 níveis: procedimentos/ -> modulos/ -> Manual/
+  $('aside#sidebar-container').load('../../sidebar.html', function() {
+
+    $('[data-widget="treeview"]').Treeview('init');
+    $('.nav-link.active').trigger('click');
+
+    $('#btn-toggle-favorites').click(function(e) {
+      e.preventDefault();
+      $('#right-sidebar').addClass('control-sidebar-open');
+    });
+
+    $('#btn-toggle-history').click(function(e) {
+      e.preventDefault();
+      $('#right-sidebar').addClass('control-sidebar-open');
+    });
+
+  });
+
+  loadModule('dashboard');
+});
+
+
+
+
+function openLightbox(src){const lb=document.getElementById('lightbox');lb.classList.add('open');document.getElementById('lightbox-img').src=src;}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+
+const allPages=[
+  {id:"pre_matricula",title:"Pré-Matrícula"},
+  {id:"documentacao",title:"Documentação Necessária – Matrícula"},
+  {id:"matriculas",title:"Matrícula"},
+  {id:"transferencia-entrada",title:"Transferência – Entrada"},
+  {id:"transferencia-saida",title:"Transferência – Saída"},
+  {id:"historicos",title:"Históricos Escolares"},
+  {id:"declaracoes",title:"Declarações"},
+  {id:"CAT",title:"CAT"}
+];
+const si=document.getElementById('global-search-input');
+const sd=document.getElementById('search-dropdown');
+if(si&&sd){
+  si.addEventListener('input',()=>{
+    const q=si.value.toLowerCase();if(q.length<2){sd.style.display='none';return;}
+    const r=allPages.filter(p=>p.title.toLowerCase().includes(q));
+    if(r.length){sd.innerHTML=r.map(p=>`<div class="search-result-item" onclick="location.href='${p.id}.html'"><i class="fas fa-file-alt me-2"></i>${p.title}</div>`).join('');sd.style.display='';}
+    else{sd.innerHTML='<div class="p-2 text-muted">Nenhum resultado</div>';sd.style.display='';}
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.input-group'))sd.style.display='none';});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  updateFavoriteStar(PAGE_ID);
+  addToHistory(PAGE_ID,PAGE_TITLE);
+  updateFavoritesUI();
+  updateHistoryUI();
 });
 </script>
 </body>
