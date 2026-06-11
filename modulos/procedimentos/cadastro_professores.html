@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="theme-color" content="#007bff">
+  <title>Cadastro de Professores – Manual do Escriturário</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+  <style>
+    :root{--primary-color:#007bff;--success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f4f6f9;}
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#007bff,#28a745);z-index:99999;width:0%;transition:width 0.1s linear;pointer-events:none;}
+    .back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:#007bff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.3s;font-size:16px;box-shadow:0 4px 14px rgba(0,123,255,0.35);border:none;z-index:1000;}
+    .back-to-top.visible{opacity:1;}
+    .page-info-card{border-radius:10px;border-left:5px solid var(--primary-color);margin-bottom:20px;}
+    .icon-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+    .toc-sticky{position:sticky;top:72px;}
+    .toc-nav a{display:block;padding:5px 14px;font-size:13px;color:#495057;text-decoration:none;border-left:3px solid transparent;transition:all 0.15s;}
+    .toc-nav a:hover,.toc-nav a.active{color:#007bff;border-left-color:#007bff;background:#f8f9fa;}
+    .lightbox-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);z-index:99990;display:none;align-items:center;justify-content:center;cursor:zoom-out;}
+    .lightbox-overlay.open{display:flex;}
+    .lightbox-overlay img{max-width:92%;max-height:92vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .lightbox-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;line-height:1;}
+    .img-zoomable{cursor:zoom-in;transition:transform 0.2s;}
+    .img-zoomable:hover{transform:scale(1.02);}
+    .toast-container{position:fixed;bottom:20px;right:20px;z-index:9998;}
+    .custom-toast{background:white;border-left:4px solid var(--primary-color);padding:12px 20px;margin-top:10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.2);animation:slideIn .3s ease;display:flex;align-items:center;gap:10px;}
+    @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    .favorite-item,.history-item{padding:8px;margin-bottom:5px;background:rgba(255,255,255,.1);border-radius:5px;cursor:pointer;transition:all .2s;}
+    .favorite-item:hover,.history-item:hover{background:rgba(255,255,255,.2);}
+    .search-results-dropdown{position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ddd;border-radius:4px;max-height:300px;overflow-y:auto;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+    .search-result-item{padding:10px;cursor:pointer;border-bottom:1px solid #eee;}
+    .search-result-item:hover{background:#f8f9fa;}
+    .btn-favorite{cursor:pointer;transition:all .2s;}
+    .btn-favorite:hover{transform:scale(1.1);}
+    .btn-favorite.active{color:var(--warning-color);}
+    .steps-container .step-num{width:36px;height:36px;border-radius:50%;background:#007bff;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;}
+    pre code{font-family:'Cascadia Code','Consolas','Monaco',monospace;}
+    @media print{.main-sidebar,.main-header,.control-sidebar,.main-footer,.back-to-top,#reading-progress{display:none!important;}.content-wrapper{margin-left:0!important;}}
+    @media(max-width:768px){.brand-text,.user-panel .info{display:none;}.toc-sticky{display:none;}}
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<div class="wrapper">
+
+  <div id="reading-progress"></div>
+
+  <!-- NAVBAR -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom shadow-sm">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-md-block">
+        <ol class="breadcrumb mb-0 ms-2" style="font-size:13px;align-items:center;background:none;padding:0;">
+          <li class="breadcrumb-item"><a href="../../index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Início</a></li>
+          <li class="breadcrumb-item text-muted">Criando Cadastros no SERE</li>
+          <li class="breadcrumb-item active">Cadastro de Professores</li>
+        </ol>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item d-none d-md-inline-block">
+        <div class="input-group input-group-sm" style="position:relative;">
+          <input class="form-control form-control-navbar" type="search" id="global-search-input" placeholder="Buscar procedimentos..." autocomplete="off">
+          <div class="input-group-append"><button class="btn btn-navbar" type="button"><i class="fas fa-search"></i></button></div>
+          <div class="search-results-dropdown" id="search-dropdown" style="display:none;"></div>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" title="Imprimir" href="#" onclick="window.print();return false;"><i class="fas fa-print"></i></a></li>
+      <li class="nav-item">
+        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="cadastro_professores" title="Favoritar" onclick="toggleFavorite('cadastro_professores','Cadastro de Professores')"><i class="fas fa-star"></i></a>
+      </li>
+      <li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a></li>
+    </ul>
+  </nav>
+
+  <!-- SIDEBAR -->
+   <aside class="main-sidebar sidebar-dark-primary elevation-4" id="sidebar-container"></aside>
+    
+  </aside>
+
+  <!-- CONTENT WRAPPER -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <h1 class="m-0 d-flex align-items-center gap-2">
+              <i class="fas fa-file-alt text-danger me-1"></i>
+              Cadastro de Professores
+            </h1>
+          </div>
+          <div class="col-auto">
+            <button onclick="window.print()" class="btn btn-outline-secondary btn-sm me-1">
+              <i class="fas fa-print me-1"></i>Imprimir
+            </button>
+            <button onclick="toggleFavorite('cadastro_professores','Cadastro de Professores')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="cadastro_professores">
+              <i class="fas fa-star me-1"></i>Favoritar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- MAIN CONTENT -->
+          <div class="col-xl-9">
+            <!-- Page info card -->
+            <div class="card page-info-card">
+              <div class="card-body">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="icon-circle bg-primary text-white">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h2 class="h4 mb-1">Cadastro de Professores</h2>
+                    
+                    <div class="d-flex flex-wrap gap-3 small text-muted">
+                      <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-11</span>
+                      <span><i class="fas fa-folder me-1"></i>Criando Cadastros no SERE</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CONTENT BLOCKS -->
+            <div id="page-content">
+              <p class="mb-3 lh-lg"><div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-chalkboard-teacher"></i> Cadastro de Docentes – SERE / Censo Escolar
+        </h3>
+        <p class="mb-0">Menu → Censo Escolar → Funcionário/Docente → Cadastro</p>
+    </div>
+
+    <div class="card-body">
+
+        <!-- Regra geral (reaproveitada) -->
+        <div class="callout callout-info">
+            <h5><i class="fas fa-info-circle"></i> Regra de identificação principal</h5>
+            <p>O sistema diferencia <strong>funcionários nunca cadastrados</strong> daqueles que <strong>já possuem CPF no SERE</strong>:</p>
+            <ul>
+                <li><strong>Nunca cadastrado:</strong> informe <strong>Nome Completo + Data de Nascimento</strong>.</li>
+                <li><strong>Já cadastrado:</strong> informe apenas o <strong>CPF</strong> – os dados serão carregados automaticamente.</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <!-- Introdução específica para docentes -->
+        <h4><i class="fas fa-user-check"></i> Tipos de vínculo do docente</h4>
+        <p>Após preencher os dados de identificação, é necessário classificar o profissional conforme sua atuação. O sistema permite três modalidades principais de cadastro para docentes:</p>
+        <ul>
+            <li><strong>Docente Regente de Turma</strong> – responsável por uma turma específica (ex.: professor dos anos iniciais que leciona várias disciplinas).</li>
+            <li><strong>Docente Correngente</strong> – atua em múltiplas turmas com a mesma disciplina (ex.: Educação Física, Arte, Inglês).</li>
+            <li><strong>Docente da SRM</strong> – atua exclusivamente em turmas de Sala de Recursos Multifuncionais (Atendimento Educacional Especializado).</li>
+        </ul>
+        <p>Abaixo, o passo a passo para cada situação.</p>
+
+        <hr>
+
+        <!-- 1. DOCENTE REGENTE DE TURMA -->
+        <h4><i class="fas fa-user-graduate"></i> 1. Docente Regente de Turma</h4>
+        <div class="callout callout-success">
+            <h5><i class="fas fa-clipboard-list"></i> Passo a passo</h5>
+            <ol>
+                <li>No campo <strong>Função</strong>, selecione <span class="badge badge-primary">Docente</span>.</li>
+                <li>No campo <strong>Turma</strong>, escolha a turma da qual o professor é regente. Automaticamente as disciplinas da turma serão carregadas no campo <strong>Disciplina</strong>.</li>
+                <li>Selecione a primeira disciplina que o professor ministrará e clique em <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i> incluir</button>.</li>
+                <li>Repita o processo para cada disciplina da turma (ex.: Língua Portuguesa, Matemática, Ciências, etc.).</li>
+                <li><strong>Observação para escolas parciais:</strong> caso o professor atue em duas turmas (manhã e tarde), selecione a primeira turma e inclua as disciplinas. Depois selecione a segunda turma e repita as inclusões.</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-outline card-success">
+                    <div class="card-header">
+                        <h5 class="card-title">Exemplo – Regente 5º ano Integral</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Turma:</strong> ENS FUND 1/5 A/S - TEMPO INTEGRAL 5º Ano Integral A</p>
+                        <p><strong>Disciplinas incluídas:</strong> Língua Portuguesa, Matemática, Ciências, Geografia, História, Ensino Religioso, Arte, Educação Física, Inglês.</p>
+                        <p><em>Processo: selecionar a turma → escolher cada disciplina → clicar em “incluir”.</em></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-outline card-warning">
+                    <div class="card-header">
+                        <h5 class="card-title">Atenção</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Não utilize a área de “Relação de turmas selecionadas” para regentes, pois ela serve para correngentes.</li>
+                            <li>Certifique-se de incluir todas as disciplinas da turma para que o Censo Escolar reflita a carga horária correta.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- 2. DOCENTE CORRENGENTE -->
+        <h4><i class="fas fa-users"></i> 2. Docente Correngente (Especialista)</h4>
+        <div class="callout callout-info">
+            <h5><i class="fas fa-clipboard-list"></i> Passo a passo</h5>
+            <ol>
+                <li>No campo <strong>Função</strong>, selecione <span class="badge badge-primary">Docente</span>.</li>
+                <li>Vá até o quadro <strong>Relação de turmas selecionadas</strong> (lado direito da tela).</li>
+                <li>No campo <strong>Turma</strong>, escolha a primeira turma em que o professor atuará e clique em <button class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> incluir turma</button>. A turma será adicionada à lista.</li>
+                <li>Repita o passo 3 para <strong>todas as turmas</strong> onde o docente lecionará a mesma disciplina (ex.: todas as turmas de 1º ao 5º ano para Educação Física).</li>
+                <li>Após inserir todas as turmas, clique em <button class="btn btn-sm btn-info"><i class="fas fa-sync-alt"></i> carregar disciplinas</button>. O campo <strong>Disciplina</strong> será preenchido com as disciplinas comuns a todas as turmas selecionadas.</li>
+                <li>No campo <strong>Disciplina</strong>, selecione a disciplina desejada (ex.: Educação Física).</li>
+                <li>Clique em <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i> incluir</button> para registrar a atuação em massa. <em>O sistema criará automaticamente um vínculo para cada turma com a disciplina escolhida.</em></li>
+                <li>Se o professor lecionar mais de uma disciplina diferente nas mesmas turmas (ex.: Arte e Ensino Religioso), repita os passos 6‑7 para cada disciplina.</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-outline card-info">
+                    <div class="card-header">
+                        <h5 class="card-title">Exemplo – Educação Física (1º ao 5º ano)</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Turmas selecionadas:</strong> todas as turmas do 1º ao 5º ano (integral).</p>
+                        <p><strong>Disciplina:</strong> Educação Física.</p>
+                        <p><strong>Resultado:</strong> ao clicar em “incluir”, o sistema cria automaticamente as atuações para cada turma, sem necessidade de incluir uma a uma.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- 3. DOCENTE DA SRM -->
+        <h4><i class="fas fa-universal-access"></i> 3. Docente da SRM (Sala de Recursos Multifuncionais)</h4>
+        <div class="callout callout-warning">
+            <h5><i class="fas fa-clipboard-list"></i> Passo a passo</h5>
+            <p>O cadastro de docentes que atuam no Atendimento Educacional Especializado (AEE) segue a mesma lógica dos correngentes, porém utilizando <strong>apenas turmas de SRM</strong> (códigos iniciados por "ATEND EDUC ESP").</p>
+            <ol>
+                <li>No campo <strong>Função</strong>, selecione <span class="badge badge-primary">Docente</span>.</li>
+                <li>Na <strong>Relação de turmas selecionadas</strong>, escolha cada turma de SRM em que o professor atua e clique em <button class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> incluir turma</button>.</li>
+                <li>Após incluir todas as turmas, clique em <button class="btn btn-sm btn-info"><i class="fas fa-sync-alt"></i> carregar disciplinas</button>.</li>
+                <li>Selecione a disciplina específica do AEE (normalmente <strong>Educação Especial / AEE</strong>, ou conforme a nomenclatura da rede).</li>
+                <li>Clique em <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i> incluir</button> para vincular o docente a todas as turmas SRM simultaneamente.</li>
+                <li><strong>Observação:</strong> caso o docente atue apenas em uma turma de SRM, o procedimento pode ser feito selecionando a turma diretamente e incluindo a disciplina, sem necessidade do painel de “Relação de turmas”.</li>
+            </ol>
+        </div>
+
+        <div class="callout callout-danger">
+            <i class="fas fa-exclamation-triangle"></i> <strong>Importante:</strong> As turmas de SRM possuem características específicas (sem seriação, carga horária diferenciada). Nunca misture turmas regulares com turmas de SRM no mesmo cadastro correngente; faça cadastros separados para cada tipo de atuação.
+        </div>
+
+        <hr>
+
+        <!-- 4. EDITAR / EXCLUIR ATUAÇÕES -->
+        <h4><i class="fas fa-edit"></i> 4. Editando ou excluindo atuações já cadastradas</h4>
+        <div class="callout callout-secondary">
+            <p>Na tabela <strong>Atuações Cadastradas do Funcionário</strong>, cada linha representa um vínculo (função + turma + disciplina).</p>
+            <ul>
+                <li>Clique sobre o nome da <strong>Função</strong> ou <strong>Disciplina</strong> (link) para carregar os dados no formulário de edição.</li>
+                <li>Depois de carregado, você pode:
+                    <ul>
+                        <li><strong>Alterar</strong> – modifique os campos desejados e clique em <button class="btn btn-sm btn-warning">alterar</button>.</li>
+                        <li><strong>Excluir</strong> – remova o vínculo clicando em <button class="btn btn-sm btn-danger">excluir</button>.</li>
+                    </ul>
+                </li>
+                <li>Após qualquer alteração, lembre-se de que o sistema exige que você clique em <strong>incluir</strong> para novas atuações ou <strong>alterar</strong> para modificações; ambos salvam o registro.</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <!-- DICAS FINAIS -->
+        <div class="callout callout-success">
+            <h5><i class="fas fa-lightbulb"></i> Recomendações gerais</h5>
+            <ul>
+                <li><strong>Organize o cadastro:</strong> primeiro cadastre todos os regentes, depois os correngentes e por último os docentes da SRM.</li>
+                <li><strong>Evite duplicidades:</strong> um mesmo professor pode ter mais de uma função? Apenas se houver acúmulo legal. Do contrário, o sistema pode gerar inconsistências no Censo.</li>
+                <li><strong>Verifique os dados antes de finalizar:</strong> confira se a carga horária total corresponde à realidade do servidor.</li>
+                <li>Utilize o botão <strong>limpar</strong> para reiniciar o formulário sem perder as atuações já salvas.</li>
+            </ul>
+        </div>
+
+    </div> <!-- fim card-body -->
+</div> <!-- fim card --></p>
+            </div>
+
+            <!-- FOOTER INFO -->
+            <div class="card mt-4 mb-4">
+              <div class="card-body text-muted small">
+                <i class="fas fa-info-circle me-1"></i>
+                Última atualização: <strong>2026-06-11</strong> — Autor: <strong>Secretaria Escolar</strong>
+                <span class="ms-3"><i class="fas fa-folder me-1"></i>Criando Cadastros no SERE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOC / RIGHT SIDEBAR -->
+          <div class="col-xl-3 d-none d-xl-block">
+            <div class="toc-sticky">
+              
+              <div class="card mt-3">
+                <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-share-alt me-1"></i>Ações rápidas</h6></div>
+                <div class="card-body py-2">
+                  <button onclick="window.print()" class="btn btn-outline-secondary btn-sm w-100 mb-2"><i class="fas fa-print me-1"></i>Imprimir</button>
+                  <button onclick="toggleFavorite('cadastro_professores','Cadastro de Professores')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="cadastro_professores"><i class="fas fa-star me-1"></i>Favoritar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- RIGHT SIDEBAR (Favoritos/Histórico) -->
+  <aside class="control-sidebar control-sidebar-dark" id="right-sidebar">
+    <div class="control-sidebar-bg"></div>
+    <div class="p-3 control-sidebar-content">
+      <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-fav"><i class="fas fa-star"></i> Favoritos</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-hist"><i class="fas fa-history"></i> Histórico</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-fav">
+          <div id="favorites-list" class="text-center text-muted"><i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-favorites" style="display:none;" onclick="clearFavorites()"><i class="fas fa-trash"></i> Limpar favoritos</button>
+        </div>
+        <div class="tab-pane fade" id="tab-hist">
+          <div id="history-list" class="text-center text-muted"><i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-history" style="display:none;" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar histórico</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lightbox-img" src="" alt=""></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <footer class="main-footer">
+    <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-11</div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+<script>
+const PAGE_ID = 'cadastro_professores';
+const PAGE_TITLE = 'Cadastro de Professores';
+
+let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
+function saveFavorites(){localStorage.setItem('manual_favorites',JSON.stringify(favorites));updateFavoritesUI();}
+function toggleFavorite(id,title){
+  const idx=favorites.findIndex(f=>f.id===id);
+  if(idx>-1) favorites.splice(idx,1); else favorites.push({id,title});
+  saveFavorites(); updateFavoriteStar(id);
+  showToast(idx>-1?'Removido dos favoritos':'Adicionado aos favoritos',idx>-1?'info':'success');
+}
+function updateFavoriteStar(id){
+  const isFav=favorites.some(f=>f.id===id);
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"]').forEach(el=>el.classList.toggle('active',isFav));
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"] i').forEach(el=>{el.className=isFav?'fas fa-star text-warning':'fas fa-star';});
+}
+function updateFavoritesUI(){
+  const c=document.getElementById('favorites-list');if(!c)return;
+  if(favorites.length===0){c.innerHTML='<i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.';document.getElementById('btn-clear-favorites')?.style&&(document.getElementById('btn-clear-favorites').style.display='none');return;}
+  c.innerHTML=favorites.map(f=>`<div class="favorite-item" onclick="location.href='${f.id}.html'"><i class="fas fa-star text-warning"></i> ${f.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-favorites');if(btn)btn.style.display='';
+}
+function clearFavorites(){if(confirm('Limpar todos os favoritos?')){favorites=[];saveFavorites();showToast('Favoritos limpos','info');}}
+
+let history2=JSON.parse(localStorage.getItem('manual_history')||'[]');
+function addToHistory(id,title){history2=history2.filter(h=>h.id!==id);history2.unshift({id,title,t:new Date().toISOString()});if(history2.length>20)history2.pop();localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();}
+function updateHistoryUI(){
+  const c=document.getElementById('history-list');if(!c)return;
+  if(history2.length===0){c.innerHTML='<i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.';return;}
+  c.innerHTML=history2.slice(0,10).map(h=>`<div class="history-item" onclick="location.href='${h.id}.html'"><i class="fas fa-history"></i> ${h.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-history');if(btn)btn.style.display='';
+}
+function clearHistory(){if(confirm('Limpar histórico?')){history2=[];localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();showToast('Histórico limpo','info');}}
+
+function showToast(msg,type='success'){
+  const c=document.getElementById('toast-container');if(!c)return;
+  const t=document.createElement('div');t.className='custom-toast';t.innerHTML=(type==='success'?'✓':'ℹ️')+' '+msg;
+  c.appendChild(t);setTimeout(()=>t.remove(),3000);
+}
+
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('reading-progress').style.width=Math.min(pct,100)+'%';
+  document.getElementById('back-to-top').classList.toggle('visible',d.scrollTop>300);
+  document.querySelectorAll('[id^="section-"]').forEach(sec=>{
+    const link=document.querySelector('.toc-nav a[href="#'+sec.id+'"]');if(!link)return;
+    const rect=sec.getBoundingClientRect();link.classList.toggle('active',rect.top<=80&&rect.bottom>0);
+  });
+});
+
+
+
+
+$(document).ready(function() {
+ 
+  // Sobe 2 níveis: procedimentos/ -> modulos/ -> Manual/
+  $('aside#sidebar-container').load('../../sidebar.html', function() {
+
+    $('[data-widget="treeview"]').Treeview('init');
+    $('.nav-link.active').trigger('click');
+
+    $('#btn-toggle-favorites').click(function(e) {
+      e.preventDefault();
+      $('#right-sidebar').addClass('control-sidebar-open');
+    });
+
+    $('#btn-toggle-history').click(function(e) {
+      e.preventDefault();
+      $('#right-sidebar').addClass('control-sidebar-open');
+    });
+
+  });
+
+  loadModule('dashboard');
+});
+
+
+
+
+function openLightbox(src){const lb=document.getElementById('lightbox');lb.classList.add('open');document.getElementById('lightbox-img').src=src;}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+
+const allPages=[
+  {id:"pre_matricula",title:"Pré-Matrícula"},
+  {id:"documentacao",title:"Documentação Necessária – Matrícula"},
+  {id:"matriculas",title:"Matrícula"},
+  {id:"transferencia-entrada",title:"Transferência – Entrada"},
+  {id:"transferencia-saida",title:"Transferência – Saída"},
+  {id:"historicos",title:"Históricos Escolares"},
+  {id:"declaracoes",title:"Declarações"},
+  {id:"cadastro_professores",title:"Cadastro de Professores"}
+];
+const si=document.getElementById('global-search-input');
+const sd=document.getElementById('search-dropdown');
+if(si&&sd){
+  si.addEventListener('input',()=>{
+    const q=si.value.toLowerCase();if(q.length<2){sd.style.display='none';return;}
+    const r=allPages.filter(p=>p.title.toLowerCase().includes(q));
+    if(r.length){sd.innerHTML=r.map(p=>`<div class="search-result-item" onclick="location.href='${p.id}.html'"><i class="fas fa-file-alt me-2"></i>${p.title}</div>`).join('');sd.style.display='';}
+    else{sd.innerHTML='<div class="p-2 text-muted">Nenhum resultado</div>';sd.style.display='';}
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.input-group'))sd.style.display='none';});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  updateFavoriteStar(PAGE_ID);
+  addToHistory(PAGE_ID,PAGE_TITLE);
+  updateFavoritesUI();
+  updateHistoryUI();
+});
+</script>
+</body>
+</html>

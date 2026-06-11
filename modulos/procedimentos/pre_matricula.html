@@ -121,7 +121,7 @@
                     
                     <div class="d-flex flex-wrap gap-3 small text-muted">
                       <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
-                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-10</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-11</span>
                       <span><i class="fas fa-folder me-1"></i>Matrícula</span>
                     </div>
                   </div>
@@ -131,167 +131,338 @@
 
             <!-- CONTENT BLOCKS -->
             <div id="page-content">
-              <p class="mb-3 lh-lg"><div class="card">
-<div class="card-header">
-    <h3 class="card-title">
-        Pré-Matrícula PG Online — Passo a Passo
-    </h3>
+              <p class="mb-3 lh-lg"><div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-school"></i> Manual de Uso — Pré-Matrícula PG Online
+        </h3>
+        <p class="mb-0 mt-1 text-white-50 small">
+            Secretaria Municipal de Educação de Ponta Grossa | Educação Infantil ao 5º Ano
+        </p>
+    </div>
+
+    <div class="card-body">
+
+        <p>
+            O sistema de <strong>Pré-Matrícula Online da Rede Municipal de Ensino de Ponta Grossa</strong> é destinado ao cadastro realizado pelo responsável legal da criança. O preenchimento é dividido em <strong>5 passos</strong>, descritos a seguir com exemplos ilustrativos dos campos.
+        </p>
+
+        <div class="callout callout-danger">
+            <h5><i class="fas fa-exclamation-triangle"></i> Importante</h5>
+            <p>
+                O cadastro de Pré-Matrícula <strong>não é garantia de vaga</strong>. As vagas são ofertadas respeitando a fila de espera, formada com base em critérios de vulnerabilidade social. Todos os critérios informados deverão ser comprovados com documentação no ato da matrícula.
+            </p>
+        </div>
+
+        <hr>
+
+        <!-- PASSO 1 -->
+        <h4><i class="fas fa-step-forward"></i> Passo 1 — Tipo de Cadastro</h4>
+        <p>Nesta etapa o responsável indica a <strong>situação atual da criança</strong>. Essa informação define o fluxo correto de matrícula. Apenas uma opção deve ser selecionada.</p>
+        
+        <div class="form-group mb-3">
+            <label class="form-label fw-semibold">Ano Letivo</label>
+            <input type="text" class="form-control" value="2026" disabled style="width: 200px; background: #e9ecef;">
+            <small class="form-text text-muted">Atualmente o sistema exibe apenas o ano letivo vigente (2026).</small>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label fw-semibold">Tipo de Cadastro</label>
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="exemploTipo" disabled>
+                <label class="form-check-label"><strong>Vaga para criança que nunca estudou</strong></label>
+                <small class="form-text text-muted d-block">Primeira matrícula na Rede Municipal de Ponta Grossa.</small>
+            </div>
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="exemploTipo" disabled>
+                <label class="form-check-label"><strong>Transferência de escola municipal ou CMEI de Ponta Grossa</strong></label>
+                <small class="form-text text-muted d-block">A criança já está matriculada em outra unidade da Rede Municipal de PG.</small>
+            </div>
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="exemploTipo" disabled>
+                <label class="form-check-label"><strong>Transferência de escola ou CEI de outra rede de ensino</strong></label>
+                <small class="form-text text-muted d-block">Escola particular ou de outro município.</small>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- PASSO 2 -->
+        <h4><i class="fas fa-file-signature"></i> Passo 2 — Termo de Compromisso</h4>
+        <p>Antes de preencher os dados pessoais, o responsável deve ler e aceitar o Termo de Compromisso. O avanço para o próximo passo só é permitido após o aceite.</p>
+
+        <div class="callout callout-info">
+            <h5><i class="fas fa-gavel"></i> Conteúdo do Termo</h5>
+            <ul>
+                <li>O cadastro de Pré-Matrícula <strong>não é garantia de vaga</strong>, pois as vagas são ofertadas respeitando a fila de espera formada com base em critérios de vulnerabilidade social;</li>
+                <li>As informações prestadas devem ser <strong>verdadeiras</strong>, e todos os critérios assinalados deverão ser comprovados com documentação no ato da matrícula;</li>
+                <li>Os contatos (telefone e e-mail) devem ser mantidos <strong>atualizados</strong> durante todo o período de espera;</li>
+                <li>Após a comunicação da oferta da vaga, o responsável terá <strong>5 (cinco) dias úteis</strong> para efetivar a matrícula, sob pena de perda do direito à vaga;</li>
+                <li>Não será permitido que a mesma criança mantenha <strong>vínculo simultâneo em duas unidades escolares</strong>;</li>
+                <li>O cadastro poderá ser cancelado caso sejam identificadas informações falsas ou inconsistentes.</li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled>
+                <label class="form-check-label">Li e aceito o Termo de Compromisso e estou ciente de todas as condições descritas acima.</label>
+            </div>
+            <small class="form-text text-muted">O aceite é obrigatório para avançar ao próximo passo.</small>
+        </div>
+
+        <hr>
+
+        <!-- PASSO 3 -->
+        <h4><i class="fas fa-id-card"></i> Passo 3 — Dados do Pré-Cadastro</h4>
+        <p>Esta etapa é dividida em três seções: <strong>Identificação do Responsável</strong>, <strong>Dados Cadastrais do Aluno</strong> e <strong>Endereço</strong>. Todos os campos marcados com <span class="text-danger">*</span> são obrigatórios. As informações devem corresponder aos documentos oficiais.</p>
+
+        <h5><i class="fas fa-user-check"></i> Seção 1 — Identificação do Responsável</h5>
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <label class="form-label">Nome Completo do Responsável <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Ex.: José da Silva" disabled>
+                <small class="form-text text-muted">Máximo de 255 caracteres, sem abreviações.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">CPF do Responsável <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="000.000.000-00" disabled>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">E-mail <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" placeholder="email@provedor.com" disabled>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Telefone Principal <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="(42) 99999-9999" disabled>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Telefone 2 (opcional)</label>
+                <input type="text" class="form-control" placeholder="(42) 98888-8888" disabled>
+            </div>
+        </div>
+
+        <h5><i class="fas fa-child"></i> Seção 2 — Dados Cadastrais do Aluno</h5>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label class="form-label">CPF do Aluno <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="000.000.000-00" disabled>
+            </div>
+            <div class="col-md-8">
+                <label class="form-label">Nome Completo do Aluno <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Ex.: Ana da Silva" disabled>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Sexo <span class="text-danger">*</span></label>
+                <select class="form-select" disabled>
+                    <option>Selecione</option>
+                    <option>Masculino</option>
+                    <option>Feminino</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Data de Nascimento <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" disabled>
+            </div>
+        </div>
+
+        <h5><i class="fas fa-map-marker-alt"></i> Seção 3 — Endereço</h5>
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <label class="form-label">CEP <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="84036-000" disabled>
+            </div>
+            <div class="col-md-5">
+                <label class="form-label">Logradouro <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Ex.: Rua das Flores" disabled>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Número</label>
+                <input type="text" class="form-control" placeholder="999" disabled>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Complemento</label>
+                <input type="text" class="form-control" placeholder="Apto. 00" disabled>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Bairro <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Ex.: Centro" disabled>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Estado <span class="text-danger">*</span></label>
+                <select class="form-select" disabled><option>Paraná (PR)</option></select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Cidade <span class="text-danger">*</span></label>
+                <select class="form-select" disabled><option>Ponta Grossa</option></select>
+            </div>
+        </div>
+
+        <div class="callout callout-warning">
+            <h5><i class="fas fa-balance-scale"></i> Declarações obrigatórias — Dados Pessoais</h5>
+            <p><strong>Atenção — É crime</strong> omitir ou inserir declaração falsa em documento público ou particular com fim de prejudicar direito, criar obrigação ou alterar a verdade sobre fato juridicamente relevante <strong>(Art. 299 do Código Penal)</strong>.</p>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled>
+                <label class="form-check-label">Declaro que os dados por mim fornecidos são <strong>verdadeiros</strong> e me responsabilizo pelas informações prestadas.</label>
+            </div>
+            <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" disabled>
+                <label class="form-check-label">Declaro que li a nota sobre a Lei Geral de Proteção de Dados (LGPD) e estou de acordo com a coleta dos dados.</label>
+            </div>
+            <small class="form-text text-muted">Ambas as declarações são obrigatórias para avançar.</small>
+        </div>
+
+        <hr>
+
+        <!-- PASSO 4 -->
+        <h4><i class="fas fa-building"></i> Passo 4 — Escolas de Preferência & Situação Socioeconômica</h4>
+        <p>O responsável seleciona a <strong>turma desejada</strong>, indica <strong>3 escolas ou CMEIs em ordem de preferência</strong> e assinala os <strong>critérios de vulnerabilidade social</strong> que se aplicam à família. Todos os critérios marcados exigirão comprovação documental no ato da matrícula.</p>
+
+        <div class="form-group mb-3">
+            <label class="form-label fw-semibold">Turma Desejada <span class="text-danger">*</span></label>
+            <select class="form-select" style="width: auto;" disabled>
+                <option>Selecione</option>
+                <option>Infantil I — Berçário</option>
+                <option>Infantil II</option>
+                <option>Infantil III</option>
+                <option>Pré I</option>
+                <option>Pré II</option>
+                <option>1º Ano</option>
+                <option>2º Ano</option>
+                <option>3º Ano</option>
+                <option>4º Ano</option>
+                <option>5º Ano</option>
+            </select>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label class="form-label">Escola 1 — Primeira Opção <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Clique em 'Escolher'" disabled>
+                    <button class="btn btn-outline-secondary" type="button" disabled>Escolher</button>
+                </div>
+                <small class="form-text text-muted">Escola ou CMEI de maior preferência.</small>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Escola 2 — Segunda Opção <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Clique em 'Escolher'" disabled>
+                    <button class="btn btn-outline-secondary" type="button" disabled>Escolher</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Escola 3 — Terceira Opção <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Clique em 'Escolher'" disabled>
+                    <button class="btn btn-outline-secondary" type="button" disabled>Escolher</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout callout-info">
+            <h5><i class="fas fa-heart"></i> Critérios de Vulnerabilidade Social</h5>
+            <p><strong>Informe apenas os critérios que correspondam à sua situação.</strong> Critérios informados incorretamente implicarão no cancelamento da solicitação.</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled> <label class="form-check-label">A mãe e/ou a criança encontra-se em <strong>instituição de acolhimento</strong>.</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled> <label class="form-check-label">Família <strong>beneficiária do Bolsa Família</strong>.</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled> <label class="form-check-label">Criança público-alvo da <strong>Educação Especial</strong> com laudo comprobatório/CID, ou pais com deficiência ou idade ≥ 60 anos. <small class="text-muted">(Lei Municipal nº 14.666/2023)</small></label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled> <label class="form-check-label">Criança tem <strong>irmão(ã) matriculado(a)</strong> na escola/CMEI escolhida como 1ª opção. <small class="text-muted">(Lei Municipal nº 14.699/2023)</small></label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled> <label class="form-check-label">Família <strong>reside a até 2 km</strong> da escola/CMEI escolhida como 1ª opção. <small class="text-muted">(Lei Federal nº 11.700/2009)</small></label></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled> <label class="form-check-label"><strong>Renda familiar igual ou inferior a três salários mínimos</strong>.</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled> <label class="form-check-label">Responsável é <strong>mulher vítima de violência</strong>. <small class="text-muted">(Lei nº 11.535/2013)</small></label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled> <label class="form-check-label">Responsável legal (que preenche o cadastro) está <strong>empregado(a)</strong>.</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled> <label class="form-check-label">Responsável legal <strong>trabalha a até 2 km</strong> da escola/CMEI escolhida como 1ª opção.</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled> <label class="form-check-label">Criança é <strong>filha de mãe adolescente</strong>.</label></div>
+                </div>
+            </div>
+            <small class="form-text text-muted mt-2">Podem ser marcados múltiplos critérios, desde que todos correspondam efetivamente à situação da família.</small>
+        </div>
+
+        <hr>
+
+        <!-- PASSO 5 -->
+        <h4><i class="fas fa-check-double"></i> Passo 5 — Revisão e Envio</h4>
+        <p>Nesta etapa o responsável confere todas as informações preenchidas antes de submeter o cadastro. Após o envio, uma confirmação será encaminhada ao e-mail cadastrado.</p>
+
+        <h5>Tabela de Revisão (exemplo)</h5>
+        <table class="table table-bordered table-striped">
+            <thead><tr><th colspan="2">Resumo da Pré-Matrícula</th></tr></thead>
+            <tbody>
+                <tr><td class="fw-bold">Tipo de Cadastro</td><td>Vaga para criança que nunca estudou</td></tr>
+                <tr><td class="fw-bold">Responsável</td><td>José da Silva (CPF: 123.456.789-00)</td></tr>
+                <tr><td class="fw-bold">Aluno</td><td>Ana da Silva | 15/03/2019 | Feminino</td></tr>
+                <tr><td class="fw-bold">Endereço</td><td>Rua das Flores, 123 - Centro, Ponta Grossa/PR</td></tr>
+                <tr><td class="fw-bold">Turma</td><td>Pré I</td></tr>
+                <tr><td class="fw-bold">Escolas</td><td>1ª: CMEI Jardim Paraíso | 2ª: EMEF Ana Clara | 3ª: Escola Municipal Ursula Alves</td></tr>
+                <tr><td class="fw-bold">Critérios Sociais</td><td>Residência ≤2km, Renda ≤3 salários</td></tr>
+            </tbody>
+        </table>
+
+        <div class="callout callout-success">
+            <h5><i class="fas fa-shield-alt"></i> Verificação de segurança</h5>
+            <p>Antes do envio, o sistema exibe um <strong>reCAPTCHA</strong> para confirmação de que o cadastro está sendo realizado por uma pessoa.</p>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled>
+                <label class="form-check-label">✅ Não sou um robô</label>
+            </div>
+        </div>
+
+        <div class="callout callout-info">
+            <i class="fas fa-question-circle"></i> <strong>Ajuda presencial:</strong> Caso encontre dificuldade para realizar o cadastro online, compareça a qualquer <strong>Unidade Escolar da Rede Municipal</strong> ou ao <strong>Serviço Social da Secretaria Municipal de Educação</strong> para receber auxílio presencial.
+        </div>
+
+    </div>
+
+    <div class="card-footer text-muted">
+        <i class="fas fa-lock"></i> Dados protegidos pela Lei Geral de Proteção de Dados (LGPD) | Pré-Matrícula não garante vaga
+    </div>
 </div>
 
-<div class="card-body">
-
-    <p style="text-align: justify;">
-        A <strong>Pré-Matrícula PG Online</strong> é o sistema oficial da
-        <strong>Prefeitura Municipal de Ponta Grossa</strong> para registro de
-        intenção de vaga em unidades da Rede Municipal de Ensino, abrangendo
-        desde a <strong>Educação Infantil</strong> (creche e pré-escola) até o
-        <strong>5º Ano do Ensino Fundamental</strong>. O acesso é realizado pelo
-        endereço:
-        <a href="https://web.pontagrossa.pr.gov.br/prematricula/" target="_blank">
-            <strong>web.pontagrossa.pr.gov.br/prematricula</strong>
-        </a>.
-    </p>
-
-    <div class="alert alert-warning">
-        <i class="fas fa-exclamation-triangle"></i>
-        <strong>Atenção:</strong> O cadastro de Pré-Matrícula <strong>NÃO é garantia de vaga</strong>.
-        As vagas são ofertadas respeitando a fila de espera, formada com base em
-        critérios de <strong>vulnerabilidade social</strong>.
-        Todos os critérios informados deverão ser comprovados com documentação
-        no ato da matrícula, sob pena de perda da vaga.
-    </div>
-
-    <!-- PASSO 1 -->
-    <h5 class="mt-4"><strong>Passo 1 — Acessar o sistema</strong></h5>
-    <p style="text-align: justify;">
-        Ao entrar no site da Pré-Matrícula, o responsável deverá clicar no botão
-        <strong>"Acessar"</strong> e, em seguida, em <strong>"Cadastrar Pré-Matrícula"</strong>
-        para iniciar o processo de solicitação de vaga.
-    </p>
-
-    <!-- PASSO 2 -->
-    <h5 class="mt-3"><strong>Passo 2 — Selecionar o tipo de cadastro</strong></h5>
-    <p style="text-align: justify;">
-        O responsável deverá indicar a situação da criança, escolhendo uma das
-        três opções disponíveis:
-    </p>
-    <ul>
-        <li><strong>Vaga para uma criança que nunca estudou</strong></li>
-        <li><strong>Transferência de uma escola municipal ou CMEI de Ponta Grossa</strong></li>
-        <li><strong>Transferência de escola ou CEI de outra rede de ensino</strong> (particular ou outro município)</li>
-    </ul>
-
-    <!-- PASSO 3 -->
-    <h5 class="mt-3"><strong>Passo 3 — Ler e aceitar o Termo de Compromisso</strong></h5>
-    <p style="text-align: justify;">
-        Antes de prosseguir, o responsável deverá ler atentamente o
-        <strong>Termo de Compromisso</strong>, que estabelece, entre outros pontos:
-    </p>
-    <ul>
-        <li>O cadastro não garante a vaga;</li>
-        <li>As informações prestadas devem ser verdadeiras e comprovadas no ato da matrícula;</li>
-        <li>Os contatos (telefone e e-mail) devem ser mantidos atualizados;</li>
-        <li>Após a comunicação da oferta da vaga, o responsável terá <strong>5 (cinco) dias úteis</strong>
-            para efetivar a matrícula, sob pena de perda do direito;</li>
-        <li>Não será permitido que a mesma criança mantenha vínculo em duas unidades escolares simultaneamente.</li>
-    </ul>
-    <p style="text-align: justify;">
-        A confirmação é feita marcando a opção <strong>"Li e aceito o Termo de Compromisso"</strong>.
-    </p>
-
-    <!-- PASSO 4 -->
-    <h5 class="mt-3"><strong>Passo 4 — Preencher os dados do pré-cadastro</strong></h5>
-    <p style="text-align: justify;">
-        O formulário é dividido em três seções, todas de preenchimento obrigatório
-        (campos marcados com <span class="text-danger"><strong>*</strong></span>):
-    </p>
-    <ul>
-        <li>
-            <strong>Identificação do Responsável:</strong>
-            nome completo, CPF, telefone(s) e e-mail para contato.
-        </li>
-        <li>
-            <strong>Dados Cadastrais do Aluno:</strong>
-            CPF, nome completo, sexo e data de nascimento.
-        </li>
-        <li>
-            <strong>Endereço:</strong>
-            CEP, logradouro, número, complemento, bairro, estado e cidade.
-        </li>
-    </ul>
-    <p style="text-align: justify;">
-        Ao final, o responsável deverá:
-    </p>
-    <ul>
-        <li>Marcar a declaração de veracidade dos dados informados;</li>
-        <li>Ler e aceitar a <strong>Nota sobre a LGPD</strong>
-            (Lei Geral de Proteção de Dados — Lei nº 13.709/2018), autorizando
-            a coleta e o uso das informações para fins de identificação e
-            cumprimento de políticas públicas de educação;</li>
-        <li>Resolver o <strong>reCAPTCHA</strong> de verificação e clicar em
-            <strong>"Continuar"</strong>.</li>
-    </ul>
-
-    <div class="alert alert-danger">
-        <i class="fas fa-ban"></i>
-        <strong>Atenção — É crime</strong> omitir ou inserir declaração falsa em
-        documento público ou particular com fim de prejudicar direito, criar
-        obrigação ou alterar a verdade sobre fato juridicamente relevante
-        (Art. 299 do Código Penal).
-    </div>
-
-    <!-- PASSO 5 -->
-    <h5 class="mt-3"><strong>Passo 5 — Informar as escolas de preferência e a situação socioeconômica</strong></h5>
-    <p style="text-align: justify;">
-        Nesta etapa, o responsável deverá selecionar a <strong>turma</strong> desejada
-        e indicar <strong>3 (três) escolas ou CMEIs</strong> em ordem de preferência.
-        A escola indicada como 1ª opção é considerada a de maior prioridade; caso
-        não haja vaga disponível, a criança poderá ser encaminhada para a 2ª ou 3ª opção.
-    </p>
-    <p style="text-align: justify;">
-        Em seguida, deverão ser assinalados apenas os critérios que correspondam
-        efetivamente à situação da família, pois todos exigirão comprovação documental
-        no ato da matrícula. Os critérios disponíveis são:
-    </p>
-    <ul>
-        <li>A mãe e/ou a criança encontra-se em instituição de acolhimento;</li>
-        <li>Beneficiária do <strong>Bolsa Família</strong>;</li>
-        <li>Criança público-alvo da Educação Especial com laudo comprobatório/CID, ou cujos pais/responsáveis
-            sejam pessoas com deficiência ou com idade igual ou superior a 60 anos
-            (<strong>Lei Municipal nº 14.666/2023</strong>);</li>
-        <li>Criança com irmão(ã) matriculado(a) na escola/CMEI de 1ª opção
-            (<strong>Lei Municipal nº 14.699/2023</strong>);</li>
-        <li>Família reside a até 2 km da escola/CMEI de 1ª opção
-            (<strong>Lei Federal nº 11.700/2009</strong>) — requer comprovante de
-            residência no nome do responsável;</li>
-        <li>Renda familiar igual ou inferior a <strong>três salários mínimos</strong>;</li>
-        <li>Responsável é mulher vítima de violência (<strong>Lei nº 11.535/2013</strong>);</li>
-        <li>Responsável legal está <strong>empregado</strong>;</li>
-        <li>Responsável legal trabalha a até 2 km da escola/CMEI de 1ª opção;</li>
-        <li>Criança filha de <strong>mãe adolescente</strong>.</li>
-    </ul>
-    <p style="text-align: justify;">
-        Após o preenchimento, basta resolver novamente o reCAPTCHA e clicar em
-        <strong>"Cadastrar"</strong> para concluir a solicitação.
-    </p>
-
-    <div class="alert alert-info">
-        <i class="fas fa-info-circle"></i>
-        Caso o responsável encontre dificuldade para realizar o cadastro online,
-        poderá comparecer a qualquer <strong>Unidade Escolar da Rede Municipal</strong>
-        ou ao <strong>Serviço Social da Secretaria Municipal de Educação</strong>
-        para receber auxílio presencial.
-    </div>
-
-</div>
-</div></p>
+<!-- CSS complementar para garantir o estilo do card e callouts -->
+<style>
+    .card-primary {
+        border: none;
+        border-radius: 1.25rem;
+        box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+    .card-primary .card-header {
+        background: linear-gradient(135deg, #0b3b5f 0%, #1b4f72 100%);
+        color: white;
+        border-bottom: none;
+        padding: 1.2rem 1.8rem;
+    }
+    .card-primary .card-footer {
+        background-color: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+        font-size: 0.85rem;
+    }
+    .callout {
+        padding: 1rem 1.25rem;
+        border-radius: 0.75rem;
+        margin-bottom: 1.25rem;
+        border-left: 5px solid;
+    }
+    .callout-info { background-color: #e6f3ff; border-left-color: #0d6efd; }
+    .callout-warning { background-color: #fff3e0; border-left-color: #f39c12; }
+    .callout-danger { background-color: #fee2e2; border-left-color: #dc3545; }
+    .callout-success { background-color: #e0f2e9; border-left-color: #198754; }
+    .form-label { font-weight: 600; color: #0b3b5f; }
+    .form-text { font-size: 0.75rem; }
+    hr { margin: 1.5rem 0; }
+</style></p>
             </div>
 
             <!-- FOOTER INFO -->
             <div class="card mt-4 mb-4">
               <div class="card-body text-muted small">
                 <i class="fas fa-info-circle me-1"></i>
-                Última atualização: <strong>2026-06-10</strong> — Autor: <strong>Secretaria Escolar</strong>
+                Última atualização: <strong>2026-06-11</strong> — Autor: <strong>Secretaria Escolar</strong>
                 <span class="ms-3"><i class="fas fa-folder me-1"></i>Matrícula</span>
               </div>
             </div>
@@ -342,7 +513,7 @@
 
   <footer class="main-footer">
     <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
-    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-10</div>
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-11</div>
   </footer>
 </div>
 

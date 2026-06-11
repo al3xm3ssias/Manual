@@ -133,371 +133,422 @@
             <div id="page-content">
               <p class="mb-3 lh-lg"><div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">Cadastro de Aluno no SERE</h3>
+        <h3 class="card-title"><i class="fas fa-user-plus mr-2"></i>Cadastro de Aluno no SERE</h3>
     </div>
     <div class="card-body">
 
-        <h5>Como acessar</h5>
-        <p>
-            Para cadastrar um novo aluno, acesse o menu <strong>Aluno → Incluir</strong>.
-        </p>
-
-        <div class="alert alert-danger">
-            <i class="fas fa-exclamation-circle"></i>
-            <strong>Atenção — Consulte a base ABC antes de cadastrar!</strong><br>
-            Antes de iniciar qualquer cadastro, pesquise na base <strong>ABC</strong> se o aluno já possui CGM cadastrado. A duplicação de cadastro é um problema grave que <strong>somente a equipe de Documentação Escolar (Rodrigo, Andressa e Carla)</strong> pode corrigir.
+        <!-- AVISO IMPORTANTE -->
+        <div class="callout callout-warning">
+            <h5><i class="fas fa-exclamation-triangle"></i> Antes de começar — Consulta obrigatória!</h5>
+            <p>
+                Antes de cadastrar qualquer aluno, <strong>consulte na base ABC</strong> se o aluno já possui CGM cadastrado,
+                para evitar duplicação de registros. Caso haja duplicidade, somente a equipe de
+                <strong>Documentação Escolar</strong> pode corrigir:
+                <span class="badge badge-secondary">Rodrigo</span>
+                <span class="badge badge-secondary">Andressa</span>
+                <span class="badge badge-secondary">Carla</span>
+            </p>
         </div>
 
-        <hr>
-
-        <h5>Passo 1 — Dados Pessoais</h5>
-        <p>
-            Preencha o <strong>nome completo</strong> e a <strong>data de nascimento</strong> exatamente como constam na certidão de nascimento. Em seguida, complete os demais campos obrigatórios:
-        </p>
-        <ul>
-            <li><strong>Sexo</strong></li>
-            <li><strong>Cor/Raça</strong></li>
-            <li><strong>Nacionalidade</strong> (para estrangeiros, selecione o país de origem)</li>
-            <li><strong>UF e Município de Nascimento</strong></li>
-        </ul>
-
-        <div class="table-responsive mb-3">
-            <table class="table table-bordered table-sm">
-                <tbody>
-                    <tr>
-                        <td class="fw-bold" style="width:25%">Nome:</td>
-                        <td>JOÃO PEDRO ALVES DOS SANTOS</td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Data de Nascimento:</td>
-                        <td>15/03/2019</td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* Sexo:</td>
-                        <td>
-                            <select class="form-select form-select-sm" style="width:200px" disabled>
-                                <option selected>Masculino</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* Cor/Raça:</td>
-                        <td>
-                            <select class="form-select form-select-sm" style="width:200px" disabled>
-                                <option selected>Parda</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* Nacionalidade:</td>
-                        <td>
-                            <select class="form-select form-select-sm" style="width:300px" disabled>
-                                <option selected>Brasileira</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* UF Naturalidade:</td>
-                        <td>
-                            <select class="form-select form-select-sm" style="width:100px" disabled>
-                                <option selected>PR</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* Município de Nascimento:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:300px" value="PONTA GROSSA" disabled></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- PASSO 1 -->
+        <div class="card card-outline card-info mt-3">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="badge badge-info mr-2">Passo 1</span>
+                    Acessar o módulo de inclusão
+                </h3>
+            </div>
+            <div class="card-body">
+                <p>No menu principal do SERE, navegue até:</p>
+                <p>
+                    <span class="badge badge-dark">Menu</span>
+                    <i class="fas fa-arrow-right mx-1 text-muted"></i>
+                    <span class="badge badge-dark">Aluno</span>
+                    <i class="fas fa-arrow-right mx-1 text-muted"></i>
+                    <span class="badge badge-dark">Incluir</span>
+                </p>
+            </div>
         </div>
 
-        <hr>
+        <!-- PASSO 2 -->
+        <div class="card card-outline card-info mt-3">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="badge badge-info mr-2">Passo 2</span>
+                    Dados Pessoais
+                </h3>
+            </div>
+            <div class="card-body">
+                <p>Preencha os dados pessoais do aluno conforme constam na <strong>certidão de nascimento</strong>:</p>
+                <ul>
+                    <li><strong>Nome completo</strong> — exatamente como consta na certidão de nascimento</li>
+                    <li><strong>Data de nascimento</strong> — conforme a certidão de nascimento</li>
+                    <li><strong>Sexo</strong></li>
+                    <li><strong>Cor/Raça</strong></li>
+                    <li><strong>Município de nascimento</strong> — UF de naturalidade e município</li>
+                    <li><strong>Nacionalidade</strong> e <strong>País de Origem</strong> (quando aplicável)</li>
+                </ul>
 
-        <h5>Passo 2 — Documentação</h5>
-        <p>
-            Informe os documentos disponíveis conforme a documentação entregue pela família. Os principais campos são:
-        </p>
-        <ul>
-            <li>
-                <strong>Certidão de Nascimento:</strong> selecione o modelo (<em>Novo</em> ou <em>Antigo</em>) e preencha a matrícula que consta no documento. O modelo novo possui apenas o campo de matrícula; o modelo antigo solicita número, folha e livro.
-            </li>
-            <li>
-                <strong>CPF do Aluno:</strong> informe caso o aluno já possua CPF.
-            </li>
-            <li>
-                <strong>RG:</strong> se o aluno já tiver RG, preencha o número, órgão emissor, UF e data de expedição.
-            </li>
-            <li>
-                <strong>Aluno Estrangeiro:</strong> nesse caso, em vez do RG, preencha o campo <strong>Documento Estrangeiro / RNE / RNM</strong>, marcando "Sim" na opção correspondente.
-            </li>
-        </ul>
+                <!-- Mini preview do formulário -->
+                <div class="border rounded p-3 bg-light mt-2">
+                    <small class="text-muted d-block mb-2"><i class="fas fa-eye mr-1"></i>Exemplo de campos — Dados Pessoais</small>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label class="font-weight-bold small">Nome <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" value="JOÃO DA SILVA" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="font-weight-bold small">Data de Nascimento <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" value="01/01/2025" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="font-weight-bold small">Sexo <span class="text-danger">*</span></label>
+                            <select class="form-control form-control-sm" disabled>
+                                <option>Masculino</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="font-weight-bold small">Cor/Raça <span class="text-danger">*</span></label>
+                            <select class="form-control form-control-sm" disabled>
+                                <option>Parda</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label class="font-weight-bold small">UF Naturalidade <span class="text-danger">*</span></label>
+                            <select class="form-control form-control-sm" disabled><option>PR</option></select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="font-weight-bold small">Município de Nascimento <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Ex.: Ponta Grossa" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="font-weight-bold small">Nacionalidade <span class="text-danger">*</span></label>
+                            <select class="form-control form-control-sm" disabled><option>Brasileira</option></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="table-responsive mb-3">
-            <table class="table table-bordered table-sm">
-                <tbody>
-                    <tr>
-                        <td class="fw-bold" style="width:25%">Certidão Civil:</td>
-                        <td>
+        <!-- PASSO 3 -->
+        <div class="card card-outline card-info mt-3">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="badge badge-info mr-2">Passo 3</span>
+                    Documentação
+                </h3>
+            </div>
+            <div class="card-body">
+                <p>Preencha os documentos disponíveis do aluno:</p>
+                <ul>
+                    <li>
+                        <strong>Certidão de Nascimento</strong> — selecione o modelo (Antigo ou Novo) e informe a
+                        matrícula ou número/folha/livro conforme o documento físico
+                    </li>
+                    <li><strong>CPF</strong> — quando disponível</li>
+                    <li>
+                        <strong>RG</strong> — quando disponível: informe o número, órgão emissor, UF e data de expedição.
+                        <span class="text-info"><i class="fas fa-info-circle"></i> Para alunos estrangeiros, utilize o campo <strong>RNE/RNM</strong> em vez do RG.</span>
+                    </li>
+                </ul>
+
+                <div class="border rounded p-3 bg-light mt-2">
+                    <small class="text-muted d-block mb-2"><i class="fas fa-eye mr-1"></i>Exemplo de campos — Documentação</small>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label class="font-weight-bold small">Certidão Civil</label><br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" disabled>
-                                <label class="form-check-label">Modelo antigo</label>
+                                <input class="form-check-input" type="radio" name="modeloCert" disabled>
+                                <label class="form-check-label small">Modelo Antigo</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" checked disabled>
-                                <label class="form-check-label">Modelo novo</label>
+                                <input class="form-check-input" type="radio" name="modeloCert" checked disabled>
+                                <label class="form-check-label small">Modelo Novo</label>
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Matrícula (Modelo Novo):</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:350px" value="12345678901234567890123456789" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">CPF do Aluno:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:150px" value="123.456.789-00" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">RG:</td>
-                        <td>
-                            <input type="text" class="form-control form-control-sm d-inline" style="width:130px" placeholder="Número" disabled>
-                            <select class="form-select form-select-sm d-inline" style="width:100px" disabled>
-                                <option selected>SSP</option>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label class="font-weight-bold small">Matrícula</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Nº da matrícula da certidão" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="font-weight-bold small">CPF</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="000.000.000-00" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label class="font-weight-bold small">RG</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Nº do RG" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="font-weight-bold small">Órgão Emissor</label>
+                            <select class="form-control form-control-sm" disabled><option>SSP</option></select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="font-weight-bold small">UF</label>
+                            <select class="form-control form-control-sm" disabled><option>PR</option></select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="font-weight-bold small">Data de Expedição</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="dd/mm/aaaa" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASSO 4 -->
+        <div class="card card-outline card-info mt-3">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="badge badge-info mr-2">Passo 4</span>
+                    Dados Familiares
+                </h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    Preencha os dados conforme os nomes que constam na <strong>certidão de nascimento</strong> do aluno:
+                </p>
+                <ul>
+                    <li><strong>Nome da Mãe</strong> — RG e UF (quando disponível)</li>
+                    <li><strong>Nome do Pai</strong> — RG e UF (quando disponível)</li>
+                    <li><strong>Nome do Responsável</strong> e <strong>Parentesco</strong> — CPF do responsável</li>
+                </ul>
+
+                <div class="border rounded p-3 bg-light mt-2">
+                    <small class="text-muted d-block mb-2"><i class="fas fa-eye mr-1"></i>Exemplo de campos — Dados Familiares</small>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold small">Nome da Mãe <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Nome completo conforme certidão" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="font-weight-bold small">RG/RNE/RNM</label>
+                            <input type="text" class="form-control form-control-sm" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold small">Nome do Pai <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Nome completo conforme certidão" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="font-weight-bold small">RG/RNE/RNM</label>
+                            <input type="text" class="form-control form-control-sm" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold small">Nome do Responsável <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="font-weight-bold small">Parentesco <span class="text-danger">*</span></label>
+                            <select class="form-control form-control-sm" disabled>
+                                <option>Mãe</option>
                             </select>
-                            <select class="form-select form-select-sm d-inline" style="width:80px" disabled>
-                                <option selected>PR</option>
-                            </select>
-                            <input type="text" class="form-control form-control-sm d-inline" style="width:120px" placeholder="Data expedição" disabled>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <hr>
+        <!-- PASSO 5 -->
+        <div class="card card-outline card-info mt-3">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="badge badge-info mr-2">Passo 5</span>
+                    Endereço
+                </h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    Preencha o endereço do aluno <strong>conforme a documentação entregue pelo responsável</strong>.
+                    Informe o CEP para busca automática do logradouro, bairro e cidade.
+                </p>
 
-        <h5>Passo 3 — Dados Familiares</h5>
-        <p>
-            Preencha os dados conforme os nomes que constam na certidão de nascimento do aluno. Informe nome, RG e UF da mãe, do pai e do responsável legal, incluindo o parentesco. O CPF do responsável também deve ser preenchido quando disponível.
-        </p>
-
-        <div class="table-responsive mb-3">
-            <table class="table table-bordered table-sm">
-                <tbody>
-                    <tr>
-                        <td class="fw-bold" style="width:25%">* Nome da Mãe:</td>
-                        <td><input type="text" class="form-control form-control-sm" value="ANA PAULA ALVES DOS SANTOS" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Nome do Pai:</td>
-                        <td><input type="text" class="form-control form-control-sm" value="CARLOS ROBERTO DOS SANTOS" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* Nome do Responsável:</td>
-                        <td><input type="text" class="form-control form-control-sm" value="ANA PAULA ALVES DOS SANTOS" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* Parentesco do Responsável:</td>
-                        <td>
-                            <select class="form-select form-select-sm" style="width:200px" disabled>
-                                <option selected>Mãe</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">CPF do Responsável:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:180px" value="987.654.321-00" disabled></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <hr>
-
-        <h5>Passo 4 — Endereço</h5>
-        <p>
-            Preencha o endereço conforme o comprovante de residência entregue pela família. Informe o CEP — o sistema preencherá automaticamente rua, bairro e cidade. Complemente com o número, complemento se houver, e selecione a zona residencial (Urbana ou Rural).
-        </p>
-
-        <div class="table-responsive mb-3">
-            <table class="table table-bordered table-sm">
-                <tbody>
-                    <tr>
-                        <td class="fw-bold" style="width:25%">* CEP:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:120px" value="84010-000" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* Endereço:</td>
-                        <td><input type="text" class="form-control form-control-sm" value="RUA EXEMPLO DAS FLORES" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* Número:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:100px" value="123" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Complemento:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:200px" value="APTO 2" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Bairro:</td>
-                        <td><input type="text" class="form-control form-control-sm" value="CENTRO" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* Cidade / UF:</td>
-                        <td>PONTA GROSSA / PR</td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">* Zona Residencial:</td>
-                        <td>
+                <div class="border rounded p-3 bg-light mt-2">
+                    <small class="text-muted d-block mb-2"><i class="fas fa-eye mr-1"></i>Exemplo de campos — Endereço</small>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label class="font-weight-bold small">CEP <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="00000000" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="font-weight-bold small">UF <span class="text-danger">*</span></label>
+                            <select class="form-control form-control-sm" disabled><option>PR</option></select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="font-weight-bold small">Cidade <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Preenchido pelo CEP" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold small">Endereço <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Preenchido pelo CEP" disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="font-weight-bold small">Número <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="font-weight-bold small">Complemento</label>
+                            <input type="text" class="form-control form-control-sm" disabled>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="font-weight-bold small">Bairro</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Preenchido pelo CEP" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label class="font-weight-bold small">Zona Residencial <span class="text-danger">*</span></label><br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" checked disabled>
-                                <label class="form-check-label">Urbana</label>
+                                <input class="form-check-input" type="radio" name="zona" disabled>
+                                <label class="form-check-label small">Urbana</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" disabled>
-                                <label class="form-check-label">Rural</label>
+                                <input class="form-check-input" type="radio" name="zona" disabled>
+                                <label class="form-check-label small">Rural</label>
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <hr>
-
-        <h5>Passo 5 — Contato</h5>
-        <p>
-            Informe os telefones e e-mails conforme os dados fornecidos pela família no momento da matrícula.
-        </p>
-
-        <div class="table-responsive mb-3">
-            <table class="table table-bordered table-sm">
-                <tbody>
-                    <tr>
-                        <td class="fw-bold" style="width:25%">Celular/WhatsApp Responsável:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:180px" value="(42) 99999-0000" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">E-mail Responsável:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:300px" value="responsavel@email.com" disabled></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- PASSO 6 -->
+        <div class="card card-outline card-info mt-3">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="badge badge-info mr-2">Passo 6</span>
+                    Contato
+                </h3>
+            </div>
+            <div class="card-body">
+                <p>Preencha os contatos <strong>conforme a documentação entregue pelo responsável</strong>:</p>
+                <ul>
+                    <li>Celular/WhatsApp do aluno e do responsável</li>
+                    <li>Telefone residencial e comercial (quando disponível)</li>
+                    <li>E-mail do responsável e do aluno (quando disponível)</li>
+                </ul>
+            </div>
         </div>
 
-        <hr>
-
-        <h5>Passo 6 — Programas Sociais</h5>
-        <p>
-            Caso o aluno seja beneficiário do <strong>Bolsa Família</strong>, marque "Sim" e preencha os seguintes campos, todos encontrados na folha de resumo do CadÚnico:
-        </p>
-        <ul>
-            <li><strong>NIS do Aluno</strong></li>
-            <li><strong>NIS do Responsável</strong></li>
-            <li><strong>Número do CadÚnico da Família</strong></li>
-        </ul>
-
-        <div class="table-responsive mb-3">
-            <table class="table table-bordered table-sm">
-                <tbody>
-                    <tr>
-                        <td class="fw-bold" style="width:25%">* Participa do Bolsa Família:</td>
-                        <td>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" checked disabled>
-                                <label class="form-check-label">Sim</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" disabled>
-                                <label class="form-check-label">Não</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">NIS do Aluno:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:180px" value="12345678901" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">NIS do Responsável:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:180px" value="98765432100" disabled></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">CadÚnico:</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:180px" value="11223344556" disabled></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- PASSO 7 -->
+        <div class="card card-outline card-info mt-3">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="badge badge-info mr-2">Passo 7</span>
+                    Programas Sociais
+                </h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    Se o aluno for beneficiário do <strong>Programa Bolsa Família</strong>, marque <em>Sim</em> e preencha
+                    os campos abaixo. Todas as informações constam na <strong>folha de resumo do CadÚnico</strong>:
+                </p>
+                <ul>
+                    <li><strong>NIS do Estudante</strong></li>
+                    <li><strong>NIS do Responsável</strong></li>
+                    <li><strong>Número do CadÚnico da família</strong></li>
+                </ul>
+            </div>
         </div>
 
-        <hr>
-
-        <h5>Passo 7 — Deficiências, Transtornos e Altas Habilidades</h5>
-        <p>
-            Caso o aluno possua laudo médico ou avaliação especializada, marque a condição correspondente na seção <strong>Tipo de Deficiência, Transtorno do Espectro Autista ou Altas Habilidades/Superdotação</strong>. O preenchimento deve seguir rigorosamente o <strong>CID informado no laudo</strong>.
-        </p>
-
-        <div class="table-responsive mb-3">
-            <table class="table table-bordered table-sm" style="font-size:0.85rem">
-                <thead class="table-secondary">
-                    <tr>
-                        <th colspan="2">Condições disponíveis no sistema</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="checkbox" disabled> Altas Habilidades/Superdotação</td>
-                        <td><input type="checkbox" disabled> Atraso no Desenvolvimento Neuropsicomotor</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" disabled> Baixa Visão</td>
-                        <td><input type="checkbox" disabled> Cegueira</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" disabled> Deficiência Auditiva</td>
-                        <td><input type="checkbox" disabled> Deficiência Física</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" disabled> Deficiência Intelectual</td>
-                        <td><input type="checkbox" disabled> Deficiência Múltipla</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" disabled> Distúrbios de Aprendizagem (Dislexia, TDAH, etc.)</td>
-                        <td><input type="checkbox" checked disabled> <strong>Transtorno do Espectro Autista</strong></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" disabled> Transtornos Mentais</td>
-                        <td><input type="checkbox" disabled> Surdez / Surdocegueira</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" disabled> Visão Monocular</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- PASSO 8 -->
+        <div class="card card-outline card-info mt-3">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="badge badge-info mr-2">Passo 8</span>
+                    Deficiências / TEA / Altas Habilidades
+                </h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    Caso o aluno possua <strong>laudo médico ou avaliação especializada</strong>, marque o tipo de
+                    deficiência, transtorno do espectro autista ou altas habilidades/superdotação correspondente,
+                    <strong>em conformidade com o CID que consta no laudo</strong>.
+                </p>
+                <p>Opções disponíveis no sistema:</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <ul class="list-unstyled small">
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Altas habilidades/Superdotação</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Atraso no Desenvolvimento Neuropsicomotor</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Baixa visão</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Cegueira</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Deficiência auditiva</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-unstyled small">
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Deficiência física</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Deficiência intelectual</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Deficiência múltipla</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Distúrbios de aprendizagem</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Surdez</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-unstyled small">
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Surdocegueira</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Transtorno do Espectro Autista</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Transtornos Mentais</li>
+                            <li><i class="fas fa-check-square text-secondary mr-1"></i>Visão Monocular</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <hr>
-
-        <h5>Passo 8 — Necessidades Especiais</h5>
-        <p>
-            Se o aluno necessitar de recursos ou apoios específicos, marque as opções correspondentes na seção <strong>Necessidades Especiais</strong>, seguindo o que estiver indicado no laudo ou avaliação. Em caso de dúvidas, <strong>consulte o setor de Documentação Escolar</strong> antes de preencher.
-        </p>
-        <p>As categorias disponíveis são: <em>Locomoção</em>, <em>Adaptação de Material Didático</em>, <em>Recursos Humanos</em> e <em>Recursos para participação em avaliações</em>.</p>
-
-        <hr>
-
-        <h5>Passo 9 — Salvar o cadastro</h5>
-        <p>
-            Após revisar todos os campos, clique em <strong>Salvar</strong>. O sistema gerará o <strong>CGM</strong> do aluno automaticamente. Anote ou copie esse número, pois ele será utilizado em todos os demais processos do aluno no SERE.
-        </p>
-
-        <div class="alert alert-success">
-            <i class="fas fa-check-circle"></i>
-            Cadastro concluído com sucesso! O CGM gerado deve ser registrado na ficha do aluno e comunicado à equipe pedagógica.
+        <!-- PASSO 9 -->
+        <div class="card card-outline card-info mt-3">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="badge badge-info mr-2">Passo 9</span>
+                    Necessidades Especiais
+                </h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    Se o aluno necessitar de recursos ou apoios específicos, marque as opções conforme o laudo.
+                    Em caso de dúvidas, <strong>consulte o setor de Documentação Escolar</strong>.
+                </p>
+                <p>Os recursos são divididos em quatro categorias:</p>
+                <ul>
+                    <li><strong>Locomoção</strong> — cadeira de rodas, muletas/bengalas</li>
+                    <li><strong>Adaptação de Material Didático</strong> — livros ampliados, braille, carteiras adaptadas, etc.</li>
+                    <li><strong>Recursos Humanos</strong> — intérprete de LIBRAS, atendente, professor de apoio</li>
+                    <li><strong>Recursos para Avaliações</strong> — auxílio ledor, prova ampliada, prova em Braille, tempo adicional, entre outros</li>
+                </ul>
+            </div>
         </div>
 
-    </div>
-</div></p>
+        <!-- PASSO 10 — SALVAR -->
+        <div class="card card-outline card-success mt-3">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="badge badge-success mr-2">Passo 10</span>
+                    Salvar o cadastro
+                </h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    Após revisar todos os dados preenchidos, clique no botão <strong>Salvar</strong>
+                    para concluir o cadastro do aluno.
+                </p>
+                <button type="button" class="btn btn-primary" disabled>
+                    <i class="fas fa-save mr-1"></i> Salvar
+                </button>
+                <button type="button" class="btn btn-secondary ml-2" disabled>
+                    <i class="fas fa-arrow-left mr-1"></i> Voltar
+                </button>
+                <div class="mt-2">
+                    <small class="text-danger"><i class="fas fa-asterisk"></i> Campos marcados com * são de preenchimento obrigatório.</small>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.card-body -->
+</div><!-- /.card --></p>
             </div>
 
             <!-- FOOTER INFO -->
