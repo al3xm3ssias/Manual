@@ -141,7 +141,7 @@
 
     <div class="card-body">
 
-        <!-- Regra geral (reaproveitada) -->
+        <!-- Regra de identificação -->
         <div class="callout callout-info">
             <h5><i class="fas fa-info-circle"></i> Regra de identificação principal</h5>
             <p>O sistema diferencia <strong>funcionários nunca cadastrados</strong> daqueles que <strong>já possuem CPF no SERE</strong>:</p>
@@ -153,141 +153,305 @@
 
         <hr>
 
-        <!-- Introdução específica para docentes -->
+        <!-- Introdução -->
         <h4><i class="fas fa-user-check"></i> Tipos de vínculo do docente</h4>
         <p>Após preencher os dados de identificação, é necessário classificar o profissional conforme sua atuação. O sistema permite três modalidades principais de cadastro para docentes:</p>
         <ul>
-            <li><strong>Docente Regente de Turma</strong> – responsável por uma turma específica (ex.: professor dos anos iniciais que leciona várias disciplinas).</li>
-            <li><strong>Docente Correngente</strong> – atua em múltiplas turmas com a mesma disciplina (ex.: Educação Física, Arte, Inglês).</li>
-            <li><strong>Docente da SRM</strong> – atua exclusivamente em turmas de Sala de Recursos Multifuncionais (Atendimento Educacional Especializado).</li>
+            <li><strong>Docente Regente de Turma</strong> – responsável por uma turma específica.</li>
+            <li><strong>Docente Correngente</strong> – atua em múltiplas turmas com a mesma disciplina.</li>
+            <li><strong>Docente da SRM</strong> – atua exclusivamente em turmas de Sala de Recursos Multifuncionais.</li>
         </ul>
-        <p>Abaixo, o passo a passo para cada situação.</p>
 
         <hr>
 
-        <!-- 1. DOCENTE REGENTE DE TURMA -->
-        <h4><i class="fas fa-user-graduate"></i> 1. Docente Regente de Turma</h4>
+        <!-- ==================== 1. DOCENTE REGENTE ==================== -->
+        <div class="card card-outline card-success">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fas fa-user-graduate"></i> 1. Docente Regente de Turma</h4>
+            </div>
+            <div class="card-body">
+                <p>Exemplo: professor regente do 5º ano integral. Ele ministra várias disciplinas para a mesma turma. Em escolas parciais, pode atuar em duas turmas (manhã e tarde).</p>
+
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="card card-light">
+                            <div class="card-header"><h6 class="card-title">Formulário de atuação</h6></div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Função</label>
+                                    <select class="form-select" disabled>
+                                        <option>Docente</option>
+                                        <option>Auxiliar/Assistente Educacional</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Turma</label>
+                                    <select class="form-select" disabled>
+                                        <option>ENS FUND 1/5 A/S - TEMPO INTEGRAL 5º Ano Integral A</option>
+                                        <option>ENS FUND 1/5 A/S - TEMPO INTEGRAL 4º Ano Integral B</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Disciplina</label>
+                                    <select class="form-select" disabled>
+                                        <option>Língua Portuguesa</option>
+                                        <option>Matemática</option>
+                                        <option>Ciências</option>
+                                        <option>Geografia</option>
+                                        <option>História</option>
+                                        <option>Ensino Religioso</option>
+                                        <option>Arte</option>
+                                        <option>Educação Física</option>
+                                        <option>L.E.M.-Inglês</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Critério de acesso ao cargo (se houver)</label>
+                                    <select class="form-select" disabled>
+                                        <option>Concurso Público</option>
+                                    </select>
+                                </div>
+                                <div class="mt-3">
+                                    <button class="btn btn-sm btn-success" disabled><i class="fas fa-plus"></i> incluir</button>
+                                    <button class="btn btn-sm btn-warning" disabled><i class="fas fa-edit"></i> alterar</button>
+                                    <button class="btn btn-sm btn-danger" disabled><i class="fas fa-trash"></i> excluir</button>
+                                    <button class="btn btn-sm btn-secondary" disabled><i class="fas fa-eraser"></i> limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card card-light">
+                            <div class="card-header"><h6 class="card-title">Resultado – atuações cadastradas</h6></div>
+                            <div class="card-body p-0">
+                                <table class="table table-bordered table-sm mb-0">
+                                    <thead style="background-color: #B7DDC8;">
+                                        <tr>
+                                            <th>Função</th>
+                                            <th>Turma</th>
+                                            <th>Disciplina</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: #D6EBDF;">
+                                            <td>Docente</td>
+                                            <td>5º Ano Integral A</td>
+                                            <td>Língua Portuguesa</td>
+                                        </tr>
+                                        <tr style="background-color: #D6EBDF;">
+                                            <td>Docente</td>
+                                            <td>5º Ano Integral A</td>
+                                            <td>Matemática</td>
+                                        </tr>
+                                        <tr style="background-color: #D6EBDF;">
+                                            <td>Docente</td>
+                                            <td>5º Ano Integral A</td>
+                                            <td>Ciências</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="callout callout-warning mt-2">
+                    <i class="fas fa-info-circle"></i> Para escolas parciais (manhã e tarde): repita o processo selecionando a segunda turma e incluindo as disciplinas correspondentes.
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- ==================== 2. DOCENTE CORRENGENTE ==================== -->
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fas fa-users"></i> 2. Docente Correngente (Especialista)</h4>
+            </div>
+            <div class="card-body">
+                <p>Exemplo: professor de Educação Física que atua em todas as turmas do 1º ao 5º ano.</p>
+
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="card card-light">
+                            <div class="card-header"><h6 class="card-title">Formulário + painel de turmas</h6></div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Função</label>
+                                    <select class="form-select" disabled>
+                                        <option>Docente</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Turma (seleção individual)</label>
+                                    <select class="form-select" disabled>
+                                        <option>ENS FUND 1/5 A/S - TEMPO INTEGRAL 1º Ano Integral A</option>
+                                        <option>ENS FUND 1/5 A/S - TEMPO INTEGRAL 2º Ano Integral A</option>
+                                        <option>ENS FUND 1/5 A/S - TEMPO INTEGRAL 3º Ano Integral A</option>
+                                        <option>ENS FUND 1/5 A/S - TEMPO INTEGRAL 4º Ano Integral B</option>
+                                        <option>ENS FUND 1/5 A/S - TEMPO INTEGRAL 5º Ano Integral A</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Relação de turmas selecionadas</label>
+                                    <textarea class="form-control" rows="4" readonly disabled>1º Ano Integral A
+2º Ano Integral A
+3º Ano Integral A
+4º Ano Integral B
+5º Ano Integral A</textarea>
+                                    <small class="form-text text-muted">Clique em "incluir turma" para adicionar à lista.</small>
+                                </div>
+                                <div class="mb-2">
+                                    <button class="btn btn-sm btn-secondary" disabled><i class="fas fa-plus"></i> incluir turma</button>
+                                    <button class="btn btn-sm btn-info" disabled><i class="fas fa-sync-alt"></i> carregar disciplinas</button>
+                                </div>
+                                <div class="form-group">
+                                    <label>Disciplina (após carregar)</label>
+                                    <select class="form-select" disabled>
+                                        <option>Educação Física</option>
+                                        <option>Arte</option>
+                                        <option>L.E.M.-Inglês</option>
+                                    </select>
+                                </div>
+                                <div class="mt-2">
+                                    <button class="btn btn-sm btn-success" disabled><i class="fas fa-plus"></i> incluir</button>
+                                    <button class="btn btn-sm btn-secondary" disabled>limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card card-light">
+                            <div class="card-header"><h6 class="card-title">Atuações cadastradas (após "incluir")</h6></div>
+                            <div class="card-body p-0">
+                                <table class="table table-bordered table-sm mb-0">
+                                    <thead style="background-color: #B7DDC8;">
+                                        <tr>
+                                            <th>Função</th>
+                                            <th>Turma</th>
+                                            <th>Disciplina</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: #D6EBDF;"><td>Docente</td><td>1º Ano Integral A</td><td>Educação Física</td></tr>
+                                        <tr style="background-color: #D6EBDF;"><td>Docente</td><td>2º Ano Integral A</td><td>Educação Física</td></tr>
+                                        <tr style="background-color: #D6EBDF;"><td>Docente</td><td>3º Ano Integral A</td><td>Educação Física</td></tr>
+                                        <tr style="background-color: #D6EBDF;"><td>Docente</td><td>4º Ano Integral B</td><td>Educação Física</td></tr>
+                                        <tr style="background-color: #D6EBDF;"><td>Docente</td><td>5º Ano Integral A</td><td>Educação Física</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="callout callout-info mt-2">
+                    <i class="fas fa-lightbulb"></i> O botão <strong>"carregar disciplinas"</strong> analisa as turmas da lista e carrega apenas as disciplinas comuns a todas. Após selecionar a disciplina, o botão <strong>"incluir"</strong> cria um vínculo para cada turma automaticamente.
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- ==================== 3. DOCENTE SRM ==================== -->
+        <div class="card card-outline card-warning">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fas fa-universal-access"></i> 3. Docente da SRM (Sala de Recursos Multifuncionais)</h4>
+            </div>
+            <div class="card-body">
+                <p>Exemplo: professor que atende turmas de Atendimento Educacional Especializado (AEE).</p>
+
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="card card-light">
+                            <div class="card-header"><h6 class="card-title">Formulário – seleção de turmas SRM</h6></div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Função</label>
+                                    <select class="form-select" disabled>
+                                        <option>Docente</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Turma (apenas SRM)</label>
+                                    <select class="form-select" disabled>
+                                        <option>ATEND EDUC ESP-EDUC INFANTIL Sem Seriação Integral E</option>
+                                        <option>ATEND EDUC ESP-EDUC INFANTIL Sem Seriação Integral F</option>
+                                        <option>ATEND EDUC ESP-INTEGRAL AI EF Sem Seriação Integral A</option>
+                                        <option>ATEND EDUC ESP-INTEGRAL AI EF Sem Seriação Integral B</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Relação de turmas selecionadas</label>
+                                    <textarea class="form-control" rows="3" readonly disabled>ATEND EDUC ESP-EDUC INFANTIL Sem Seriação Integral E
+ATEND EDUC ESP-EDUC INFANTIL Sem Seriação Integral F
+ATEND EDUC ESP-INTEGRAL AI EF Sem Seriação Integral A</textarea>
+                                </div>
+                                <div class="mb-2">
+                                    <button class="btn btn-sm btn-secondary" disabled><i class="fas fa-plus"></i> incluir turma</button>
+                                    <button class="btn btn-sm btn-info" disabled><i class="fas fa-sync-alt"></i> carregar disciplinas</button>
+                                </div>
+                                <div class="form-group">
+                                    <label>Disciplina (AEE)</label>
+                                    <select class="form-select" disabled>
+                                        <option>Educação Especial</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-sm btn-success" disabled><i class="fas fa-plus"></i> incluir</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card card-light">
+                            <div class="card-header"><h6 class="card-title">Atuações cadastradas</h6></div>
+                            <div class="card-body p-0">
+                                <table class="table table-bordered table-sm mb-0">
+                                    <thead style="background-color: #B7DDC8;">
+                                        <tr><th>Função</th><th>Turma</th><th>Disciplina</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: #D6EBDF;"><td>Docente</td><td>Infantil Integral E</td><td>Educação Especial</td></tr>
+                                        <tr style="background-color: #D6EBDF;"><td>Docente</td><td>Infantil Integral F</td><td>Educação Especial</td></tr>
+                                        <tr style="background-color: #D6EBDF;"><td>Docente</td><td>AI EF Sem Seriação A</td><td>Educação Especial</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="callout callout-danger mt-2">
+                    <i class="fas fa-exclamation-triangle"></i> Não misture turmas regulares com turmas de SRM no mesmo cadastro correngente. Faça um cadastro separado para cada tipo de atuação.
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- 4. EDIÇÃO E EXCLUSÃO -->
+        <div class="card card-outline card-secondary">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fas fa-edit"></i> 4. Editando ou excluindo atuações</h4>
+            </div>
+            <div class="card-body">
+                <p>Na tabela de <strong>Atuações Cadastradas do Funcionário</strong>, clique sobre a linha desejada. Os campos do formulário serão preenchidos automaticamente para que você possa <strong>alterar</strong> ou <strong>excluir</strong> o vínculo.</p>
+                <p>Exemplo de uso:</p>
+                <ul>
+                    <li>Clique em "Docente – 5º Ano Integral A – Língua Portuguesa".</li>
+                    <li>O formulário carrega função, turma e disciplina.</li>
+                    <li>Modifique a disciplina para "Matemática" e clique em <button class="btn btn-sm btn-warning" disabled>alterar</button>.</li>
+                    <li>Ou clique em <button class="btn btn-sm btn-danger" disabled>excluir</button> para remover o vínculo.</li>
+                </ul>
+                <p class="text-muted"><i class="fas fa-save"></i> Lembre-se: após incluir um novo vínculo, clique em "incluir"; após modificar, clique em "alterar". Ambos salvam o registro.</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Dicas finais -->
         <div class="callout callout-success">
-            <h5><i class="fas fa-clipboard-list"></i> Passo a passo</h5>
-            <ol>
-                <li>No campo <strong>Função</strong>, selecione <span class="badge badge-primary">Docente</span>.</li>
-                <li>No campo <strong>Turma</strong>, escolha a turma da qual o professor é regente. Automaticamente as disciplinas da turma serão carregadas no campo <strong>Disciplina</strong>.</li>
-                <li>Selecione a primeira disciplina que o professor ministrará e clique em <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i> incluir</button>.</li>
-                <li>Repita o processo para cada disciplina da turma (ex.: Língua Portuguesa, Matemática, Ciências, etc.).</li>
-                <li><strong>Observação para escolas parciais:</strong> caso o professor atue em duas turmas (manhã e tarde), selecione a primeira turma e inclua as disciplinas. Depois selecione a segunda turma e repita as inclusões.</li>
-            </ol>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-outline card-success">
-                    <div class="card-header">
-                        <h5 class="card-title">Exemplo – Regente 5º ano Integral</h5>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Turma:</strong> ENS FUND 1/5 A/S - TEMPO INTEGRAL 5º Ano Integral A</p>
-                        <p><strong>Disciplinas incluídas:</strong> Língua Portuguesa, Matemática, Ciências, Geografia, História, Ensino Religioso, Arte, Educação Física, Inglês.</p>
-                        <p><em>Processo: selecionar a turma → escolher cada disciplina → clicar em “incluir”.</em></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-outline card-warning">
-                    <div class="card-header">
-                        <h5 class="card-title">Atenção</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Não utilize a área de “Relação de turmas selecionadas” para regentes, pois ela serve para correngentes.</li>
-                            <li>Certifique-se de incluir todas as disciplinas da turma para que o Censo Escolar reflita a carga horária correta.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr>
-
-        <!-- 2. DOCENTE CORRENGENTE -->
-        <h4><i class="fas fa-users"></i> 2. Docente Correngente (Especialista)</h4>
-        <div class="callout callout-info">
-            <h5><i class="fas fa-clipboard-list"></i> Passo a passo</h5>
-            <ol>
-                <li>No campo <strong>Função</strong>, selecione <span class="badge badge-primary">Docente</span>.</li>
-                <li>Vá até o quadro <strong>Relação de turmas selecionadas</strong> (lado direito da tela).</li>
-                <li>No campo <strong>Turma</strong>, escolha a primeira turma em que o professor atuará e clique em <button class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> incluir turma</button>. A turma será adicionada à lista.</li>
-                <li>Repita o passo 3 para <strong>todas as turmas</strong> onde o docente lecionará a mesma disciplina (ex.: todas as turmas de 1º ao 5º ano para Educação Física).</li>
-                <li>Após inserir todas as turmas, clique em <button class="btn btn-sm btn-info"><i class="fas fa-sync-alt"></i> carregar disciplinas</button>. O campo <strong>Disciplina</strong> será preenchido com as disciplinas comuns a todas as turmas selecionadas.</li>
-                <li>No campo <strong>Disciplina</strong>, selecione a disciplina desejada (ex.: Educação Física).</li>
-                <li>Clique em <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i> incluir</button> para registrar a atuação em massa. <em>O sistema criará automaticamente um vínculo para cada turma com a disciplina escolhida.</em></li>
-                <li>Se o professor lecionar mais de uma disciplina diferente nas mesmas turmas (ex.: Arte e Ensino Religioso), repita os passos 6‑7 para cada disciplina.</li>
-            </ol>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-outline card-info">
-                    <div class="card-header">
-                        <h5 class="card-title">Exemplo – Educação Física (1º ao 5º ano)</h5>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Turmas selecionadas:</strong> todas as turmas do 1º ao 5º ano (integral).</p>
-                        <p><strong>Disciplina:</strong> Educação Física.</p>
-                        <p><strong>Resultado:</strong> ao clicar em “incluir”, o sistema cria automaticamente as atuações para cada turma, sem necessidade de incluir uma a uma.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr>
-
-        <!-- 3. DOCENTE DA SRM -->
-        <h4><i class="fas fa-universal-access"></i> 3. Docente da SRM (Sala de Recursos Multifuncionais)</h4>
-        <div class="callout callout-warning">
-            <h5><i class="fas fa-clipboard-list"></i> Passo a passo</h5>
-            <p>O cadastro de docentes que atuam no Atendimento Educacional Especializado (AEE) segue a mesma lógica dos correngentes, porém utilizando <strong>apenas turmas de SRM</strong> (códigos iniciados por "ATEND EDUC ESP").</p>
-            <ol>
-                <li>No campo <strong>Função</strong>, selecione <span class="badge badge-primary">Docente</span>.</li>
-                <li>Na <strong>Relação de turmas selecionadas</strong>, escolha cada turma de SRM em que o professor atua e clique em <button class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> incluir turma</button>.</li>
-                <li>Após incluir todas as turmas, clique em <button class="btn btn-sm btn-info"><i class="fas fa-sync-alt"></i> carregar disciplinas</button>.</li>
-                <li>Selecione a disciplina específica do AEE (normalmente <strong>Educação Especial / AEE</strong>, ou conforme a nomenclatura da rede).</li>
-                <li>Clique em <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i> incluir</button> para vincular o docente a todas as turmas SRM simultaneamente.</li>
-                <li><strong>Observação:</strong> caso o docente atue apenas em uma turma de SRM, o procedimento pode ser feito selecionando a turma diretamente e incluindo a disciplina, sem necessidade do painel de “Relação de turmas”.</li>
-            </ol>
-        </div>
-
-        <div class="callout callout-danger">
-            <i class="fas fa-exclamation-triangle"></i> <strong>Importante:</strong> As turmas de SRM possuem características específicas (sem seriação, carga horária diferenciada). Nunca misture turmas regulares com turmas de SRM no mesmo cadastro correngente; faça cadastros separados para cada tipo de atuação.
-        </div>
-
-        <hr>
-
-        <!-- 4. EDITAR / EXCLUIR ATUAÇÕES -->
-        <h4><i class="fas fa-edit"></i> 4. Editando ou excluindo atuações já cadastradas</h4>
-        <div class="callout callout-secondary">
-            <p>Na tabela <strong>Atuações Cadastradas do Funcionário</strong>, cada linha representa um vínculo (função + turma + disciplina).</p>
+            <h5><i class="fas fa-check-circle"></i> Recomendações gerais</h5>
             <ul>
-                <li>Clique sobre o nome da <strong>Função</strong> ou <strong>Disciplina</strong> (link) para carregar os dados no formulário de edição.</li>
-                <li>Depois de carregado, você pode:
-                    <ul>
-                        <li><strong>Alterar</strong> – modifique os campos desejados e clique em <button class="btn btn-sm btn-warning">alterar</button>.</li>
-                        <li><strong>Excluir</strong> – remova o vínculo clicando em <button class="btn btn-sm btn-danger">excluir</button>.</li>
-                    </ul>
-                </li>
-                <li>Após qualquer alteração, lembre-se de que o sistema exige que você clique em <strong>incluir</strong> para novas atuações ou <strong>alterar</strong> para modificações; ambos salvam o registro.</li>
-            </ul>
-        </div>
-
-        <hr>
-
-        <!-- DICAS FINAIS -->
-        <div class="callout callout-success">
-            <h5><i class="fas fa-lightbulb"></i> Recomendações gerais</h5>
-            <ul>
-                <li><strong>Organize o cadastro:</strong> primeiro cadastre todos os regentes, depois os correngentes e por último os docentes da SRM.</li>
-                <li><strong>Evite duplicidades:</strong> um mesmo professor pode ter mais de uma função? Apenas se houver acúmulo legal. Do contrário, o sistema pode gerar inconsistências no Censo.</li>
-                <li><strong>Verifique os dados antes de finalizar:</strong> confira se a carga horária total corresponde à realidade do servidor.</li>
-                <li>Utilize o botão <strong>limpar</strong> para reiniciar o formulário sem perder as atuações já salvas.</li>
+                <li>Organize o cadastro: primeiro regentes, depois correngentes e por último SRM.</li>
+                <li>Evite duplicidades e verifique a carga horária total.</li>
+                <li>Use o botão <strong>limpar</strong> para reiniciar o formulário sem perder as atuações já salvas.</li>
             </ul>
         </div>
 
