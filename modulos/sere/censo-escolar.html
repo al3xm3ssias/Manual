@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manual do Censo Escolar – Correção de erros no SERE">
+  <meta name="theme-color" content="#007bff">
+  <title>Censo Escolar – Manual do Escriturário</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+
+  <link rel="icon" href="/Manual/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Manual/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/Manual/assets/img/apple-touch-icon.png">
+
+  <style>
+    :root{--primary-color:#007bff;--success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f4f6f9;}
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#007bff,#28a745);z-index:99999;width:0%;transition:width 0.1s linear;pointer-events:none;}
+    .back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:#007bff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.3s;font-size:16px;box-shadow:0 4px 14px rgba(0,123,255,0.35);border:none;z-index:1000;}
+    .back-to-top.visible{opacity:1;}
+    .page-info-card{border-radius:10px;border-left:5px solid var(--primary-color);margin-bottom:20px;}
+    .icon-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+    .toc-sticky{position:sticky;top:72px;}
+    .toc-nav a{display:block;padding:5px 14px;font-size:13px;color:#495057;text-decoration:none;border-left:3px solid transparent;transition:all 0.15s;}
+    .toc-nav a:hover,.toc-nav a.active{color:#007bff;border-left-color:#007bff;background:#f8f9fa;}
+    .lightbox-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);z-index:99990;display:none;align-items:center;justify-content:center;cursor:zoom-out;}
+    .lightbox-overlay.open{display:flex;}
+    .lightbox-overlay img{max-width:92%;max-height:92vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .lightbox-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;line-height:1;}
+    .img-zoomable{cursor:zoom-in;transition:transform 0.2s;}
+    .img-zoomable:hover{transform:scale(1.02);}
+    .toast-container{position:fixed;bottom:20px;right:20px;z-index:9998;}
+    .custom-toast{background:white;border-left:4px solid var(--primary-color);padding:12px 20px;margin-top:10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.2);animation:slideIn .3s ease;display:flex;align-items:center;gap:10px;}
+    @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    .favorite-item,.history-item{padding:8px;margin-bottom:5px;background:rgba(255,255,255,.1);border-radius:5px;cursor:pointer;transition:all .2s;}
+    .favorite-item:hover,.history-item:hover{background:rgba(255,255,255,.2);}
+    .search-results-dropdown{position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ddd;border-radius:4px;max-height:300px;overflow-y:auto;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+    .search-result-item{padding:10px;cursor:pointer;border-bottom:1px solid #eee;}
+    .search-result-item:hover{background:#f8f9fa;}
+    .btn-favorite{cursor:pointer;transition:all .2s;}
+    .btn-favorite:hover{transform:scale(1.1);}
+    .btn-favorite.active{color:var(--warning-color);}
+    .steps-container .step-num{width:36px;height:36px;border-radius:50%;background:#007bff;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;}
+    pre code{font-family:'Cascadia Code','Consolas','Monaco',monospace;}
+    @media print{.main-sidebar,.main-header,.control-sidebar,.main-footer,.back-to-top,#reading-progress{display:none!important;}.content-wrapper{margin-left:0!important;}}
+    @media(max-width:768px){.brand-text,.user-panel .info{display:none;}.toc-sticky{display:none;}}
+    /* Melhoria: checklist customizado */
+    .checklist-item { cursor: pointer; }
+    .checklist-item.done { text-decoration: line-through; opacity: 0.7; }
+    .section-card { margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<div class="wrapper">
+
+  <div id="reading-progress"></div>
+
+  <!-- NAVBAR -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom shadow-sm">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-md-block">
+        <ol class="breadcrumb mb-0 ms-2" style="font-size:13px;align-items:center;background:none;padding:0;">
+          <li class="breadcrumb-item"><a href="../../index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Início</a></li>
+          <li class="breadcrumb-item text-muted">Planejamento e Censo</li>
+          <li class="breadcrumb-item active">Censo Escolar</li>
+        </ol>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item d-none d-md-inline-block">
+        <div class="input-group input-group-sm" style="position:relative;">
+          <input class="form-control form-control-navbar" type="search" id="global-search-input" placeholder="Buscar procedimentos..." autocomplete="off">
+          <div class="input-group-append"><button class="btn btn-navbar" type="button"><i class="fas fa-search"></i></button></div>
+          <div class="search-results-dropdown" id="search-dropdown" style="display:none;"></div>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" title="Imprimir" href="#" onclick="window.print();return false;"><i class="fas fa-print"></i></a></li>
+      <li class="nav-item">
+        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="censo-escolar" title="Favoritar" onclick="toggleFavorite('censo-escolar','Censo Escolar')"><i class="fas fa-star"></i></a>
+      </li>
+      <li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a></li>
+    </ul>
+  </nav>
+
+  <!-- SIDEBAR -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" id="sidebar-container"></aside>
+
+  <!-- CONTENT WRAPPER -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <h1 class="m-0 d-flex align-items-center gap-2">
+              <i class="fas fa-file-alt text-warning me-1"></i>
+              Censo Escolar
+            </h1>
+          </div>
+          <div class="col-auto">
+            <button onclick="window.print()" class="btn btn-outline-secondary btn-sm me-1">
+              <i class="fas fa-print me-1"></i>Imprimir
+            </button>
+            <button onclick="toggleFavorite('censo-escolar','Censo Escolar')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="censo-escolar">
+              <i class="fas fa-star me-1"></i>Favoritar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- MAIN CONTENT -->
+          <div class="col-xl-9">
+            <!-- Page info card -->
+            <div class="card page-info-card">
+              <div class="card-body">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="icon-circle bg-primary text-white">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h2 class="h4 mb-1">Censo Escolar</h2>
+                    <p class="mb-1">Coleta, prazos e correção de erros via Crítica de Consistência do SERE.</p>
+                    <div class="d-flex flex-wrap gap-3 small text-muted">
+                      <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-15</span>
+                      <span><i class="fas fa-folder me-1"></i>Planejamento e Censo</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- INTRODUÇÃO -->
+            <div class="card section-card" id="section-intro">
+              <div class="card-header bg-light">
+                <h5 class="card-title mb-0"><i class="fas fa-info-circle text-primary me-2"></i>O que é o Censo Escolar?</h5>
+              </div>
+              <div class="card-body">
+                <p>O Censo Escolar é o principal levantamento estatístico da educação básica brasileira, realizado anualmente pelo INEP em parceria com as secretarias estaduais e municipais de educação. Por meio dele, são coletadas informações sobre escolas, turmas, alunos, professores e a infraestrutura física e pedagógica de cada unidade escolar. Esses dados servem de base para o cálculo de repasses de recursos (como o FUNDEB), para a definição de políticas públicas educacionais e para o planejamento da rede de ensino.</p>
+                <p>O período de coleta e atualização das informações no SERE costuma ocorrer todos os anos até, aproximadamente, o dia <strong>31/05</strong>. Os prazos exatos para atualização e correção dos dados variam de ano para ano e são definidos e repassados pela <strong>SME / Documentação Escolar</strong>, cabendo à escola acompanhar os comunicados oficiais para não perder o período de retificação.</p>
+                <div class="alert alert-info">
+                  <i class="fas fa-info-circle"></i> Durante o período do Censo, somos responsáveis por corrigir os erros apontados pela <strong>Crítica de Consistência</strong> do SERE. Esses erros indicam, principalmente, cadastros desatualizados de escola, professores e alunos.
+                </div>
+              </div>
+            </div>
+
+            <!-- CAMINHO NO SERE -->
+            <div class="card section-card" id="section-caminho">
+              <div class="card-header bg-light">
+                <h5 class="card-title mb-0"><i class="fas fa-route text-success me-2"></i>Onde encontrar a Crítica de Consistência</h5>
+              </div>
+              <div class="card-body">
+                <p>Todos os erros pendentes podem ser visualizados no próprio SERE, através do caminho:</p>
+                <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+                  <span class="badge badge-secondary">Menu</span>
+                  <i class="fas fa-arrow-right mx-1"></i>
+                  <span class="badge badge-secondary">Censo Escolar</span>
+                  <i class="fas fa-arrow-right mx-1"></i>
+                  <span class="badge badge-secondary">Crítica de Consistência</span>
+                </div>
+                <!-- Imagem comentada para exemplo; descomente e ajuste o src se tiver print -->
+                <!-- <img src="img/caminho-sere.png" alt="Print da tela do SERE" class="img-fluid img-zoomable rounded shadow-sm" onclick="openLightbox('img/caminho-sere.png')" style="max-height: 200px;">
+                <p class="small text-muted mt-2"><i class="fas fa-search-plus me-1"></i>Clique na imagem para ampliar.</p> -->
+              </div>
+            </div>
+
+            <!-- ERROS MAIS COMUNS -->
+            <div class="card section-card" id="section-erros-comuns">
+              <div class="card-header bg-light">
+                <h5 class="card-title mb-0"><i class="fas fa-exclamation-triangle text-warning me-2"></i>Erros mais comuns</h5>
+              </div>
+              <div class="card-body">
+                <p>A maioria dos erros listados na Crítica de Consistência se repete ano após ano e está relacionada a cadastros que não foram atualizados. Abaixo estão os tipos mais frequentes encontrados na escola.</p>
+                <div class="alert alert-warning">
+                  <i class="fas fa-exclamation-circle"></i>
+                  <strong>Dados mascarados:</strong> os CPFs exibidos abaixo são exemplos fictícios, gerados apenas para ilustração. Os dígitos centrais foram substituídos por "x" e mantido apenas o padrão <code>00x.xxx.xx9-xx</code>.
+                </div>
+              </div>
+            </div>
+
+            <!-- 1. Funcionário com atuação em turma inativa -->
+            <div class="card section-card" id="section-funcionario-turma-inativa">
+              <div class="card-header">
+                <h6 class="mb-0"><i class="fas fa-user-clock text-danger me-2"></i>1. Funcionário com atuação em turma inativa</h6>
+              </div>
+              <div class="card-body">
+                <p>Ocorre quando um professor ou funcionário está vinculado a uma turma de um ano anterior, que já foi desativada no sistema. É necessário acessar o cadastro do profissional e remover/ajustar o vínculo com a turma inativa.</p>
+                <table class="table table-bordered table-sm">
+                  <thead class="thead-light">
+                    <tr><th>Identificação</th><th>Erro encontrado</th><th>Informação com problema</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Funcionário - CPF: 00x.xxx.xx9-xx</td><td>Atuação em turma inativa !</td><td>Turma: 2673xxx</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- 2. Cadastro da escola desatualizado -->
+            <div class="card section-card" id="section-cadastro-escola">
+              <div class="card-header">
+                <h6 class="mb-0"><i class="fas fa-school text-primary me-2"></i>2. Cadastro da escola desatualizado</h6>
+              </div>
+              <div class="card-body">
+                <p>Diversos itens do questionário da escola (Código: 2010-02532) ficam pendentes quando o cadastro não é revisado de um ano para o outro. Os principais campos que costumam aparecer como pendência estão listados abaixo. Utilize a checklist para marcar os itens já corrigidos – seu progresso fica salvo no navegador.</p>
+                
+                <div class="table-responsive">
+                  <table class="table table-hover table-sm checklist-table">
+                    <thead class="thead-light">
+                      <tr><th>Item</th><th>Campo pendente</th><th style="width:80px">OK</th></tr>
+                    </thead>
+                    <tbody id="checklist-escola">
+                      <!-- preenchido via JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+                <p class="small text-muted mt-2"><i class="fas fa-mouse-pointer me-1"></i>Clique na coluna "OK" para marcar como corrigido.</p>
+                <button class="btn btn-sm btn-outline-secondary" onclick="resetChecklist('escola')"><i class="fas fa-undo-alt me-1"></i>Limpar checklist</button>
+              </div>
+            </div>
+
+            <!-- 3. Cadastro do funcionário/professor desatualizado -->
+            <div class="card section-card" id="section-cadastro-professor">
+              <div class="card-header">
+                <h6 class="mb-0"><i class="fas fa-id-card text-info me-2"></i>3. Cadastro do funcionário/professor desatualizado</h6>
+              </div>
+              <div class="card-body">
+                <p>Erros relacionados à ficha funcional do servidor, que costumam aparecer quando o cadastro não foi revisado:</p>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><i class="fas fa-times-circle text-danger me-2"></i>Regime de contratação não informado</li>
+                  <li class="list-group-item"><i class="fas fa-times-circle text-danger me-2"></i>Nenhuma opção de "Outros cursos" informada</li>
+                  <li class="list-group-item"><i class="fas fa-times-circle text-danger me-2"></i>Curso superior não informado</li>
+                  <li class="list-group-item"><i class="fas fa-times-circle text-danger me-2"></i>Necessário informar se possui pós-graduação</li>
+                  <li class="list-group-item"><i class="fas fa-times-circle text-danger me-2"></i>Pós-graduação informada duas vezes / informações incorretas</li>
+                  <li class="list-group-item"><i class="fas fa-times-circle text-danger me-2"></i>Formação/complementação pedagógica não pode ser informada para funcionário sem vínculo em sala de aula em turmas que migram para o Censo</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- 4. Erros de endereço e dados pessoais -->
+            <div class="card section-card" id="section-endereco">
+              <div class="card-header">
+                <h6 class="mb-0"><i class="fas fa-map-marker-alt text-secondary me-2"></i>4. Erros de endereço e dados pessoais</h6>
+              </div>
+              <div class="card-body">
+                <p>Também podem surgir erros do tipo <strong>CEP inválido</strong>, <strong>CPF inválido</strong>, <strong>número de endereço inexistente/inválido</strong> (ex.: número informado como "0") ou endereço inexistente. Esses erros são corrigidos atualizando o cadastro pessoal do aluno ou do funcionário com os dados corretos.</p>
+              </div>
+            </div>
+
+            <!-- 5. Numerações incorretas -->
+            <div class="card section-card" id="section-numeracoes">
+              <div class="card-header">
+                <h6 class="mb-0"><i class="fas fa-calculator text-success me-2"></i>5. Numerações incorretas no cadastro da escola</h6>
+              </div>
+              <div class="card-body">
+                <p>Alguns erros são causados por valores numéricos informados incorretamente no cadastro da escola, como por exemplo a quantidade de computadores disponíveis para os alunos, número de salas existentes, entre outros campos numéricos que precisam refletir a realidade atual da unidade escolar.</p>
+              </div>
+            </div>
+
+            <!-- DICA FINAL -->
+            <div class="card section-card" id="section-resumo">
+              <div class="card-body bg-success text-white rounded">
+                <h5 class="mb-2"><i class="fas fa-lightbulb me-2"></i>Em resumo</h5>
+                <p class="mb-0">A grande maioria dos erros do Censo desaparece simplesmente revisando e atualizando os cadastros da escola, dos profissionais e dos alunos dentro do SERE, conforme apontado item a item na tela de Crítica de Consistência.</p>
+              </div>
+            </div>
+
+            <!-- FOOTER INFO -->
+            <div class="card mt-4 mb-4">
+              <div class="card-body text-muted small">
+                <i class="fas fa-info-circle me-1"></i> Última atualização: <strong>2026-06-15</strong> — Autor: <strong>Secretaria Escolar</strong>
+                <span class="ms-3"><i class="fas fa-folder me-1"></i>Planejamento e Censo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOC / RIGHT SIDEBAR (agora com Ações rápidas) -->
+          <div class="col-xl-3 d-none d-xl-block">
+            <div class="toc-sticky">
+              <div class="card">
+                <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-list-ul me-1"></i>Neste artigo</h6></div>
+                <div class="card-body py-2 toc-nav">
+                  <a href="#section-intro">O que é o Censo?</a>
+                  <a href="#section-caminho">Caminho no SERE</a>
+                  <a href="#section-erros-comuns">Erros mais comuns</a>
+                  <a href="#section-funcionario-turma-inativa">Turma inativa</a>
+                  <a href="#section-cadastro-escola">Cadastro da escola</a>
+                  <a href="#section-cadastro-professor">Cadastro do professor</a>
+                  <a href="#section-endereco">Endereço e dados</a>
+                  <a href="#section-numeracoes">Numerações</a>
+                  <a href="#section-resumo">Resumo</a>
+                </div>
+              </div>
+
+              <!-- AÇÕES RÁPIDAS (agora dentro da coluna lateral) -->
+              <div class="card mt-3">
+                <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-share-alt me-1"></i>Ações rápidas</h6></div>
+                <div class="card-body py-2">
+                  <button onclick="window.print()" class="btn btn-outline-secondary btn-sm w-100 mb-2"><i class="fas fa-print me-1"></i>Imprimir</button>
+                  <button onclick="toggleFavorite('censo-escolar','Censo Escolar')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="censo-escolar"><i class="fas fa-star me-1"></i>Favoritar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+  </div>
+
+
+
+
+  
+  <!-- RIGHT SIDEBAR (Favoritos/Histórico) -->
+  <aside class="control-sidebar control-sidebar-dark" id="right-sidebar">
+    <div class="control-sidebar-bg"></div>
+    <div class="p-3 control-sidebar-content">
+      <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-fav"><i class="fas fa-star"></i> Favoritos</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-hist"><i class="fas fa-history"></i> Histórico</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-fav">
+          <div id="favorites-list" class="text-center text-muted"><i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-favorites" style="display:none;" onclick="clearFavorites()"><i class="fas fa-trash"></i> Limpar favoritos</button>
+        </div>
+        <div class="tab-pane fade" id="tab-hist">
+          <div id="history-list" class="text-center text-muted"><i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-history" style="display:none;" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar histórico</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lightbox-img" src="" alt=""></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <footer class="main-footer">
+    <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-15</div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+<script>
+const PAGE_ID = 'censo-escolar';
+const PAGE_TITLE = 'Censo Escolar';
+
+let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
+function saveFavorites(){localStorage.setItem('manual_favorites',JSON.stringify(favorites));updateFavoritesUI();}
+function toggleFavorite(id,title){
+  const idx=favorites.findIndex(f=>f.id===id);
+  if(idx>-1) favorites.splice(idx,1); else favorites.push({id,title});
+  saveFavorites(); updateFavoriteStar(id);
+  showToast(idx>-1?'Removido dos favoritos':'Adicionado aos favoritos',idx>-1?'info':'success');
+}
+function updateFavoriteStar(id){
+  const isFav=favorites.some(f=>f.id===id);
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"]').forEach(el=>el.classList.toggle('active',isFav));
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"] i').forEach(el=>{el.className=isFav?'fas fa-star text-warning':'fas fa-star';});
+}
+function updateFavoritesUI(){
+  const c=document.getElementById('favorites-list');if(!c)return;
+  if(favorites.length===0){c.innerHTML='<i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.';document.getElementById('btn-clear-favorites')?.style&&(document.getElementById('btn-clear-favorites').style.display='none');return;}
+  c.innerHTML=favorites.map(f=>`<div class="favorite-item" onclick="location.href='${f.id}.html'"><i class="fas fa-star text-warning"></i> ${f.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-favorites');if(btn)btn.style.display='';
+}
+function clearFavorites(){if(confirm('Limpar todos os favoritos?')){favorites=[];saveFavorites();showToast('Favoritos limpos','info');}}
+
+let history2=JSON.parse(localStorage.getItem('manual_history')||'[]');
+function addToHistory(id,title){history2=history2.filter(h=>h.id!==id);history2.unshift({id,title,t:new Date().toISOString()});if(history2.length>20)history2.pop();localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();}
+function updateHistoryUI(){
+  const c=document.getElementById('history-list');if(!c)return;
+  if(history2.length===0){c.innerHTML='<i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.';return;}
+  c.innerHTML=history2.slice(0,10).map(h=>`<div class="history-item" onclick="location.href='${h.id}.html'"><i class="fas fa-history"></i> ${h.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-history');if(btn)btn.style.display='';
+}
+function clearHistory(){if(confirm('Limpar histórico?')){history2=[];localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();showToast('Histórico limpo','info');}}
+
+function showToast(msg,type='success'){
+  const c=document.getElementById('toast-container');if(!c)return;
+  const t=document.createElement('div');t.className='custom-toast';t.innerHTML=(type==='success'?'✓':'ℹ️')+' '+msg;
+  c.appendChild(t);setTimeout(()=>t.remove(),3000);
+}
+
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('reading-progress').style.width=Math.min(pct,100)+'%';
+  document.getElementById('back-to-top').classList.toggle('visible',d.scrollTop>300);
+  document.querySelectorAll('[id^="section-"]').forEach(sec=>{
+    const link=document.querySelector('.toc-nav a[href="#'+sec.id+'"]');if(!link)return;
+    const rect=sec.getBoundingClientRect();link.classList.toggle('active',rect.top<=80&&rect.bottom>0);
+  });
+});
+
+$(document).ready(function() {
+  // Carrega a sidebar (certifique-se do caminho)
+  $('aside#sidebar-container').load('../../sidebar.html', function() {
+    $('[data-widget="treeview"]').Treeview('init');
+    $('.nav-link.active').trigger('click');
+  });
+
+  // Inicializa checklist da escola
+  initChecklistEscola();
+});
+
+// ---- CHECKLIST INTERATIVA ----
+const itensEscola = [
+  "Atualização do projeto político-pedagógico (PPP)",
+  "Órgãos colegiados em funcionamento na escola",
+  "Uso de espaços e equipamentos do entorno escolar para atividades com alunos",
+  "Compartilhamento de espaços para integração escola-comunidade",
+  "Existência de site, blog ou página em redes sociais da escola",
+  "Exame de seleção para ingresso de alunos",
+  "Uso de instrumentos/materiais socioculturais em atividades de ensino",
+  "Recursos de acessibilidade",
+  "Tratamento e destinação do lixo",
+  "Órgão ao qual a escola pública está vinculada",
+  "Existência de docente atuando",
+  "Oferta (ou não) de educação indígena",
+  "Localização diferenciada",
+  "Equipamentos existentes na escola para uso técnico e administrativo",
+  "Número de salas de aula existentes",
+  "Dependências existentes na escola",
+  "Abastecimento de energia elétrica e de água",
+  "Fornecimento de água potável",
+  "Esgoto sanitário",
+  "Prédio compartilhado",
+  "Local de funcionamento da escola",
+  "Regulamentação da escola",
+  "Alimentação escolar para os alunos"
+];
+
+function initChecklistEscola() {
+  const tbody = document.getElementById('checklist-escola');
+  if (!tbody) return;
+  const saved = JSON.parse(localStorage.getItem('checklist_escola') || '{}');
+  tbody.innerHTML = itensEscola.map((item, i) => {
+    const checked = saved[i] || false;
+    return `<tr class="checklist-item ${checked ? 'done' : ''}" data-index="${i}">
+      <td>${i+1}</td>
+      <td>${item}</td>
+      <td class="text-center"><i class="fas ${checked ? 'fa-check-circle text-success' : 'fa-circle text-muted'}" style="cursor:pointer;"></i></td>
+    </tr>`;
+  }).join('');
+  // eventos de clique
+  tbody.querySelectorAll('tr').forEach(row => {
+    row.addEventListener('click', function(e) {
+      const index = this.dataset.index;
+      const saved = JSON.parse(localStorage.getItem('checklist_escola') || '{}');
+      saved[index] = !saved[index];
+      localStorage.setItem('checklist_escola', JSON.stringify(saved));
+      initChecklistEscola(); // recarrega para atualizar ícone
+    });
+  });
+}
+
+function resetChecklist(tipo) {
+  if (tipo === 'escola') {
+    localStorage.removeItem('checklist_escola');
+    initChecklistEscola();
+    showToast('Checklist da escola reiniciada', 'info');
+  }
+}
+
+// ---- LIGHTBOX ----
+function openLightbox(src){const lb=document.getElementById('lightbox');lb.classList.add('open');document.getElementById('lightbox-img').src=src;}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+
+// ---- BUSCA GLOBAL ----
+const allPages=[
+  {id:"pre_matricula",title:"Pré-Matrícula"},
+  {id:"documentacao",title:"Documentação Necessária – Matrícula"},
+  {id:"matriculas",title:"Matrícula"},
+  {id:"transferencia-entrada",title:"Transferência – Entrada"},
+  {id:"transferencia-saida",title:"Transferência – Saída"},
+  {id:"historicos",title:"Históricos Escolares"},
+  {id:"declaracoes",title:"Declarações"},
+  {id:"censo-escolar",title:"Censo Escolar"}
+];
+const si=document.getElementById('global-search-input');
+const sd=document.getElementById('search-dropdown');
+if(si&&sd){
+  si.addEventListener('input',()=>{
+    const q=si.value.toLowerCase();if(q.length<2){sd.style.display='none';return;}
+    const r=allPages.filter(p=>p.title.toLowerCase().includes(q));
+    if(r.length){sd.innerHTML=r.map(p=>`<div class="search-result-item" onclick="location.href='${p.id}.html'"><i class="fas fa-file-alt me-2"></i>${p.title}</div>`).join('');sd.style.display='';}
+    else{sd.innerHTML='<div class="p-2 text-muted">Nenhum resultado</div>';sd.style.display='';}
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.input-group'))sd.style.display='none';});
+}
+
+// Inicialização de favoritos e histórico
+document.addEventListener('DOMContentLoaded',()=>{
+  updateFavoriteStar(PAGE_ID);
+  addToHistory(PAGE_ID,PAGE_TITLE);
+  updateFavoritesUI();
+  updateHistoryUI();
+});
+</script>
+</body>
+</html>

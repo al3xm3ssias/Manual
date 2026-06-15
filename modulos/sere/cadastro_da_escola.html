@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="theme-color" content="#007bff">
+  <title>Cadastro da Escola – Manual do Escriturário</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+
+  <link rel="icon" href="/Manual/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Manual/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/Manual/assets/img/apple-touch-icon.png">
+
+  <style>
+    :root{--primary-color:#007bff;--success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f4f6f9;}
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#007bff,#28a745);z-index:99999;width:0%;transition:width 0.1s linear;pointer-events:none;}
+    .back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:#007bff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.3s;font-size:16px;box-shadow:0 4px 14px rgba(0,123,255,0.35);border:none;z-index:1000;}
+    .back-to-top.visible{opacity:1;}
+    .page-info-card{border-radius:10px;border-left:5px solid var(--primary-color);margin-bottom:20px;}
+    .icon-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+    .toc-sticky{position:sticky;top:72px;}
+    .toc-nav a{display:block;padding:5px 14px;font-size:13px;color:#495057;text-decoration:none;border-left:3px solid transparent;transition:all 0.15s;}
+    .toc-nav a:hover,.toc-nav a.active{color:#007bff;border-left-color:#007bff;background:#f8f9fa;}
+    .lightbox-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);z-index:99990;display:none;align-items:center;justify-content:center;cursor:zoom-out;}
+    .lightbox-overlay.open{display:flex;}
+    .lightbox-overlay img{max-width:92%;max-height:92vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .lightbox-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;line-height:1;}
+    .img-zoomable{cursor:zoom-in;transition:transform 0.2s;}
+    .img-zoomable:hover{transform:scale(1.02);}
+    .toast-container{position:fixed;bottom:20px;right:20px;z-index:9998;}
+    .custom-toast{background:white;border-left:4px solid var(--primary-color);padding:12px 20px;margin-top:10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.2);animation:slideIn .3s ease;display:flex;align-items:center;gap:10px;}
+    @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    .favorite-item,.history-item{padding:8px;margin-bottom:5px;background:rgba(255,255,255,.1);border-radius:5px;cursor:pointer;transition:all .2s;}
+    .favorite-item:hover,.history-item:hover{background:rgba(255,255,255,.2);}
+    .search-results-dropdown{position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ddd;border-radius:4px;max-height:300px;overflow-y:auto;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+    .search-result-item{padding:10px;cursor:pointer;border-bottom:1px solid #eee;}
+    .search-result-item:hover{background:#f8f9fa;}
+    .btn-favorite{cursor:pointer;transition:all .2s;}
+    .btn-favorite:hover{transform:scale(1.1);}
+    .btn-favorite.active{color:var(--warning-color);}
+    .steps-container .step-num{width:36px;height:36px;border-radius:50%;background:#007bff;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;}
+    pre code{font-family:'Cascadia Code','Consolas','Monaco',monospace;}
+    @media print{.main-sidebar,.main-header,.control-sidebar,.main-footer,.back-to-top,#reading-progress{display:none!important;}.content-wrapper{margin-left:0!important;}}
+    @media(max-width:768px){.brand-text,.user-panel .info{display:none;}.toc-sticky{display:none;}}
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<div class="wrapper">
+
+  <div id="reading-progress"></div>
+
+  <!-- NAVBAR -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom shadow-sm">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-md-block">
+        <ol class="breadcrumb mb-0 ms-2" style="font-size:13px;align-items:center;background:none;padding:0;">
+          <li class="breadcrumb-item"><a href="../../index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Início</a></li>
+          <li class="breadcrumb-item text-muted">Planejamento e Censo</li>
+          <li class="breadcrumb-item active">Cadastro da Escola</li>
+        </ol>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item d-none d-md-inline-block">
+        <div class="input-group input-group-sm" style="position:relative;">
+          <input class="form-control form-control-navbar" type="search" id="global-search-input" placeholder="Buscar procedimentos..." autocomplete="off">
+          <div class="input-group-append"><button class="btn btn-navbar" type="button"><i class="fas fa-search"></i></button></div>
+          <div class="search-results-dropdown" id="search-dropdown" style="display:none;"></div>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" title="Imprimir" href="#" onclick="window.print();return false;"><i class="fas fa-print"></i></a></li>
+      <li class="nav-item">
+        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="cadastro_da_escola" title="Favoritar" onclick="toggleFavorite('cadastro_da_escola','Cadastro da Escola')"><i class="fas fa-star"></i></a>
+      </li>
+      <li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a></li>
+    </ul>
+  </nav>
+
+  <!-- SIDEBAR -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" id="sidebar-container"></aside>
+
+  <!-- CONTENT WRAPPER -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <h1 class="m-0 d-flex align-items-center gap-2">
+              <i class="fas fa-file-alt text-success me-1"></i>
+              Cadastro da Escola
+            </h1>
+          </div>
+          <div class="col-auto">
+            <button onclick="window.print()" class="btn btn-outline-secondary btn-sm me-1">
+              <i class="fas fa-print me-1"></i>Imprimir
+            </button>
+            <button onclick="toggleFavorite('cadastro_da_escola','Cadastro da Escola')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="cadastro_da_escola">
+              <i class="fas fa-star me-1"></i>Favoritar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- MAIN CONTENT -->
+          <div class="col-xl-9">
+            <!-- Page info card -->
+            <div class="card page-info-card">
+              <div class="card-body">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="icon-circle bg-primary text-white">
+                    <i class="fas fa-school"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h2 class="h4 mb-1">Cadastro da Escola</h2>
+                    <div class="d-flex flex-wrap gap-3 small text-muted">
+                      <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-15</span>
+                      <span><i class="fas fa-folder me-1"></i>Planejamento e Censo</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CONTEÚDO PRINCIPAL (TOTALMENTE PRESERVADO) -->
+            <div id="page-content">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title"><i class="fas fa-building mr-2"></i>Cadastro da Escola no SERE</h3>
+                </div>
+                <div class="card-body">
+
+                  <!-- ALERTA URGENTE (callout) -->
+                  <div class="callout callout-warning">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Prazo e orientações</h5>
+                    <p>
+                      <strong>Prazo: Realize todas as atualizações até 27/05/2026.</strong><br>
+                      Funcionários em LTS e LG <strong>não entram</strong> no Censo Escolar.<br>
+                      A Crítica de Consistência pelo Censo Escolar está temporariamente indisponível — realize a crítica dos alunos pelo caminho <em>Matrícula &gt; Liberação de Dados &gt; Verificar Consistência Aluno</em>.
+                    </p>
+                  </div>
+
+                  <!-- ========================================= -->
+                  <!-- SEÇÃO 1: IDENTIFICAÇÃO DA ESCOLA -->
+                  <!-- ========================================= -->
+                  <div class="card card-outline card-info mt-3">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        <span class="badge badge-info mr-2">1</span>
+                        Identificação da Escola
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="info-tip bg-light p-3 rounded mb-3">
+                        <i class="fas fa-lightbulb text-warning"></i> <strong>Como acessar</strong><br>
+                        Menu → Censo Escolar → Escola → Cadastro. Selecione sua unidade e preencha os dados abaixo conforme a realidade da escola.
+                      </div>
+
+                      <!-- Dados da escola (exemplo) -->
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Nome da Escola</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" value="E. M. PROF.ª HELENA COSTA – EI EF" disabled>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Código MEC (INEP)</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" value="41099999" disabled>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Município / UF</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" value="Ponta Grossa – PR" disabled>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Dependência Administrativa</label>
+                        <div class="col-sm-9">
+                          <select class="form-control">
+                            <option>Municipal</option>
+                            <option>Estadual</option>
+                            <option>Federal</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <!-- Órgão vinculado -->
+                      <div class="form-group mt-3">
+                        <label class="font-weight-bold">Órgão que a escola pública está vinculada <span class="text-danger">*</span></label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" checked disabled>
+                          <label class="form-check-label">Secretaria de Educação / Ministério da Educação</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" disabled>
+                          <label class="form-check-label">Secretaria de Segurança Pública / Forças Armadas</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" disabled>
+                          <label class="form-check-label">Secretaria da Saúde / Ministério da Saúde</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" disabled>
+                          <label class="form-check-label">Outro órgão da administração pública</label>
+                        </div>
+                        <div class="callout callout-info mt-2 py-2">
+                          <i class="fas fa-info-circle"></i> Escolas municipais de Ponta Grossa devem marcar apenas <strong>Secretaria de Educação</strong>.
+                        </div>
+                      </div>
+
+                      <!-- Regulamentação -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Regulamentação <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="regulamentacao" checked>
+                          <label class="form-check-label">Sim</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="regulamentacao">
+                          <label class="form-check-label">Não</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="regulamentacao">
+                          <label class="form-check-label">Em Tramitação</label>
+                        </div>
+                      </div>
+
+                      <!-- Esfera administrativa do conselho -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Esfera administrativa do conselho responsável pela Regulamentação/Autorização <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="checkbox" disabled>
+                          <label class="form-check-label">Federal</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="checkbox" disabled>
+                          <label class="form-check-label">Estadual</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="checkbox" checked disabled>
+                          <label class="form-check-label">Municipal</label>
+                        </div>
+                        <div class="callout callout-info mt-2 py-2">
+                          <i class="fas fa-info-circle"></i> Conforme orientação da SME, assinalar somente <strong>Municipal</strong>.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ========================================= -->
+                  <!-- SEÇÃO 2: INFRAESTRUTURA -->
+                  <!-- ========================================= -->
+                  <div class="card card-outline card-info mt-3">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        <span class="badge badge-info mr-2">2</span>
+                        Caracterização e Infraestrutura
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="mt-2">Prédio e Localização</h5>
+                      <!-- Local de funcionamento -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Local de Funcionamento da Escola <span class="text-danger">*</span></label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" checked>
+                          <label class="form-check-label">Prédio Escolar</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Sala(s) em outra escola</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Galpão/Rancho/Paiol/Barracão</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Unidade de Atendimento Socioeducativo</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Unidade Prisional</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Outros</label>
+                        </div>
+                      </div>
+
+                      <!-- Forma de ocupação -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Forma de Ocupação do Prédio <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="ocupacao" checked>
+                          <label class="form-check-label">Próprio</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="ocupacao">
+                          <label class="form-check-label">Alugado</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="ocupacao">
+                          <label class="form-check-label">Cedido</label>
+                        </div>
+                      </div>
+
+                      <!-- Prédio compartilhado -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Prédio Compartilhado com Outra Escola <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="compartilhado">
+                          <label class="form-check-label">Sim</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="compartilhado" checked>
+                          <label class="form-check-label">Não</label>
+                        </div>
+                      </div>
+
+                      <h5 class="mt-4">Água, Energia e Saneamento</h5>
+                      <!-- Água potável -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Fornece água potável para consumo humano <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="agua_potavel" checked>
+                          <label class="form-check-label">Sim</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="agua_potavel">
+                          <label class="form-check-label">Não</label>
+                        </div>
+                      </div>
+
+                      <!-- Abastecimento de água -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Abastecimento de Água <span class="text-danger">*</span></label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" checked>
+                          <label class="form-check-label">Rede pública</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Poço artesiano</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Cacimba/Cisterna/Poço</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Fonte/Rio/Igarapé</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Carro Pipa</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Não há abastecimento</label>
+                        </div>
+                      </div>
+
+                      <!-- Energia elétrica -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Fonte de Energia Elétrica <span class="text-danger">*</span></label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" checked>
+                          <label class="form-check-label">Rede pública</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Gerador a combustível fóssil</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Fontes renováveis (solar, eólica…)</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Não há energia elétrica</label>
+                        </div>
+                      </div>
+
+                      <!-- Esgoto sanitário -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Esgoto Sanitário <span class="text-danger">*</span></label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" checked>
+                          <label class="form-check-label">Rede Pública</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Fossa séptica</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Não há esgotamento</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Fossa rudimentar/comum</label>
+                        </div>
+                      </div>
+
+                      <!-- Destinação do lixo -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Destinação do Lixo <span class="text-danger">*</span></label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" checked>
+                          <label class="form-check-label">Serviço de coleta</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Queima</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Descarta em outra área</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Enterra</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Destinação final licenciada</label>
+                        </div>
+                      </div>
+
+                      <!-- Tratamento do lixo -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Tratamento do Lixo / Resíduos <span class="text-danger">*</span></label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Separação do lixo/resíduos</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Reaproveitamento/reutilização</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" checked>
+                          <label class="form-check-label">Reciclagem</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label">Não faz tratamento</label>
+                        </div>
+                      </div>
+
+                      <h5 class="mt-4">Dependências Existentes</h5>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-check"><input type="checkbox" checked> Sala de diretoria</div>
+                            <div class="form-check"><input type="checkbox" checked> Sala de professores</div>
+                            <div class="form-check"><input type="checkbox" checked> Sala de secretaria</div>
+                            <div class="form-check"><input type="checkbox"> Laboratório de informática</div>
+                            <div class="form-check"><input type="checkbox"> Laboratório de ciências</div>
+                            <div class="form-check"><input type="checkbox" checked> Sala de recursos (AEE)</div>
+                            <div class="form-check"><input type="checkbox" checked> Cozinha</div>
+                            <div class="form-check"><input type="checkbox"> Biblioteca</div>
+                            <div class="form-check"><input type="checkbox"> Sala de leitura</div>
+                            <div class="form-check"><input type="checkbox" checked> Parque infantil</div>
+                            <div class="form-check"><input type="checkbox"> Quadra descoberta</div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-check"><input type="checkbox" checked> Banheiro adequado EI</div>
+                            <div class="form-check"><input type="checkbox" checked> Banheiro PcD</div>
+                            <div class="form-check"><input type="checkbox" checked> Quadra coberta</div>
+                            <div class="form-check"><input type="checkbox"> Banheiro c/ chuveiro</div>
+                            <div class="form-check"><input type="checkbox" checked> Refeitório</div>
+                            <div class="form-check"><input type="checkbox" checked> Despensa</div>
+                            <div class="form-check"><input type="checkbox" checked> Almoxarifado</div>
+                            <div class="form-check"><input type="checkbox"> Auditório</div>
+                            <div class="form-check"><input type="checkbox"> Pátio coberto</div>
+                            <div class="form-check"><input type="checkbox" checked> Pátio descoberto</div>
+                            <div class="form-check"><input type="checkbox" checked> Banheiro</div>
+                            <div class="form-check"><input type="checkbox" checked> Banheiro exclusivo funcionários</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Recursos de acessibilidade -->
+                      <div class="form-group">
+                        <label class="font-weight-bold">Recursos de Acessibilidade nas Vias de Circulação <span class="text-danger">*</span></label>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-check"><input type="checkbox"> Corrimão e guarda-corpos</div>
+                            <div class="form-check"><input type="checkbox"> Elevador</div>
+                            <div class="form-check"><input type="checkbox"> Pisos táteis</div>
+                            <div class="form-check"><input type="checkbox"> Portas com vão mín. 80cm</div>
+                            <div class="form-check"><input type="checkbox" checked> Rampas</div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-check"><input type="checkbox"> Sinalização sonora</div>
+                            <div class="form-check"><input type="checkbox"> Sinalização tátil (piso/paredes)</div>
+                            <div class="form-check"><input type="checkbox"> Sinalização visual (piso/paredes)</div>
+                            <div class="form-check"><input type="checkbox"> Alarme luminoso</div>
+                            <div class="form-check"><input type="checkbox"> Nenhum</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Salas de aula -->
+                      <h5 class="mt-4">Número de Salas de Aula</h5>
+                      <div class="callout callout-info py-2">
+                        <i class="fas fa-info-circle"></i> Campo "Cantinho da Leitura": sinalizar apenas as turmas que efetivamente contam com o projeto implantado.
+                      </div>
+                      <table class="table table-bordered">
+                        <thead class="table-light">
+                          <tr><th>Tipo</th><th style="width:120px">Quantidade</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Salas utilizadas dentro do prédio escolar</td><td><input type="number" class="form-control" value="9"></td></tr>
+                          <tr><td>Salas utilizadas fora do prédio escolar</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Salas climatizadas (ar cond./aquecedor)</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Salas com acessibilidade PcD</td><td><input type="number" class="form-control" value="9"></td></tr>
+                          <tr><td>Salas com Cantinho da Leitura (EI / Fund. Anos Iniciais)</td><td><input type="number" class="form-control" value="3"></td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- ========================================= -->
+                  <!-- SEÇÃO 3: EQUIPAMENTOS -->
+                  <!-- ========================================= -->
+                  <div class="card card-outline card-info mt-3">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        <span class="badge badge-info mr-2">3</span>
+                        Equipamentos
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="callout callout-info py-2">
+                        <i class="fas fa-info-circle"></i> Quantifique todos os equipamentos existentes. Equipamentos quebrados ou sem uso <strong>não devem</strong> ser contabilizados.
+                      </div>
+                      <h5>Equipamentos para Uso Técnico e Administrativo</h5>
+                      <div class="form-check"><input type="checkbox"> Antena Parabólica</div>
+                      <div class="form-check"><input type="checkbox" checked> Computadores</div>
+                      <div class="form-check"><input type="checkbox" checked> Copiadora</div>
+                      <div class="form-check"><input type="checkbox" checked> Impressora</div>
+                      <div class="form-check"><input type="checkbox" checked> Impressora Multifuncional</div>
+                      <div class="form-check"><input type="checkbox" checked> Scanner</div>
+                      <div class="form-check"><input type="checkbox"> Nenhum dos equipamentos</div>
+
+                      <h5 class="mt-4">Quantidade de Equipamentos – Ensino/Aprendizagem</h5>
+                      <table class="table table-bordered">
+                        <thead class="table-light"><tr><th>Equipamento</th><th style="width:120px">Qtd.</th></tr></thead>
+                        <tbody>
+                          <tr><td>Aparelho de DVD / Blu-ray</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Aparelho de Som</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Aparelho de Televisão</td><td><input type="number" class="form-control" value="6"></td></tr>
+                          <tr><td>Lousa Digital</td><td><input type="number" class="form-control" value="1"></td></tr>
+                          <tr><td>Projetor Multimídia (Data Show)</td><td><input type="number" class="form-control" value="2"></td></tr>
+                        </tbody>
+                      </table>
+
+                      <h5 class="mt-4">Computadores em Uso pelos Alunos</h5>
+                      <table class="table table-bordered">
+                        <thead class="table-light"><tr><th>Tipo</th><th style="width:120px">Qtd.</th></tr></thead>
+                        <tbody>
+                          <tr><td>Computadores de Mesa (Desktop)</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Computadores Portáteis</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Tablets</td><td><input type="number" class="form-control" value="0"></td></tr>
+                        </tbody>
+                      </table>
+
+                      <h5 class="mt-4">Conectividade</h5>
+                      <div class="form-group">
+                        <label class="font-weight-bold">Acesso à Internet <span class="text-danger">*</span></label>
+                        <div class="form-check"><input type="checkbox"> Para uso dos alunos</div>
+                        <div class="form-check"><input type="checkbox" checked> Para uso administrativo</div>
+                        <div class="form-check"><input type="checkbox" checked> Para uso no processo de ensino/aprendizagem</div>
+                        <div class="form-check"><input type="checkbox"> Para uso da comunidade</div>
+                        <div class="form-check"><input type="checkbox"> Não possui</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">Equipamentos que os alunos usam para acessar a internet <span class="text-danger">*</span></label>
+                        <div class="form-check"><input type="checkbox"> Computadores / tablets da escola (lab., biblioteca…)</div>
+                        <div class="form-check"><input type="checkbox"> Dispositivos pessoais (notebook, celular, tablet…)</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">Internet Banda Larga <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline"><input type="radio" name="banda_larga"> Possui</div>
+                        <div class="form-check form-check-inline"><input type="radio" name="banda_larga" checked> Não Possui</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">Rede Local <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline"><input type="checkbox" checked> A cabo</div>
+                        <div class="form-check form-check-inline"><input type="checkbox" checked> Wireless</div>
+                        <div class="form-check form-check-inline"><input type="checkbox"> Não há rede local</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ========================================= -->
+                  <!-- SEÇÃO 4: RECURSOS HUMANOS -->
+                  <!-- ========================================= -->
+                  <div class="card card-outline card-info mt-3">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        <span class="badge badge-info mr-2">4</span>
+                        Recursos Humanos
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="callout callout-warning py-2">
+                        <i class="fas fa-exclamation-triangle"></i> <strong>Atenção:</strong> Inserir <strong>todos</strong> os funcionários concursados, terceirizados, estagiários remunerados e horas extras. Funcionários em LTS/LG <strong>não entram</strong> no Censo.<br>
+                        Caminho: Menu → Censo Escolar → Funcionário/Docente → Cadastro
+                      </div>
+                      <div class="callout callout-info py-2">
+                        <strong>Regimes de Contratação:</strong><br>
+                        • <strong>Contrato CLT:</strong> Docentes e Funcionários Concursados<br>
+                        • <strong>Contrato Temporário:</strong> Horas Extras, Teste Seletivo, Estagiários Remunerados<br>
+                        • <strong>Contrato Terceirizado:</strong> Funcionários Terceirizados
+                      </div>
+
+                      <h5>Atuação no Sistema SERE</h5>
+                      <table class="table table-bordered">
+                        <thead class="table-light"><tr><th>Função no SERE</th><th>Perfis contemplados</th><th>Regime</th></tr></thead>
+                        <tbody>
+                          <tr><td>Docente</td><td>Professores regentes (incluindo Inglês e LAC) e corregentes</td><td><span class="badge badge-info">CLT</span></td></tr>
+                          <tr><td>Gestor – Diretor(a)</td><td>Diretor(a)</td><td><span class="badge badge-info">CLT</span></td></tr>
+                          <tr><td>Pedagogo(a)</td><td>Pedagogo(a)</td><td><span class="badge badge-info">CLT</span></td></tr>
+                          <tr><td>Secretário(a)</td><td>Escriturário(a)</td><td><span class="badge badge-info">CLT</span></td></tr>
+                          <tr><td>Outras Funções</td><td>Assistentes de Educação, merendeiras, serventes, estagiários</td><td><span class="badge badge-info">CLT</span> / <span class="badge badge-warning">Temporário</span></td></tr>
+                          <tr><td>Terceirizados</td><td>Serviços terceirizados em geral</td><td><span class="badge badge-success">Terceirizado</span></td></tr>
+                        </tbody>
+                      </table>
+
+                      <h5>Total de Profissionais por Função na Escola</h5>
+                      <table class="table table-bordered">
+                        <thead class="table-light"><tr><th>Função</th><th style="width:120px">Qtd.</th></tr></thead>
+                        <tbody>
+                          <tr><td>Auxiliares de secretaria / aux. administrativos</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Psicólogo(a) escolar</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Aux. de serviços gerais, porteiro(a), zelador(a), faxineiro(a), jardineiro(a)</td><td><input type="number" class="form-control" value="3"></td></tr>
+                          <tr><td>Profissionais de preparo e segurança alimentar (merendeira, cozinheiro)</td><td><input type="number" class="form-control" value="5"></td></tr>
+                          <tr><td>Bibliotecário(a) / aux. de biblioteca / monitor de sala de leitura</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Prof. de apoio e supervisão pedagógica (pedagogo, coord. pedagógico)</td><td><input type="number" class="form-control" value="1"></td></tr>
+                          <tr><td>Bombeiro brigadista / enfermeiro(a) / técnico de enfermagem</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Secretário(a) escolar</td><td><input type="number" class="form-control" value="1"></td></tr>
+                          <tr><td>Coordenador(a) de turno/disciplina</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Segurança / guarda patrimonial</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Fonoaudiólogo(a)</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Técnico(a) / monitor(a) de lab. / apoio a tecnologias educacionais</td><td><input type="number" class="form-control" value="1"></td></tr>
+                          <tr><td>Nutricionista</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Vice-diretor(a) / dir. adjunto(a)</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Orientador(a) comunitário(a)</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Tradutor e Intérprete de Libras</td><td><input type="number" class="form-control" value="0"></td></tr>
+                          <tr><td>Assistente social</td><td><input type="number" class="form-control" value="0"></td></tr>
+                        </tbody>
+                      </table>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">Alimentação Escolar para os Alunos <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline"><input type="radio" name="alimentacao" checked> Oferece</div>
+                        <div class="form-check form-check-inline"><input type="radio" name="alimentacao"> Não Oferece</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ========================================= -->
+                  <!-- SEÇÃO 5: PEDAGÓGICO -->
+                  <!-- ========================================= -->
+                  <div class="card card-outline card-info mt-3">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        <span class="badge badge-info mr-2">5</span>
+                        Aspectos Pedagógicos e Institucionais
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="callout callout-success py-2">
+                        <i class="fas fa-circle-check"></i> <strong>Orientações da SME:</strong><br>
+                        • A escola compartilha espaços para atividades escola-comunidade: <strong>NÃO</strong><br>
+                        • A escola usa espaços do entorno para atividades regulares com alunos: <strong>NÃO</strong><br>
+                        • PPP/Proposta pedagógica atualizada nos últimos 12 meses: <strong>SIM</strong>
+                      </div>
+
+                      <h5>Instrumentos, Materiais Socioculturais e/ou Pedagógicos em uso na Escola</h5>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-check"><input type="checkbox" checked> Acervo multimídia</div>
+                          <div class="form-check"><input type="checkbox" checked> Instrumentos musicais</div>
+                          <div class="form-check"><input type="checkbox"> Materiais para educação indígena</div>
+                          <div class="form-check"><input type="checkbox" checked> Brinquedos para Educação Infantil</div>
+                          <div class="form-check"><input type="checkbox" checked> Jogos Educativos</div>
+                          <div class="form-check"><input type="checkbox"> Materiais para Relações Étnico-Raciais</div>
+                          <div class="form-check"><input type="checkbox" checked> Conjunto de materiais científicos</div>
+                          <div class="form-check"><input type="checkbox"> Materiais para atividades culturais e artísticas</div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-check"><input type="checkbox"> Materiais para educação do campo</div>
+                          <div class="form-check"><input type="checkbox"> Equipamento de amplificação de som/áudio</div>
+                          <div class="form-check"><input type="checkbox" checked> Materiais para prática desportiva e recreação</div>
+                          <div class="form-check"><input type="checkbox"> Materiais para educação profissional</div>
+                          <div class="form-check"><input type="checkbox"> Materiais para educação bilíngue de surdos</div>
+                          <div class="form-check"><input type="checkbox"> Materiais para educação quilombola</div>
+                          <div class="form-check"><input type="checkbox" checked> Materiais para educação especial</div>
+                          <div class="form-check"><input type="checkbox"> Kits de robótica</div>
+                          <div class="form-check"><input type="checkbox"> Nenhum dos listados</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group mt-3">
+                        <label class="font-weight-bold">Localização Diferenciada da Escola <span class="text-danger">*</span></label>
+                        <div class="form-check"><input type="checkbox"> Área de Assentamento</div>
+                        <div class="form-check"><input type="checkbox"> Terra Indígena</div>
+                        <div class="form-check"><input type="checkbox"> Comunidade Quilombola</div>
+                        <div class="form-check"><input type="checkbox"> Povos e comunidades tradicionais</div>
+                        <div class="form-check"><input type="checkbox" checked> Não está em localização diferenciada</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">Educação Indígena <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline"><input type="radio" name="educacao_indigena"> Sim</div>
+                        <div class="form-check form-check-inline"><input type="radio" name="educacao_indigena" checked> Não</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">A escola faz exame de seleção para ingresso de alunos? <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline"><input type="radio" name="selecao"> Sim</div>
+                        <div class="form-check form-check-inline"><input type="radio" name="selecao" checked> Não</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">A escola possui site, blog ou página em redes sociais? <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline"><input type="radio" name="site"> Sim</div>
+                        <div class="form-check form-check-inline"><input type="radio" name="site" checked> Não</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">A escola compartilha espaços para atividades de integração escola-comunidade? <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline"><input type="radio" name="compartilha_espacos"> Sim</div>
+                        <div class="form-check form-check-inline"><input type="radio" name="compartilha_espacos" checked> Não</div>
+                        <div class="callout callout-warning mt-2 py-1"><i class="fas fa-exclamation-triangle"></i> SME orienta: marcar <strong>Não</strong>.</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">A escola usa espaços e equipamentos do entorno para atividades regulares com alunos? <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline"><input type="radio" name="entorno"> Sim</div>
+                        <div class="form-check form-check-inline"><input type="radio" name="entorno" checked> Não</div>
+                        <div class="callout callout-warning mt-2 py-1"><i class="fas fa-exclamation-triangle"></i> SME orienta: marcar <strong>Não</strong>.</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">Órgãos Colegiados em Funcionamento <span class="text-danger">*</span></label>
+                        <div class="form-check"><input type="checkbox"> Associação de Pais</div>
+                        <div class="form-check"><input type="checkbox" checked> Associação de Pais e Mestres</div>
+                        <div class="form-check"><input type="checkbox" checked> Conselho Escolar</div>
+                        <div class="form-check"><input type="checkbox"> Grêmio Estudantil</div>
+                        <div class="form-check"><input type="checkbox"> Outros</div>
+                        <div class="form-check"><input type="checkbox"> Não há órgãos colegiados</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">O PPP / Proposta Pedagógica foi atualizado nos últimos 12 meses? <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline"><input type="radio" name="ppp" checked> Sim</div>
+                        <div class="form-check form-check-inline"><input type="radio" name="ppp"> Não</div>
+                        <div class="form-check form-check-inline"><input type="radio" name="ppp"> A escola não possui PPP</div>
+                        <div class="callout callout-success mt-2 py-1"><i class="fas fa-circle-check"></i> SME orienta: marcar <strong>Sim</strong>.</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">A escola desenvolve ações de Educação Ambiental? <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline"><input type="radio" name="educacao_ambiental" checked> Sim</div>
+                        <div class="form-check form-check-inline"><input type="radio" name="educacao_ambiental"> Não</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="font-weight-bold">Como a Educação Ambiental é desenvolvida? <span class="text-danger">*</span></label>
+                        <div class="form-check"><input type="checkbox" checked> Conteúdo dos componentes/campos de experiência no currículo</div>
+                        <div class="form-check"><input type="checkbox"> Componente curricular especial/eletivo</div>
+                        <div class="form-check"><input type="checkbox"> Eixo estruturante do currículo</div>
+                        <div class="form-check"><input type="checkbox"> Em eventos</div>
+                        <div class="form-check"><input type="checkbox" checked> Em projetos transversais ou interdisciplinares</div>
+                        <div class="form-check"><input type="checkbox"> Nenhuma das listadas</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ========================================= -->
+                  <!-- LEMBRETES FINAIS -->
+                  <!-- ========================================= -->
+                  <div class="card card-outline card-warning mt-3">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-star"></i> Lembretes – Outras Atualizações do Censo</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="callout callout-warning">
+                        <i class="fas fa-hand-holding-usd"></i> <strong>Alunos do Bolsa Família</strong><br>
+                        Menu → Aluno → Alterar/Excluir: se o aluno participa, assinalar <strong>SIM</strong> e registrar o número do <strong>NIS do Estudante</strong>.
+                      </div>
+                      <div class="callout callout-info">
+                        <i class="fas fa-palette"></i> <strong>Declaração de Cor/Raça</strong><br>
+                        O levantamento já foi realizado junto às famílias. Manter o dado atualizado no sistema.
+                      </div>
+                      <div class="callout callout-danger">
+                        <i class="fas fa-user-slash"></i> <strong>Nenhum aluno sem matrícula no SERE.</strong><br>
+                        Verifique a crítica de consistência dos alunos: Matrícula → Liberação de Dados → Verificar Consistência Aluno.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- BOTÕES FINAIS -->
+                  <div class="card-footer text-right">
+                    <button class="btn btn-secondary" onclick="history.back()"><i class="fas fa-arrow-left"></i> Voltar</button>
+                    <button class="btn btn-warning" id="btnVerificarConsistencia"><i class="fas fa-magnifying-glass"></i> Verificar Consistência</button>
+                    <button class="btn btn-success" id="btnSalvarEscola"><i class="fas fa-floppy-disk"></i> Concluir e Salvar</button>
+                  </div>
+
+                </div><!-- /.card-body -->
+              </div><!-- /.card -->
+            </div>
+
+            <!-- FOOTER INFO -->
+            <div class="card mt-4 mb-4">
+              <div class="card-body text-muted small">
+                <i class="fas fa-info-circle me-1"></i>
+                Última atualização: <strong>2026-06-15</strong> — Autor: <strong>Secretaria Escolar</strong>
+                <span class="ms-3"><i class="fas fa-folder me-1"></i>Planejamento e Censo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOC / RIGHT SIDEBAR -->
+          <div class="col-xl-3 d-none d-xl-block">
+            <div class="toc-sticky">
+              <div class="card mt-3">
+                <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-share-alt me-1"></i>Ações rápidas</h6></div>
+                <div class="card-body py-2">
+                  <button onclick="window.print()" class="btn btn-outline-secondary btn-sm w-100 mb-2"><i class="fas fa-print me-1"></i>Imprimir</button>
+                  <button onclick="toggleFavorite('cadastro_da_escola','Cadastro da Escola')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="cadastro_da_escola"><i class="fas fa-star me-1"></i>Favoritar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- RIGHT SIDEBAR (Favoritos/Histórico) -->
+  <aside class="control-sidebar control-sidebar-dark" id="right-sidebar">
+    <div class="control-sidebar-bg"></div>
+    <div class="p-3 control-sidebar-content">
+      <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-fav"><i class="fas fa-star"></i> Favoritos</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-hist"><i class="fas fa-history"></i> Histórico</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-fav">
+          <div id="favorites-list" class="text-center text-muted"><i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-favorites" style="display:none;" onclick="clearFavorites()"><i class="fas fa-trash"></i> Limpar favoritos</button>
+        </div>
+        <div class="tab-pane fade" id="tab-hist">
+          <div id="history-list" class="text-center text-muted"><i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-history" style="display:none;" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar histórico</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lightbox-img" src="" alt=""></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <footer class="main-footer">
+    <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-15</div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+<script>
+const PAGE_ID = 'cadastro_da_escola';
+const PAGE_TITLE = 'Cadastro da Escola';
+
+let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
+function saveFavorites(){localStorage.setItem('manual_favorites',JSON.stringify(favorites));updateFavoritesUI();}
+function toggleFavorite(id,title){
+  const idx=favorites.findIndex(f=>f.id===id);
+  if(idx>-1) favorites.splice(idx,1); else favorites.push({id,title});
+  saveFavorites(); updateFavoriteStar(id);
+  showToast(idx>-1?'Removido dos favoritos':'Adicionado aos favoritos',idx>-1?'info':'success');
+}
+function updateFavoriteStar(id){
+  const isFav=favorites.some(f=>f.id===id);
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"]').forEach(el=>el.classList.toggle('active',isFav));
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"] i').forEach(el=>{el.className=isFav?'fas fa-star text-warning':'fas fa-star';});
+}
+function updateFavoritesUI(){
+  const c=document.getElementById('favorites-list');if(!c)return;
+  if(favorites.length===0){c.innerHTML='<i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.';document.getElementById('btn-clear-favorites')?.style&&(document.getElementById('btn-clear-favorites').style.display='none');return;}
+  c.innerHTML=favorites.map(f=>`<div class="favorite-item" onclick="location.href='${f.id}.html'"><i class="fas fa-star text-warning"></i> ${f.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-favorites');if(btn)btn.style.display='';
+}
+function clearFavorites(){if(confirm('Limpar todos os favoritos?')){favorites=[];saveFavorites();showToast('Favoritos limpos','info');}}
+
+let history2=JSON.parse(localStorage.getItem('manual_history')||'[]');
+function addToHistory(id,title){history2=history2.filter(h=>h.id!==id);history2.unshift({id,title,t:new Date().toISOString()});if(history2.length>20)history2.pop();localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();}
+function updateHistoryUI(){
+  const c=document.getElementById('history-list');if(!c)return;
+  if(history2.length===0){c.innerHTML='<i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.';return;}
+  c.innerHTML=history2.slice(0,10).map(h=>`<div class="history-item" onclick="location.href='${h.id}.html'"><i class="fas fa-history"></i> ${h.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-history');if(btn)btn.style.display='';
+}
+function clearHistory(){if(confirm('Limpar histórico?')){history2=[];localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();showToast('Histórico limpo','info');}}
+
+function showToast(msg,type='success'){
+  const c=document.getElementById('toast-container');if(!c)return;
+  const t=document.createElement('div');t.className='custom-toast';t.innerHTML=(type==='success'?'✓':'ℹ️')+' '+msg;
+  c.appendChild(t);setTimeout(()=>t.remove(),3000);
+}
+
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('reading-progress').style.width=Math.min(pct,100)+'%';
+  document.getElementById('back-to-top').classList.toggle('visible',d.scrollTop>300);
+});
+
+$(document).ready(function() {
+  $('aside#sidebar-container').load('../../sidebar.html', function() {
+    $('[data-widget="treeview"]').Treeview('init');
+    $('.nav-link.active').trigger('click');
+  });
+});
+
+function openLightbox(src){const lb=document.getElementById('lightbox');lb.classList.add('open');document.getElementById('lightbox-img').src=src;}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+
+document.getElementById('btnSalvarEscola')?.addEventListener('click', () => showToast('Dados da escola salvos com sucesso!', 'success'));
+document.getElementById('btnVerificarConsistencia')?.addEventListener('click', () => showToast('Verificação de consistência iniciada (simulação).', 'info'));
+
+const allPages=[
+  {id:"pre_matricula",title:"Pré-Matrícula"},
+  {id:"documentacao",title:"Documentação Necessária – Matrícula"},
+  {id:"matriculas",title:"Matrícula"},
+  {id:"transferencia-entrada",title:"Transferência – Entrada"},
+  {id:"transferencia-saida",title:"Transferência – Saída"},
+  {id:"historicos",title:"Históricos Escolares"},
+  {id:"declaracoes",title:"Declarações"},
+  {id:"cadastro_da_escola",title:"Cadastro da Escola"},
+  {id:"cadastro_alunos",title:"Cadastro de Alunos"}
+];
+const si=document.getElementById('global-search-input');
+const sd=document.getElementById('search-dropdown');
+if(si&&sd){
+  si.addEventListener('input',()=>{
+    const q=si.value.toLowerCase();if(q.length<2){sd.style.display='none';return;}
+    const r=allPages.filter(p=>p.title.toLowerCase().includes(q));
+    if(r.length){sd.innerHTML=r.map(p=>`<div class="search-result-item" onclick="location.href='${p.id}.html'"><i class="fas fa-file-alt me-2"></i>${p.title}</div>`).join('');sd.style.display='';}
+    else{sd.innerHTML='<div class="p-2 text-muted">Nenhum resultado</div>';sd.style.display='';}
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.input-group'))sd.style.display='none';});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  updateFavoriteStar(PAGE_ID);
+  addToHistory(PAGE_ID,PAGE_TITLE);
+  updateFavoritesUI();
+  updateHistoryUI();
+});
+</script>
+</body>
+</html>
