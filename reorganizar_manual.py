@@ -2,177 +2,238 @@
 """
 reorganizar_manual.py
 ─────────────────────────────────────────────────────────────────────
-Reorganiza os arquivos de modulos/procedimentos/ para pastas temáticas
-e atualiza os caminhos no sidebar.html automaticamente.
+Move arquivos de modulos/procedimentos/ para pastas temáticas,
+descobrindo automaticamente a pasta de destino de cada arquivo
+pela seção do sidebar.html onde o link aparece.
+
+Lógica de mapeamento automático (por seção <li has-treeview>):
+  1. Coleta links filhos já resolvidos (matricula/, sere/, sei/ …)
+     → vota na pasta mais frequente entre os irmãos ("pasta dominante")
+  2. Links que ainda apontam para procedimentos/ recebem essa pasta
+  3. Se a seção não tem irmãos resolvidos, tenta inferir pelo título
+     da seção via palavras-chave; se ainda assim falhar, avisa.
 
 Execute dentro da pasta Manual/:
     python3 reorganizar_manual.py
-
-Estrutura criada:
-    modulos/matricula/      → Pré-matrícula, matrícula, transferências, docs SERE
-    modulos/sere/           → Cadastros, lançamentos, abonos, estatística
-    modulos/sei/            → Processos SEI
-    modulos/servidores/     → Justificativas, quinzenal, documentação de servidores
-    modulos/legislacao/     → Leis 14.648, 14.936 e progressões (pasta já existe)
 ─────────────────────────────────────────────────────────────────────
 """
 
-import os
+import re
 import shutil
+from collections import Counter
 from pathlib import Path
 
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    raise SystemExit("❌  Instale beautifulsoup4:  pip install beautifulsoup4")
+
 # ─── CONFIGURAÇÃO ─────────────────────────────────────────────────────────────
-BASE_DIR          = Path(__file__).parent          # pasta Manual/
+BASE_DIR          = Path(__file__).parent
 MODULOS_DIR       = BASE_DIR / "modulos"
 PROCEDIMENTOS_DIR = MODULOS_DIR / "procedimentos"
 SIDEBAR_FILE      = BASE_DIR / "sidebar.html"
 
-# ─── MAPEAMENTO arquivo → pasta de destino (dentro de modulos/) ───────────────
-MAPEAMENTO: dict[str, str] = {
+# Pastas temáticas reconhecidas (subpastas de modulos/ que não são "procedimentos")
+PASTAS_TEMATICAS = {"matricula", "sere", "sei", "servidores", "legislacao"}
 
-    # ── MATRÍCULA ──────────────────────────────────────────────────────────────
-    "pre_matricula.html":            "matricula",
-    "documentacao.html":             "matricula",
-    "matriculas.html":               "matricula",
-    "anexo_de_documentos.html":      "matricula",
-    "transferencias.html":           "matricula",
-    "declaracoes_de_matricula.html": "matricula",
-    "declaracao_de_matricula.html":  "matricula",   # variação de nome
-    "pareceres.html":                "matricula",
-    "parecer.html":                  "matricula",   # variação de nome
-    "guia_de_transferencia.html":    "matricula",
+# Aceita /Manual/modulos/<pasta>/<arquivo>.html  ou  /modulos/<pasta>/<arquivo>.html
+RE_MODULOS = re.compile(
+    r"/(?:[^/]+/)?modulos/([^/]+)/([^/?#]+\.html)$",
+    re.IGNORECASE,
+)
 
-    # ── SERE / RCO ─────────────────────────────────────────────────────────────
-    "cadastro_alunos.html":          "sere",
-    "cadastro_funcionarios.html":    "sere",
-    "cadastro_professores.html":     "sere",
-    "abono_de_faltas.html":          "sere",
-    "grade_aulas.html":              "sere",
-    "lancar_livros_de_chamada.html": "sere",
-    "estatistica.html":              "sere",
-
-    # ── SEI ────────────────────────────────────────────────────────────────────
-    "iniciar_processos.html":      "sei",
-    "cota.html":                   "sei",
-    "documentos_externos.html":    "sei",
-
-    # ── SERVIDORES ─────────────────────────────────────────────────────────────
-    "abonos.html":                         "servidores",
-    "compensacao_de_horas.html":           "servidores",
-    "justificativas.html":                 "servidores",
-    "quinzenal.html":                      "servidores",
-    "atestados.html":                      "servidores",
-    "declaracoes.html":                    "servidores",
-    "CAT.html":                            "servidores",
-    "cat.html":                            "servidores",   # mesmo arquivo, caixa diferente no Linux
-    "carta_de_apresentacao.html":          "servidores",
-    "ficha_funcional.html":                "servidores",
-    "solicitacao_de_vale_transporte.html": "servidores",
-    "ficha_epi.html":                      "servidores",
-
-    # ── LEGISLAÇÃO (pasta já existe) ───────────────────────────────────────────
-    "14648.html":             "legislacao",
-    "14936.html":             "legislacao",
-    "progressoes_14648.html": "legislacao",
-    "progressoes_14936.html": "legislacao",
-}
+# Fallback por palavras-chave no título da seção, quando não há irmãos resolvidos
+PALAVRAS_CHAVE: list[tuple[list[str], str]] = [
+    (["matrícula", "matricula", "transferência", "transferencia", "documento sere"],  "matricula"),
+    (["sere", "rco", "cadastro", "censo", "chamada", "letivo", "editar"],            "sere"),
+    (["sei", "processo", "cota"],                                                     "sei"),
+    (["servidor", "justificativa", "quinzenal", "atestado", "declaração", "cat",
+      "compensação", "vale transporte", "ficha", "carta"],                            "servidores"),
+    (["legislação", "legislacao", "lei", "progressão"],                               "legislacao"),
+]
 
 
-# ─── FUNÇÕES ──────────────────────────────────────────────────────────────────
+# ─── MAPEAMENTO AUTOMÁTICO ────────────────────────────────────────────────────
 
-def mover_arquivos() -> tuple[list, list]:
+def _inferir_por_titulo(titulo: str) -> str | None:
+    """Tenta deduzir a pasta pelo título da seção usando palavras-chave."""
+    titulo_lower = titulo.lower()
+    for palavras, pasta in PALAVRAS_CHAVE:
+        if any(p in titulo_lower for p in palavras):
+            return pasta
+    return None
+
+
+def construir_mapeamento(sidebar_path: Path) -> dict[str, str]:
+    """
+    Lê o sidebar.html e devolve:
+        { "nome_do_arquivo.html": "pasta_destino" }
+
+    Apenas arquivos atualmente listados como procedimentos/ são incluídos.
+    A pasta destino é inferida pela seção onde o link aparece.
+    """
+    if not sidebar_path.exists():
+        raise FileNotFoundError(f"sidebar.html não encontrado em {sidebar_path}")
+
+    soup = BeautifulSoup(sidebar_path.read_text(encoding="utf-8"), "html.parser")
+    mapeamento: dict[str, str] = {}
+
+    for secao in soup.select("li.has-treeview"):
+        # Título da seção (texto do link pai)
+        titulo_tag = secao.select_one(":scope > a > p")
+        titulo = titulo_tag.get_text(strip=True) if titulo_tag else ""
+        # Remove o ícone de seta que fica dentro do <p>
+        titulo = re.sub(r"\s*<.*", "", titulo).strip()
+
+        links = secao.select("ul.nav-treeview a[href]")
+
+        votos: list[str]    = []
+        pendentes: list[str] = []
+
+        for a in links:
+            href = a.get("href", "")
+            m = RE_MODULOS.match(href)
+            if not m:
+                continue
+            pasta, arquivo = m.group(1), m.group(2)
+
+            if pasta in PASTAS_TEMATICAS:
+                votos.append(pasta)
+            elif pasta == "procedimentos":
+                pendentes.append(arquivo)
+
+        if not pendentes:
+            continue
+
+        # 1ª escolha: pasta mais frequente entre os irmãos resolvidos
+        if votos:
+            pasta_destino = Counter(votos).most_common(1)[0][0]
+            origem_info   = f"irmãos ({Counter(votos).most_common(1)[0][1]} votos)"
+        else:
+            # 2ª escolha: inferir pelo título
+            pasta_destino = _inferir_por_titulo(titulo)
+            if pasta_destino:
+                origem_info = f"título da seção ({titulo!r})"
+            else:
+                print(f"  ⚠  [{titulo!r}] sem pasta de referência — "
+                      f"{len(pendentes)} arquivo(s) não mapeado(s): "
+                      f"{', '.join(pendentes)}")
+                continue
+
+        print(f"  ✦  [{titulo}]  →  {pasta_destino}/  "
+              f"(via {origem_info})")
+        for arquivo in pendentes:
+            mapeamento[arquivo] = pasta_destino
+
+    return mapeamento
+
+
+# ─── MOVIMENTAÇÃO ─────────────────────────────────────────────────────────────
+
+def mover_arquivos(mapeamento: dict[str, str]) -> tuple[list, list]:
     """Move cada arquivo para a pasta correta. Retorna (movidos, não_encontrados)."""
     movidos: list[tuple[str, str]] = []
     nao_encontrados: list[str]     = []
 
-    for arquivo, pasta_destino in MAPEAMENTO.items():
+    print()
+    for arquivo, pasta_destino in sorted(mapeamento.items()):
         origem      = PROCEDIMENTOS_DIR / arquivo
         destino_dir = MODULOS_DIR / pasta_destino
         destino     = destino_dir / arquivo
 
         if not origem.exists():
             nao_encontrados.append(arquivo)
+            print(f"  ✘  {arquivo:<52}  (não existe em procedimentos/)")
             continue
 
         destino_dir.mkdir(parents=True, exist_ok=True)
         shutil.move(str(origem), str(destino))
         movidos.append((arquivo, pasta_destino))
-        print(f"  ✔  {arquivo:<45}  →  modulos/{pasta_destino}/")
+        print(f"  ✔  {arquivo:<52}  →  modulos/{pasta_destino}/")
 
     return movidos, nao_encontrados
 
 
+# ─── ATUALIZAR SIDEBAR ────────────────────────────────────────────────────────
+
 def atualizar_sidebar(movidos: list[tuple[str, str]]) -> None:
     """Substitui todos os caminhos antigos no sidebar.html pelos novos."""
-    if not SIDEBAR_FILE.exists():
-        print("\n⚠  sidebar.html não encontrado — caminhos não foram atualizados.")
-        return
-
     conteudo   = SIDEBAR_FILE.read_text(encoding="utf-8")
     alteracoes = 0
 
     for arquivo, pasta_destino in movidos:
-        antigo = f"/Manual/modulos/procedimentos/{arquivo}"
-        novo   = f"/Manual/modulos/{pasta_destino}/{arquivo}"
-        if antigo in conteudo:
-            conteudo = conteudo.replace(antigo, novo)
-            alteracoes += 1
-            print(f"  ↪  sidebar: procedimentos/{arquivo}  →  {pasta_destino}/{arquivo}")
+        # Aceita ambos os prefixos para garantir compatibilidade
+        for prefixo in ("/Manual/modulos/procedimentos/",
+                        "/modulos/procedimentos/"):
+            antigo = f"{prefixo}{arquivo}"
+            novo   = f"{prefixo.replace('procedimentos', pasta_destino)}{arquivo}"
+            if antigo in conteudo:
+                conteudo   = conteudo.replace(antigo, novo)
+                alteracoes += 1
+                print(f"  ↪  procedimentos/{arquivo}  →  {pasta_destino}/{arquivo}")
 
     SIDEBAR_FILE.write_text(conteudo, encoding="utf-8")
     print(f"\n  ✔  sidebar.html salvo — {alteracoes} caminho(s) atualizado(s).")
 
 
+# ─── DIAGNÓSTICO ──────────────────────────────────────────────────────────────
+
 def listar_restantes() -> None:
-    """Mostra o que ainda ficou em procedimentos/ após a reorganização."""
-    restantes = list(PROCEDIMENTOS_DIR.glob("*.html"))
+    restantes = sorted(PROCEDIMENTOS_DIR.glob("*.html"))
     if restantes:
-        print("\n📂 Arquivos que permaneceram em modulos/procedimentos/")
-        print("   (não constavam no mapeamento — provavelmente ainda em criação):")
-        for f in sorted(restantes):
-            print(f"   – {f.name}")
+        print("\n📂  Arquivos que permaneceram em modulos/procedimentos/")
+        print("    (não encontrados no sidebar ou seção sem referência):")
+        for f in restantes:
+            print(f"    – {f.name}")
     else:
-        print("\n  ✔  modulos/procedimentos/ está vazia — tudo foi reorganizado.")
+        print("\n  ✔  modulos/procedimentos/ está vazia — tudo reorganizado.")
 
 
 # ─── MAIN ─────────────────────────────────────────────────────────────────────
 
 def main() -> None:
-    sep = "─" * 60
+    sep = "─" * 64
     print(sep)
     print("  Reorganizador do Manual do Escriturário Escolar")
+    print("  (mapeamento automático via sidebar.html)")
     print(sep)
     print(f"\n  Base    : {BASE_DIR}")
     print(f"  Origem  : {PROCEDIMENTOS_DIR}")
-    print()
+    print(f"  Sidebar : {SIDEBAR_FILE}\n")
 
     if not PROCEDIMENTOS_DIR.exists():
-        print("❌  Pasta 'modulos/procedimentos/' não encontrada.")
-        print("    Execute este script dentro da pasta Manual/")
+        raise SystemExit("❌  Pasta 'modulos/procedimentos/' não encontrada.\n"
+                         "    Execute este script dentro da pasta Manual/")
+
+    # 1. Descobrir mapeamento
+    print("Lendo sidebar.html e construindo mapeamento...\n")
+    mapeamento = construir_mapeamento(SIDEBAR_FILE)
+
+    if not mapeamento:
+        print("\n  ℹ  Nenhum arquivo em procedimentos/ encontrado no sidebar.")
+        listar_restantes()
         return
 
-    # 1. Mover arquivos
-    print("Movendo arquivos...\n")
-    movidos, nao_encontrados = mover_arquivos()
-
-    # 2. Relatório de não encontrados
-    if nao_encontrados:
-        print(f"\n⚠  Listados no mapeamento mas ausentes na pasta procedimentos/:")
-        for f in nao_encontrados:
-            print(f"   – {f}")
+    # 2. Mover arquivos
+    print(f"\nMovendo {len(mapeamento)} arquivo(s)...")
+    movidos, nao_encontrados = mover_arquivos(mapeamento)
 
     # 3. Atualizar sidebar
-    print("\nAtualizando sidebar.html...\n")
-    atualizar_sidebar(movidos)
+    if movidos:
+        print("\nAtualizando sidebar.html...\n")
+        atualizar_sidebar(movidos)
 
     # 4. O que ficou
     listar_restantes()
 
-    # 5. Resumo final
+    # 5. Resumo
     print(f"\n{sep}")
     print(f"  ✅  Concluído!")
-    print(f"     {len(movidos)} arquivo(s) movido(s)")
-    print(f"     {len(nao_encontrados)} arquivo(s) não encontrado(s) / ainda não criados")
+    print(f"      {len(movidos)} arquivo(s) movido(s)")
+    if nao_encontrados:
+        print(f"      {len(nao_encontrados)} no sidebar mas ainda não criados: "
+              f"{', '.join(nao_encontrados)}")
     print(sep)
 
 

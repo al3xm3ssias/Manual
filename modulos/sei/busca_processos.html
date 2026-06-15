@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="theme-color" content="#007bff">
+  <title>Buscar Processos – Manual do Escriturário</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+  <style>
+    :root{--primary-color:#007bff;--success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f4f6f9;}
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#007bff,#28a745);z-index:99999;width:0%;transition:width 0.1s linear;pointer-events:none;}
+    .back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:#007bff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.3s;font-size:16px;box-shadow:0 4px 14px rgba(0,123,255,0.35);border:none;z-index:1000;}
+    .back-to-top.visible{opacity:1;}
+    .page-info-card{border-radius:10px;border-left:5px solid var(--primary-color);margin-bottom:20px;}
+    .icon-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+    .toc-sticky{position:sticky;top:72px;}
+    .toc-nav a{display:block;padding:5px 14px;font-size:13px;color:#495057;text-decoration:none;border-left:3px solid transparent;transition:all 0.15s;}
+    .toc-nav a:hover,.toc-nav a.active{color:#007bff;border-left-color:#007bff;background:#f8f9fa;}
+    .lightbox-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);z-index:99990;display:none;align-items:center;justify-content:center;cursor:zoom-out;}
+    .lightbox-overlay.open{display:flex;}
+    .lightbox-overlay img{max-width:92%;max-height:92vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .lightbox-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;line-height:1;}
+    .img-zoomable{cursor:zoom-in;transition:transform 0.2s;}
+    .img-zoomable:hover{transform:scale(1.02);}
+    .toast-container{position:fixed;bottom:20px;right:20px;z-index:9998;}
+    .custom-toast{background:white;border-left:4px solid var(--primary-color);padding:12px 20px;margin-top:10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.2);animation:slideIn .3s ease;display:flex;align-items:center;gap:10px;}
+    @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    .favorite-item,.history-item{padding:8px;margin-bottom:5px;background:rgba(255,255,255,.1);border-radius:5px;cursor:pointer;transition:all .2s;}
+    .favorite-item:hover,.history-item:hover{background:rgba(255,255,255,.2);}
+    .search-results-dropdown{position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ddd;border-radius:4px;max-height:300px;overflow-y:auto;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+    .search-result-item{padding:10px;cursor:pointer;border-bottom:1px solid #eee;}
+    .search-result-item:hover{background:#f8f9fa;}
+    .btn-favorite{cursor:pointer;transition:all .2s;}
+    .btn-favorite:hover{transform:scale(1.1);}
+    .btn-favorite.active{color:var(--warning-color);}
+    .steps-container .step-num{width:36px;height:36px;border-radius:50%;background:#007bff;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;}
+    pre code{font-family:'Cascadia Code','Consolas','Monaco',monospace;}
+    @media print{.main-sidebar,.main-header,.control-sidebar,.main-footer,.back-to-top,#reading-progress{display:none!important;}.content-wrapper{margin-left:0!important;}}
+    @media(max-width:768px){.brand-text,.user-panel .info{display:none;}.toc-sticky{display:none;}}
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<div class="wrapper">
+
+  <div id="reading-progress"></div>
+
+  <!-- NAVBAR -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom shadow-sm">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-md-block">
+        <ol class="breadcrumb mb-0 ms-2" style="font-size:13px;align-items:center;background:none;padding:0;">
+          <li class="breadcrumb-item"><a href="../../index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Início</a></li>
+          <li class="breadcrumb-item text-muted">Outros</li>
+          <li class="breadcrumb-item active">Buscar Processos</li>
+        </ol>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item d-none d-md-inline-block">
+        <div class="input-group input-group-sm" style="position:relative;">
+          <input class="form-control form-control-navbar" type="search" id="global-search-input" placeholder="Buscar procedimentos..." autocomplete="off">
+          <div class="input-group-append"><button class="btn btn-navbar" type="button"><i class="fas fa-search"></i></button></div>
+          <div class="search-results-dropdown" id="search-dropdown" style="display:none;"></div>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" title="Imprimir" href="#" onclick="window.print();return false;"><i class="fas fa-print"></i></a></li>
+      <li class="nav-item">
+        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="busca_processos" title="Favoritar" onclick="toggleFavorite('busca_processos','Buscar Processos')"><i class="fas fa-star"></i></a>
+      </li>
+      <li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a></li>
+    </ul>
+  </nav>
+
+  <!-- SIDEBAR -->
+   <aside class="main-sidebar sidebar-dark-primary elevation-4" id="sidebar-container"></aside>
+    
+  </aside>
+
+  <!-- CONTENT WRAPPER -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <h1 class="m-0 d-flex align-items-center gap-2">
+              <i class="fas fa-file-alt text-danger me-1"></i>
+              Buscar Processos
+            </h1>
+          </div>
+          <div class="col-auto">
+            <button onclick="window.print()" class="btn btn-outline-secondary btn-sm me-1">
+              <i class="fas fa-print me-1"></i>Imprimir
+            </button>
+            <button onclick="toggleFavorite('busca_processos','Buscar Processos')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="busca_processos">
+              <i class="fas fa-star me-1"></i>Favoritar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- MAIN CONTENT -->
+          <div class="col-xl-9">
+            <!-- Page info card -->
+            <div class="card page-info-card">
+              <div class="card-body">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="icon-circle bg-primary text-white">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h2 class="h4 mb-1">Buscar Processos</h2>
+                    
+                    <div class="d-flex flex-wrap gap-3 small text-muted">
+                      <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-15</span>
+                      <span><i class="fas fa-folder me-1"></i>Outros</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CONTENT BLOCKS -->
+            <div id="page-content">
+              <p class="mb-3 lh-lg"><!-- ============================================================
+     PESQUISA DE PROCESSOS E DOCUMENTOS NO SEI
+     AdminLTE 3 + Bootstrap 4 + Font Awesome 6
+     ============================================================ -->
+
+<div class="card card-outline card-primary">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-search mr-2"></i>
+      Pesquisa de Processos e Documentos no SEI
+    </h3>
+  </div>
+
+  <div class="card-body">
+
+    <p class="text-muted">
+      A pesquisa no SEI é bastante completa e pode ser feita de forma simples — como
+      uma busca no Google — ou de forma avançada, combinando campos e operadores.
+      Quanto mais específico o termo usado, mais preciso será o resultado.
+    </p>
+
+    <!-- ── NAVEGAÇÃO INTERNA ──────────────────────────────── -->
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <a href="#sec-onde"        class="btn btn-sm btn-outline-secondary"><i class="fas fa-database mr-1"></i>Onde busca?</a>
+      <a href="#sec-basica"      class="btn btn-sm btn-outline-primary"><i class="fas fa-search mr-1"></i>Pesquisa Básica</a>
+      <a href="#sec-direta"      class="btn btn-sm btn-outline-info"><i class="fas fa-hashtag mr-1"></i>Pesquisa Direta</a>
+      <a href="#sec-ocr"         class="btn btn-sm btn-outline-warning"><i class="fas fa-file-image mr-1"></i>Documentos Digitalizados</a>
+      <a href="#sec-avancada"    class="btn btn-sm btn-outline-success"><i class="fas fa-sliders-h mr-1"></i>Pesquisa Avançada</a>
+      <a href="#sec-operadores"  class="btn btn-sm btn-outline-danger"><i class="fas fa-code mr-1"></i>Operadores de Busca</a>
+      <a href="#sec-salvar"      class="btn btn-sm btn-outline-dark"><i class="fas fa-bookmark mr-1"></i>Minhas Pesquisas</a>
+    </div>
+
+    <hr>
+
+    <!-- ════════════════════════════════════════════════════
+         1. ONDE A PESQUISA É FEITA
+         ════════════════════════════════════════════════════ -->
+    <h4 id="sec-onde" class="mt-3">
+      <i class="fas fa-database text-secondary mr-2"></i>
+      Onde a Pesquisa é Feita no SEI?
+    </h4>
+    <p>O sistema busca informações nas seguintes fontes:</p>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="info-box shadow-sm mb-3">
+          <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-folder-open"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Metadados dos Processos</span>
+            <span class="info-box-number" style="font-size:.85rem;white-space:normal;line-height:1.4;">
+              Título, tipo, especificação, assunto, observações, data, usuários e unidades que atuaram
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="info-box shadow-sm mb-3">
+          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-file-alt"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Metadados dos Documentos</span>
+            <span class="info-box-number" style="font-size:.85rem;white-space:normal;line-height:1.4;">
+              Título, tipo, descrição, número, nome na árvore, assunto, data, usuários e unidades
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="info-box shadow-sm mb-3">
+          <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-file-pdf"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Documentos Digitalizados com OCR</span>
+            <span class="info-box-number" style="font-size:.85rem;white-space:normal;line-height:1.4;">
+              Texto completo de documentos escaneados com Reconhecimento Óptico de Caracteres ativo
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="info-box shadow-sm mb-3">
+          <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file-upload"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Documentos Externos</span>
+            <span class="info-box-number" style="font-size:.85rem;white-space:normal;line-height:1.4;">
+              Planilhas, .txt, .html, .doc, .docx, .xls, .pdf e outros formatos inseridos por upload
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- ════════════════════════════════════════════════════
+         2. PESQUISA BÁSICA
+         ════════════════════════════════════════════════════ -->
+    <h4 id="sec-basica" class="mt-3">
+      <i class="fas fa-search text-primary mr-2"></i>
+      Pesquisa Básica
+    </h4>
+
+    <p>
+      O campo de <strong>Pesquisa Básica</strong> fica permanentemente no cabeçalho do SEI.
+      Funciona como uma busca geral: qualquer termo digitado é procurado em todos os campos
+      de processos e documentos, incluindo o texto completo de documentos com OCR.
+    </p>
+
+    <!-- mock barra de pesquisa -->
+    <div class="card bg-light shadow-sm mb-3" style="border:1px solid #dee2e6;border-radius:6px;">
+      <div class="card-body py-2">
+        <div class="input-group input-group-sm" style="max-width:480px;">
+          <input type="text" class="form-control" placeholder="Pesquisar no SEI..." value="João da Silva" disabled>
+          <div class="input-group-append">
+            <span class="input-group-text bg-primary text-white" style="cursor:pointer;">
+              <i class="fas fa-search"></i>
+            </span>
+          </div>
+        </div>
+        <small class="text-muted d-block mt-1">
+          <i class="fas fa-info-circle mr-1"></i>
+          Campo de pesquisa localizado no <strong>cabeçalho</strong> do SEI.
+        </small>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="callout callout-success">
+          <h5><i class="fas fa-check-circle mr-1"></i>Bons casos para pesquisa básica</h5>
+          <ul class="mb-0">
+            <li>Nome completo de uma pessoa com poucos processos no SEI</li>
+            <li>Nome de uma empresa com poucos processos</li>
+            <li>Nome ou sigla de um projeto específico</li>
+            <li>Número completo de um processo ou documento</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="callout callout-warning">
+          <h5><i class="fas fa-exclamation-triangle mr-1"></i>Quando usar a Pesquisa Avançada</h5>
+          <p class="mb-0">
+            Se a busca simples retornar muitos resultados (ex.: nome muito comum),
+            use a <strong>Pesquisa Avançada</strong> com campos adicionais e
+            <a href="#sec-operadores">operadores booleanos</a> para refinar.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- ════════════════════════════════════════════════════
+         3. PESQUISA DIRETA PELO NÚMERO
+         ════════════════════════════════════════════════════ -->
+    <h4 id="sec-direta" class="mt-3">
+      <i class="fas fa-hashtag text-info mr-2"></i>
+      Pesquisa Direta pelo Nº do Processo ou Documento
+    </h4>
+
+    <p>
+      Inserindo o número completo de um processo ou documento no campo de pesquisa
+      (básica ou avançada), o SEI <strong>abre diretamente</strong> o item, sem exibir
+      lista de resultados.
+    </p>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card card-outline card-info h-100">
+          <div class="card-header py-2">
+            <h5 class="card-title mb-0 small">
+              <i class="fas fa-folder mr-1 text-info"></i>Número do Processo
+            </h5>
+          </div>
+          <div class="card-body py-2" style="font-size:.88rem;">
+            <p class="mb-1">Formato padrão SEED/PR:</p>
+            <code style="font-size:.9rem;">SEI&nbsp;065107/2026</code>
+            <p class="mt-2 mb-0 text-muted">
+              Ao inserir o número completo, o SEI abre diretamente a tela do processo.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card card-outline card-info h-100">
+          <div class="card-header py-2">
+            <h5 class="card-title mb-0 small">
+              <i class="fas fa-file-alt mr-1 text-info"></i>Número do Documento
+            </h5>
+          </div>
+          <div class="card-body py-2" style="font-size:.88rem;">
+            <p class="mb-1">Número SEI de 7 dígitos (sequencial do órgão):</p>
+            <code style="font-size:.9rem;">1317956</code>
+            <p class="mt-2 mb-0 text-muted">
+              Ao inserir o número do documento, o SEI abre diretamente o documento.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-info mt-3">
+      <h5><i class="fas fa-lightbulb mr-1"></i>Número parcial</h5>
+      <p class="mb-0">
+        Inserir <strong>apenas parte</strong> do número exibe todos os processos ou
+        documentos que contenham a sequência digitada — útil quando você lembra só
+        de um trecho do número.
+      </p>
+    </div>
+
+    <hr>
+
+    <!-- ════════════════════════════════════════════════════
+         4. DOCUMENTOS DIGITALIZADOS — OCR
+         ════════════════════════════════════════════════════ -->
+    <h4 id="sec-ocr" class="mt-3">
+      <i class="fas fa-file-image text-warning mr-2"></i>
+      Pesquisa em Documentos Digitalizados (OCR)
+    </h4>
+
+    <div class="alert alert-warning">
+      <h5><i class="icon fas fa-exclamation-triangle"></i> Atenção — Digitalização</h5>
+      <p class="mb-0">
+        Para que documentos digitalizados sejam pesquisáveis, é <strong>obrigatório</strong>
+        escanear em <strong>PDF Pesquisável com OCR ativo</strong>. Documentos digitalizados
+        sem OCR <strong>não</strong> aparecem nos resultados de pesquisa por texto.
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="info-box shadow-sm">
+          <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-print"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Na impressora/scanner</span>
+            <span class="info-box-number" style="font-size:.85rem;white-space:normal;line-height:1.4;">
+              Procure a opção <strong>OCR</strong>, <strong>Reconhecimento de Caracteres</strong>
+              ou <strong>PDF Pesquisável</strong> antes de escanear
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-box shadow-sm">
+          <span class="info-box-icon bg-success elevation-1"><i class="fas fa-check"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Documentos Internos (SEI)</span>
+            <span class="info-box-number" style="font-size:.85rem;white-space:normal;line-height:1.4;">
+              Criados e assinados digitalmente dentro do SEI — <strong>não precisam</strong> de OCR
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-box shadow-sm">
+          <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Sem OCR</span>
+            <span class="info-box-number" style="font-size:.85rem;white-space:normal;line-height:1.4;">
+              Documento digitalizado como imagem simples — <strong>não pesquisável</strong> por conteúdo
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- ════════════════════════════════════════════════════
+         5. PESQUISA AVANÇADA
+         ════════════════════════════════════════════════════ -->
+    <h4 id="sec-avancada" class="mt-3">
+      <i class="fas fa-sliders-h text-success mr-2"></i>
+      Pesquisa Avançada
+    </h4>
+
+    <p>
+      A Pesquisa Avançada permite combinar múltiplos campos para resultados precisos.
+      Acesse pelo <strong>menu lateral esquerdo → Pesquisa</strong> (ordem alfabética)
+      ou digitando "Pesquisa" em <em>Pesquisar no Menu</em>.
+    </p>
+
+    <!-- Tabs dos campos avançados -->
+    <ul class="nav nav-tabs mt-3" id="tabPesquisa" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="tab-tipo-link" data-toggle="tab" href="#tab-tipo">
+          <i class="fas fa-list-ul mr-1"></i>Tipo
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tab-texto-link" data-toggle="tab" href="#tab-texto">
+          <i class="fas fa-font mr-1"></i>Texto
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tab-contato-link" data-toggle="tab" href="#tab-contato">
+          <i class="fas fa-user mr-1"></i>Contato
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tab-data-link" data-toggle="tab" href="#tab-data">
+          <i class="fas fa-calendar-alt mr-1"></i>Data
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tab-outros-link" data-toggle="tab" href="#tab-outros">
+          <i class="fas fa-ellipsis-h mr-1"></i>Outros Campos
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content border border-top-0 p-3 mb-3" id="tabPesquisaContent"
+         style="border-radius:0 0 4px 4px;">
+
+      <!-- TAB TIPO -->
+      <div class="tab-pane fade show active" id="tab-tipo">
+        <h6 class="font-weight-bold mb-2">Pesquisar Processos ou Documentos</h6>
+        <p style="font-size:.9rem;">
+          O primeiro campo da pesquisa avançada define <em>o que</em> você quer buscar.
+          Escolha entre <strong>Processos</strong> ou <strong>Documentos</strong> e
+          combine com os demais filtros.
+        </p>
+        <table class="table table-sm table-bordered" style="font-size:.85rem;">
+          <thead class="thead-light">
+            <tr>
+              <th>Opção</th>
+              <th>O que busca</th>
+              <th>Sub-opções disponíveis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Processos</strong></td>
+              <td>Somente processos SEI</td>
+              <td>
+                <span class="badge badge-secondary mr-1">Considerar Documentos</span>
+                (inclui documentos dentro dos processos nos resultados)
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Documentos</strong></td>
+              <td>Documentos gerados e/ou externos</td>
+              <td>
+                <span class="badge badge-primary mr-1">Gerados</span>
+                <span class="badge badge-info mr-1">Externos</span>
+                <span class="badge badge-success">Com Tramitação na Unidade</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-success mt-2" style="font-size:.88rem;">
+          <strong><i class="fas fa-star mr-1"></i>Com Tramitação na Unidade</strong><br>
+          Filtra apenas documentos que passaram, em algum momento, pela sua unidade.
+          Muito útil para reduzir resultados irrelevantes — use sempre que possível!
+        </div>
+
+        <h6 class="font-weight-bold mt-3 mb-2">Tipo do Processo / Tipo do Documento</h6>
+        <p style="font-size:.9rem;">
+          Filtra por classificação atribuída no momento da criação. Muito útil para
+          <strong>estatísticas periódicas</strong>: combine com o campo
+          <em>Data entre</em> para saber quantos processos de um tipo foram abertos
+          em um período.
+        </p>
+        <div class="alert alert-info py-2" style="font-size:.85rem;">
+          <i class="fas fa-chart-bar mr-1"></i>
+          Exemplo: <em>Tipo = "Relatório Estatístico"</em> + <em>Data entre 01/05/2026 e 31/05/2026</em>
+          → quantos relatórios foram abertos em maio.
+        </div>
+      </div>
+
+      <!-- TAB TEXTO -->
+      <div class="tab-pane fade" id="tab-texto">
+        <h6 class="font-weight-bold mb-2">Texto para Pesquisa</h6>
+        <p style="font-size:.9rem;">
+          Permite buscar qualquer palavra-chave, termo composto ou número nos metadados
+          e no <strong>texto completo</strong> dos documentos. Suporta todos os
+          <a href="#sec-operadores">operadores de busca</a>.
+        </p>
+
+        <h6 class="font-weight-bold mt-3 mb-2">Especificação / Descrição</h6>
+        <p style="font-size:.9rem;">
+          Busca especificamente no campo <em>Especificação do Processo</em> ou na
+          <em>Descrição do Documento</em>.
+        </p>
+        <div class="callout callout-warning" style="font-size:.87rem;">
+          <strong><i class="fas fa-pencil-alt mr-1"></i>Boas práticas ao criar processos:</strong><br>
+          Preencha a especificação de forma detalhada. Um processo descrito apenas como
+          <em>"Aquisição de materiais"</em> é muito difícil de localizar depois.
+          Prefira: <em>"Aquisição de materiais de escritório — março/2026 — NRE Ponta Grossa"</em>.
+        </div>
+
+        <h6 class="font-weight-bold mt-3 mb-2">Obs. desta Unidade</h6>
+        <p style="font-size:.9rem;">
+          Campo livre nos metadados do processo ou documento, usado para informações
+          complementares — como detalhes da digitalização ou observações internas.
+          O conteúdo desse campo <strong>também é pesquisável</strong>.
+        </p>
+
+        <h6 class="font-weight-bold mt-3 mb-2">Número (do Documento Externo)</h6>
+        <p style="font-size:.9rem;">
+          Localiza o número sequencial atribuído ao documento externo no momento do
+          upload. <strong>Atenção:</strong> o campo "Número" deve ter sido preenchido
+          ao incluir o documento; caso contrário, não é possível localizar.
+        </p>
+
+        <h6 class="font-weight-bold mt-3 mb-2">Nome na Árvore</h6>
+        <p style="font-size:.9rem;">
+          Nome dado ao documento externo na árvore do processo. Também deve ter sido
+          preenchido previamente para ser pesquisável.
+        </p>
+      </div>
+
+      <!-- TAB CONTATO -->
+      <div class="tab-pane fade" id="tab-contato">
+        <h6 class="font-weight-bold mb-2">Contato</h6>
+        <p style="font-size:.9rem;">
+          Localiza pessoas físicas ou jurídicas cadastradas como <strong>interessado</strong>,
+          <strong>remetente</strong> ou <strong>destinatário</strong> em processos ou documentos.
+          A pesquisa usa filtro automático ao digitar o nome.
+        </p>
+        <table class="table table-sm table-bordered" style="font-size:.85rem;">
+          <thead class="thead-light">
+            <tr><th>Papel</th><th>Quando usar</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-primary">Interessado</span></td>
+              <td>Alunos, servidores, fornecedores ou órgãos que têm interesse no processo</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-warning text-dark">Remetente</span></td>
+              <td>Quem enviou um documento externo (físico digitalizado)</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-success">Destinatário</span></td>
+              <td>Para quem o documento foi endereçado</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-muted" style="font-size:.85rem;">
+          Deixe todas as opções ativas para buscar em qualquer papel. Desative as que não
+          interessam para refinar.
+        </p>
+
+        <h6 class="font-weight-bold mt-3 mb-2">Assinatura / Autenticação</h6>
+        <p style="font-size:.9rem;">
+          Busca documentos assinados ou autenticados por um determinado usuário.
+        </p>
+        <table class="table table-sm table-bordered" style="font-size:.85rem;">
+          <thead class="thead-light">
+            <tr><th>Tipo</th><th>Aplica a</th><th>Configuração</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Assinatura</strong></td>
+              <td>Documentos <em>gerados</em> no SEI</td>
+              <td>Ative <span class="badge badge-primary">Gerados</span> · desative Externos</td>
+            </tr>
+            <tr>
+              <td><strong>Autenticação</strong></td>
+              <td>Documentos <em>externos</em> autenticados</td>
+              <td>Ative <span class="badge badge-info">Externos</span> · desative Gerados</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h6 class="font-weight-bold mt-3 mb-2">Usuário Gerador</h6>
+        <p style="font-size:.9rem;">
+          Localiza processos e/ou documentos criados por um usuário específico.
+          Permite pesquisar <strong>até 3 usuários simultaneamente</strong>.
+          A busca pode ser feita pelo número de matrícula ou pelo nome (completo ou parcial).
+        </p>
+      </div>
+
+      <!-- TAB DATA -->
+      <div class="tab-pane fade" id="tab-data">
+        <h6 class="font-weight-bold mb-2">Data entre</h6>
+        <p style="font-size:.9rem;">
+          Filtra processos e documentos por período, especificando data inicial e final.
+          Escolha se o intervalo se refere à:
+        </p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-outline card-secondary h-100">
+              <div class="card-header py-2">
+                <h6 class="card-title mb-0 small">
+                  <i class="fas fa-upload mr-1"></i>Data de Inclusão no SEI
+                </h6>
+              </div>
+              <div class="card-body py-2" style="font-size:.85rem;">
+                Quando o processo ou documento foi cadastrado/inserido no sistema.
+                Mais confiável para estatísticas de volume de trabalho.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card card-outline card-secondary h-100">
+              <div class="card-header py-2">
+                <h6 class="card-title mb-0 small">
+                  <i class="fas fa-calendar-day mr-1"></i>Data do Processo/Documento
+                </h6>
+              </div>
+              <div class="card-body py-2" style="font-size:.85rem;">
+                Data de origem informada nos metadados, que pode ser diferente da data
+                de inclusão no SEI.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="callout callout-info mt-3" style="font-size:.88rem;">
+          <strong><i class="fas fa-chart-line mr-1"></i>Dica para estatísticas:</strong><br>
+          Combine <em>Tipo de Processo/Documento</em> + <em>Data entre</em> para gerar
+          indicadores mensais sem precisar exportar ou fazer cálculos manuais.
+        </div>
+      </div>
+
+      <!-- TAB OUTROS CAMPOS -->
+      <div class="tab-pane fade" id="tab-outros">
+        <h6 class="font-weight-bold mb-2">Unidade Geradora</h6>
+        <p style="font-size:.9rem;">
+          Restringe a busca a processos ou documentos gerados por uma unidade específica.
+          <strong>Só é possível especificar uma unidade por pesquisa.</strong>
+        </p>
+
+        <h6 class="font-weight-bold mt-3 mb-2">Assunto</h6>
+        <p style="font-size:.9rem;">
+          Filtra pela classificação de assunto proveniente da Tabela de Temporalidade
+          Documental (TTD). Pode ser pesquisado pelo <em>número de classificação</em>
+          ou pelo <em>título do assunto</em>.
+        </p>
+
+        <h6 class="font-weight-bold mt-3 mb-2">Nº SEI</h6>
+        <p style="font-size:.9rem;">
+          Localiza pelo número SEI completo ou parcial de processos e documentos.
+          Se o número estiver completo e existir, abre diretamente o item.
+          Se for parcial, exibe todos os itens que contenham aquela sequência.
+        </p>
+        <div class="alert alert-secondary py-2" style="font-size:.85rem;">
+          <strong>Processo:</strong> formato <code>XXXXX.XXXXXX/XXXX-XX</code> (ex.: 23112.000412/2024-63)<br>
+          <strong>Documento:</strong> sequência de 7 dígitos (ex.: 1317956)
+        </div>
+
+        <h6 class="font-weight-bold mt-3 mb-2">Órgão Gerador / Restringir ao Órgão da Unidade</h6>
+        <p style="font-size:.9rem;">
+          Permite buscar em processos de outros órgãos credenciados no
+          <strong>Tramita.gov.br</strong>. O botão <em>Restringir ao Órgão da Unidade</em>
+          preenche automaticamente apenas o órgão ao qual sua unidade pertence.
+        </p>
+      </div>
+
+    </div><!-- /tab-content -->
+
+    <hr>
+
+    <!-- ════════════════════════════════════════════════════
+         6. OPERADORES DE BUSCA
+         ════════════════════════════════════════════════════ -->
+    <h4 id="sec-operadores" class="mt-3">
+      <i class="fas fa-code text-danger mr-2"></i>
+      Operadores e Estratégias de Busca
+    </h4>
+
+    <p>
+      Combine termos com operadores para resultados mais precisos.
+      <strong>No SEI em português, use as palavras em PT:</strong>
+      <kbd>E</kbd> (AND), <kbd>OU</kbd> (OR), <kbd>NÃO</kbd> (NOT).
+    </p>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover" style="font-size:.88rem;">
+        <thead style="background:#6f42c1;color:#fff;">
+          <tr>
+            <th style="width:80px;">Operador</th>
+            <th>O que faz</th>
+            <th>Exemplos</th>
+            <th style="width:90px;">Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">
+              <span class="badge badge-primary px-2 py-1" style="font-size:.9rem;">E</span>
+            </td>
+            <td>Retorna itens que contenham <strong>A e B ao mesmo tempo</strong> (interseção)</td>
+            <td>
+              <code>estatística E "documentação escolar"</code><br>
+              <code>matrícula E "2026"</code>
+            </td>
+            <td class="text-center text-success"><i class="fas fa-compress-arrows-alt"></i> Restringe</td>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <span class="badge badge-warning text-dark px-2 py-1" style="font-size:.9rem;">OU</span>
+            </td>
+            <td>Retorna itens que contenham <strong>A ou B</strong> (união)</td>
+            <td>
+              <code>transferência OU rematrícula</code><br>
+              <code>ofício OU memorando</code>
+            </td>
+            <td class="text-center text-info"><i class="fas fa-expand-arrows-alt"></i> Amplia</td>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <span class="badge badge-danger px-2 py-1" style="font-size:.9rem;">NÃO</span>
+            </td>
+            <td>Exclui itens que contenham <strong>B</strong> dos resultados de <strong>A</strong></td>
+            <td>
+              <code>matrícula NÃO "educação especial"</code><br>
+              <code>relatório NÃO mensal</code>
+            </td>
+            <td class="text-center text-danger"><i class="fas fa-minus-circle"></i> Exclui</td>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <span class="badge badge-secondary px-2 py-1" style="font-size:1rem;">*</span>
+            </td>
+            <td>Coringa — busca o radical e <strong>todas as derivações</strong> da palavra</td>
+            <td>
+              <code>matr*</code> → matrícula, matrículas, matriculado…<br>
+              <code>transfer*</code> → transferência, transferências, transferido…
+            </td>
+            <td class="text-center text-warning"><i class="fas fa-magic"></i> Expande</td>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <span class="badge badge-dark px-2 py-1" style="font-size:1rem;">" "</span>
+            </td>
+            <td>Busca a <strong>expressão exata</strong> com múltiplas palavras</td>
+            <td>
+              <code>"histórico escolar"</code><br>
+              <code>"declaração de matrícula"</code>
+            </td>
+            <td class="text-center text-success"><i class="fas fa-bullseye"></i> Preciso</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Exemplos práticos para o contexto escolar -->
+    <div class="card card-outline card-danger mt-2">
+      <div class="card-header py-2">
+        <h5 class="card-title mb-0" style="font-size:.95rem;">
+          <i class="fas fa-school mr-1"></i>
+          Exemplos práticos — Contexto Escolar (NRE / SEED-PR)
+        </h5>
+      </div>
+      <div class="card-body py-2">
+        <table class="table table-sm mb-0" style="font-size:.84rem;">
+          <thead class="thead-light">
+            <tr><th>Objetivo</th><th>Expressão de busca</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Encontrar todos os relatórios de estatística de maio</td>
+              <td><code>"estatística" E "maio/2026"</code></td>
+            </tr>
+            <tr>
+              <td>Buscar transferências excluindo ensino médio</td>
+              <td><code>transfer* NÃO "ensino médio"</code></td>
+            </tr>
+            <tr>
+              <td>Localizar ofícios ou memorandos do NRE</td>
+              <td><code>(ofício OU memorando) E NRE</code></td>
+            </tr>
+            <tr>
+              <td>Encontrar declaração de matrícula de aluno específico</td>
+              <td><code>"declaração de matrícula" E "Nome do Aluno"</code></td>
+            </tr>
+            <tr>
+              <td>Todos os processos de histórico escolar</td>
+              <td><code>"histórico escolar"</code> + Tipo do Processo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- ════════════════════════════════════════════════════
+         7. MINHAS PESQUISAS
+         ════════════════════════════════════════════════════ -->
+    <h4 id="sec-salvar" class="mt-3">
+      <i class="fas fa-bookmark text-dark mr-2"></i>
+      Minhas Pesquisas — Salvar e Reutilizar
+    </h4>
+
+    <p>
+      Pesquisas frequentes (como estatísticas mensais) podem ser <strong>salvas</strong>
+      para não precisar configurar os campos toda vez.
+    </p>
+
+    <div class="alert alert-secondary" style="font-size:.88rem;">
+      <i class="fas fa-info-circle mr-1"></i>
+      <strong>Importante:</strong> O botão <em>Salvar Pesquisa</em> aparece apenas
+      <strong>após executar a pesquisa</strong>, na página de resultados — não no
+      formulário de pesquisa.
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card card-outline card-dark h-100">
+          <div class="card-header py-2">
+            <h5 class="card-title mb-0 small">
+              <i class="fas fa-save mr-1"></i>Como Salvar uma Pesquisa
+            </h5>
+          </div>
+          <div class="card-body py-2">
+            <ol style="font-size:.88rem;" class="mb-0">
+              <li>Configure os critérios e clique em <strong>Pesquisar</strong>.</li>
+              <li>Na página de resultados, clique em <strong>Salvar Pesquisa</strong>.</li>
+              <li>Dê um nome descritivo (ex.: <em>Estatística Mensal — Documentação</em>).</li>
+              <li>Clique em <strong>Salvar</strong>.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card card-outline card-dark h-100">
+          <div class="card-header py-2">
+            <h5 class="card-title mb-0 small">
+              <i class="fas fa-redo mr-1"></i>Como Reutilizar uma Pesquisa
+            </h5>
+          </div>
+          <div class="card-body py-2">
+            <ol style="font-size:.88rem;" class="mb-0">
+              <li>Na tela de pesquisa, clique em <strong>Minhas Pesquisas</strong>.</li>
+              <li>Selecione a pesquisa salva desejada.</li>
+              <li>A pesquisa é executada imediatamente.</li>
+              <li>Se precisar ver os critérios, clique em <strong>Ver critérios de pesquisa</strong>.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dica final -->
+    <div class="callout callout-success mt-4">
+      <h5><i class="fas fa-graduation-cap mr-1"></i>Dica de Ouro — Ajuda do SEI</h5>
+      <p class="mb-0">
+        Na tela de Pesquisa Avançada, clique no ícone de
+        <strong>interrogação <i class="fas fa-question-circle"></i></strong>
+        para acessar a <em>Ajuda da Busca</em> com todos os operadores aceitos pelo sistema
+        e exemplos adicionais.
+      </p>
+    </div>
+
+  </div><!-- /card-body -->
+
+  <div class="card-footer text-muted">
+    <i class="fas fa-book-open mr-1"></i>
+    Referência: Portal SEI UFSCar —
+    <a href="https://www.portalsei.ufscar.br/duvidas-frequentes/organizacao/como-pesquisar-processos-e-documentos-no-sei"
+       target="_blank" rel="noopener">
+      Como pesquisar processos e documentos no SEI
+    </a>
+  </div>
+</div><!-- /card -->
+
+<!-- Inicializa tabs Bootstrap -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof $ !== 'undefined') {
+      $('[data-toggle="tooltip"]').tooltip();
+      $('#tabPesquisa a').on('click', function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+    }
+  });
+</script></p>
+            </div>
+
+            <!-- FOOTER INFO -->
+            <div class="card mt-4 mb-4">
+              <div class="card-body text-muted small">
+                <i class="fas fa-info-circle me-1"></i>
+                Última atualização: <strong>2026-06-15</strong> — Autor: <strong>Secretaria Escolar</strong>
+                <span class="ms-3"><i class="fas fa-folder me-1"></i>Outros</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOC / RIGHT SIDEBAR -->
+          <div class="col-xl-3 d-none d-xl-block">
+            <div class="toc-sticky">
+              
+              <div class="card mt-3">
+                <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-share-alt me-1"></i>Ações rápidas</h6></div>
+                <div class="card-body py-2">
+                  <button onclick="window.print()" class="btn btn-outline-secondary btn-sm w-100 mb-2"><i class="fas fa-print me-1"></i>Imprimir</button>
+                  <button onclick="toggleFavorite('busca_processos','Buscar Processos')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="busca_processos"><i class="fas fa-star me-1"></i>Favoritar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- RIGHT SIDEBAR (Favoritos/Histórico) -->
+  <aside class="control-sidebar control-sidebar-dark" id="right-sidebar">
+    <div class="control-sidebar-bg"></div>
+    <div class="p-3 control-sidebar-content">
+      <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-fav"><i class="fas fa-star"></i> Favoritos</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-hist"><i class="fas fa-history"></i> Histórico</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-fav">
+          <div id="favorites-list" class="text-center text-muted"><i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-favorites" style="display:none;" onclick="clearFavorites()"><i class="fas fa-trash"></i> Limpar favoritos</button>
+        </div>
+        <div class="tab-pane fade" id="tab-hist">
+          <div id="history-list" class="text-center text-muted"><i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-history" style="display:none;" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar histórico</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lightbox-img" src="" alt=""></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <footer class="main-footer">
+    <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-15</div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+<script>
+const PAGE_ID = 'busca_processos';
+const PAGE_TITLE = 'Buscar Processos';
+
+let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
+function saveFavorites(){localStorage.setItem('manual_favorites',JSON.stringify(favorites));updateFavoritesUI();}
+function toggleFavorite(id,title){
+  const idx=favorites.findIndex(f=>f.id===id);
+  if(idx>-1) favorites.splice(idx,1); else favorites.push({id,title});
+  saveFavorites(); updateFavoriteStar(id);
+  showToast(idx>-1?'Removido dos favoritos':'Adicionado aos favoritos',idx>-1?'info':'success');
+}
+function updateFavoriteStar(id){
+  const isFav=favorites.some(f=>f.id===id);
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"]').forEach(el=>el.classList.toggle('active',isFav));
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"] i').forEach(el=>{el.className=isFav?'fas fa-star text-warning':'fas fa-star';});
+}
+function updateFavoritesUI(){
+  const c=document.getElementById('favorites-list');if(!c)return;
+  if(favorites.length===0){c.innerHTML='<i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.';document.getElementById('btn-clear-favorites')?.style&&(document.getElementById('btn-clear-favorites').style.display='none');return;}
+  c.innerHTML=favorites.map(f=>`<div class="favorite-item" onclick="location.href='${f.id}.html'"><i class="fas fa-star text-warning"></i> ${f.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-favorites');if(btn)btn.style.display='';
+}
+function clearFavorites(){if(confirm('Limpar todos os favoritos?')){favorites=[];saveFavorites();showToast('Favoritos limpos','info');}}
+
+let history2=JSON.parse(localStorage.getItem('manual_history')||'[]');
+function addToHistory(id,title){history2=history2.filter(h=>h.id!==id);history2.unshift({id,title,t:new Date().toISOString()});if(history2.length>20)history2.pop();localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();}
+function updateHistoryUI(){
+  const c=document.getElementById('history-list');if(!c)return;
+  if(history2.length===0){c.innerHTML='<i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.';return;}
+  c.innerHTML=history2.slice(0,10).map(h=>`<div class="history-item" onclick="location.href='${h.id}.html'"><i class="fas fa-history"></i> ${h.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-history');if(btn)btn.style.display='';
+}
+function clearHistory(){if(confirm('Limpar histórico?')){history2=[];localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();showToast('Histórico limpo','info');}}
+
+function showToast(msg,type='success'){
+  const c=document.getElementById('toast-container');if(!c)return;
+  const t=document.createElement('div');t.className='custom-toast';t.innerHTML=(type==='success'?'✓':'ℹ️')+' '+msg;
+  c.appendChild(t);setTimeout(()=>t.remove(),3000);
+}
+
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('reading-progress').style.width=Math.min(pct,100)+'%';
+  document.getElementById('back-to-top').classList.toggle('visible',d.scrollTop>300);
+  document.querySelectorAll('[id^="section-"]').forEach(sec=>{
+    const link=document.querySelector('.toc-nav a[href="#'+sec.id+'"]');if(!link)return;
+    const rect=sec.getBoundingClientRect();link.classList.toggle('active',rect.top<=80&&rect.bottom>0);
+  });
+});
+
+
+
+
+$(document).ready(function() {
+ 
+  // Sobe 2 níveis: procedimentos/ -> modulos/ -> Manual/
+  $('aside#sidebar-container').load('../../sidebar.html', function() {
+
+    $('[data-widget="treeview"]').Treeview('init');
+    $('.nav-link.active').trigger('click');
+
+    $('#btn-toggle-favorites').click(function(e) {
+      e.preventDefault();
+      $('#right-sidebar').addClass('control-sidebar-open');
+    });
+
+    $('#btn-toggle-history').click(function(e) {
+      e.preventDefault();
+      $('#right-sidebar').addClass('control-sidebar-open');
+    });
+
+  });
+
+  loadModule('dashboard');
+});
+
+
+
+
+function openLightbox(src){const lb=document.getElementById('lightbox');lb.classList.add('open');document.getElementById('lightbox-img').src=src;}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+
+const allPages=[
+  {id:"pre_matricula",title:"Pré-Matrícula"},
+  {id:"documentacao",title:"Documentação Necessária – Matrícula"},
+  {id:"matriculas",title:"Matrícula"},
+  {id:"transferencia-entrada",title:"Transferência – Entrada"},
+  {id:"transferencia-saida",title:"Transferência – Saída"},
+  {id:"historicos",title:"Históricos Escolares"},
+  {id:"declaracoes",title:"Declarações"},
+  {id:"busca_processos",title:"Buscar Processos"}
+];
+const si=document.getElementById('global-search-input');
+const sd=document.getElementById('search-dropdown');
+if(si&&sd){
+  si.addEventListener('input',()=>{
+    const q=si.value.toLowerCase();if(q.length<2){sd.style.display='none';return;}
+    const r=allPages.filter(p=>p.title.toLowerCase().includes(q));
+    if(r.length){sd.innerHTML=r.map(p=>`<div class="search-result-item" onclick="location.href='${p.id}.html'"><i class="fas fa-file-alt me-2"></i>${p.title}</div>`).join('');sd.style.display='';}
+    else{sd.innerHTML='<div class="p-2 text-muted">Nenhum resultado</div>';sd.style.display='';}
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.input-group'))sd.style.display='none';});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  updateFavoriteStar(PAGE_ID);
+  addToHistory(PAGE_ID,PAGE_TITLE);
+  updateFavoritesUI();
+  updateHistoryUI();
+});
+</script>
+</body>
+</html>
