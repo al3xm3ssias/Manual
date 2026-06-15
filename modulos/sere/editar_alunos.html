@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="theme-color" content="#007bff">
+  <title>Editar Alunos – Manual do Escriturário</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+
+  <link rel="icon" href="/Manual/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Manual/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/Manual/assets/img/apple-touch-icon.png">
+
+  <style>
+    :root{--primary-color:#007bff;--success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f4f6f9;}
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#007bff,#28a745);z-index:99999;width:0%;transition:width 0.1s linear;pointer-events:none;}
+    .back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:#007bff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.3s;font-size:16px;box-shadow:0 4px 14px rgba(0,123,255,0.35);border:none;z-index:1000;}
+    .back-to-top.visible{opacity:1;}
+    .page-info-card{border-radius:10px;border-left:5px solid var(--primary-color);margin-bottom:20px;}
+    .icon-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+    .toc-sticky{position:sticky;top:72px;}
+    .toc-nav a{display:block;padding:5px 14px;font-size:13px;color:#495057;text-decoration:none;border-left:3px solid transparent;transition:all 0.15s;}
+    .toc-nav a:hover,.toc-nav a.active{color:#007bff;border-left-color:#007bff;background:#f8f9fa;}
+    .lightbox-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);z-index:99990;display:none;align-items:center;justify-content:center;cursor:zoom-out;}
+    .lightbox-overlay.open{display:flex;}
+    .lightbox-overlay img{max-width:92%;max-height:92vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .lightbox-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;line-height:1;}
+    .img-zoomable{cursor:zoom-in;transition:transform 0.2s;}
+    .img-zoomable:hover{transform:scale(1.02);}
+    .toast-container{position:fixed;bottom:20px;right:20px;z-index:9998;}
+    .custom-toast{background:white;border-left:4px solid var(--primary-color);padding:12px 20px;margin-top:10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.2);animation:slideIn .3s ease;display:flex;align-items:center;gap:10px;}
+    @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    .favorite-item,.history-item{padding:8px;margin-bottom:5px;background:rgba(255,255,255,.1);border-radius:5px;cursor:pointer;transition:all .2s;}
+    .favorite-item:hover,.history-item:hover{background:rgba(255,255,255,.2);}
+    .search-results-dropdown{position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ddd;border-radius:4px;max-height:300px;overflow-y:auto;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+    .search-result-item{padding:10px;cursor:pointer;border-bottom:1px solid #eee;}
+    .search-result-item:hover{background:#f8f9fa;}
+    .btn-favorite{cursor:pointer;transition:all .2s;}
+    .btn-favorite:hover{transform:scale(1.1);}
+    .btn-favorite.active{color:var(--warning-color);}
+    .steps-container .step-num{width:36px;height:36px;border-radius:50%;background:#007bff;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;}
+    pre code{font-family:'Cascadia Code','Consolas','Monaco',monospace;}
+    @media print{.main-sidebar,.main-header,.control-sidebar,.main-footer,.back-to-top,#reading-progress{display:none!important;}.content-wrapper{margin-left:0!important;}}
+    @media(max-width:768px){.brand-text,.user-panel .info{display:none;}.toc-sticky{display:none;}}
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<div class="wrapper">
+
+  <div id="reading-progress"></div>
+
+  <!-- NAVBAR -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom shadow-sm">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-md-block">
+        <ol class="breadcrumb mb-0 ms-2" style="font-size:13px;align-items:center;background:none;padding:0;">
+          <li class="breadcrumb-item"><a href="../../index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Início</a></li>
+          <li class="breadcrumb-item text-muted">Criando Cadastros no SERE</li>
+          <li class="breadcrumb-item active">Editar Alunos</li>
+        </ol>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item d-none d-md-inline-block">
+        <div class="input-group input-group-sm" style="position:relative;">
+          <input class="form-control form-control-navbar" type="search" id="global-search-input" placeholder="Buscar procedimentos..." autocomplete="off">
+          <div class="input-group-append"><button class="btn btn-navbar" type="button"><i class="fas fa-search"></i></button></div>
+          <div class="search-results-dropdown" id="search-dropdown" style="display:none;"></div>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" title="Imprimir" href="#" onclick="window.print();return false;"><i class="fas fa-print"></i></a></li>
+      <li class="nav-item">
+        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="editar_alunos" title="Favoritar" onclick="toggleFavorite('editar_alunos','Editar Alunos')"><i class="fas fa-star"></i></a>
+      </li>
+      <li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a></li>
+    </ul>
+  </nav>
+
+  <!-- SIDEBAR -->
+   <aside class="main-sidebar sidebar-dark-primary elevation-4" id="sidebar-container"></aside>
+    
+  </aside>
+
+  <!-- CONTENT WRAPPER -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <h1 class="m-0 d-flex align-items-center gap-2">
+              <i class="fas fa-file-alt text-danger me-1"></i>
+              Editar Alunos
+            </h1>
+          </div>
+          <div class="col-auto">
+            <button onclick="window.print()" class="btn btn-outline-secondary btn-sm me-1">
+              <i class="fas fa-print me-1"></i>Imprimir
+            </button>
+            <button onclick="toggleFavorite('editar_alunos','Editar Alunos')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="editar_alunos">
+              <i class="fas fa-star me-1"></i>Favoritar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- MAIN CONTENT -->
+          <div class="col-xl-9">
+            <!-- Page info card -->
+            <div class="card page-info-card">
+              <div class="card-body">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="icon-circle bg-primary text-white">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h2 class="h4 mb-1">Editar Alunos</h2>
+                    
+                    <div class="d-flex flex-wrap gap-3 small text-muted">
+                      <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-15</span>
+                      <span><i class="fas fa-folder me-1"></i>Criando Cadastros no SERE</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+<div id="page-content">
+  <style>
+    /* Estilos complementares ao AdminLTE */
+    .sere-callout { border-left: 4px solid #00a65a; background: #f9f9f9; padding: 10px 15px; margin-bottom: 15px; border-radius: 2px; }
+    .sere-callout.callout-warning { border-left-color: #f39c12; }
+    .sere-callout.callout-info    { border-left-color: #00c0ef; }
+    .sere-callout.callout-danger  { border-left-color: #dd4b39; }
+    .sere-step-badge { display: inline-block; background: #00a65a; color: #fff; border-radius: 50%; width: 28px; height: 28px; text-align: center; line-height: 28px; font-weight: bold; font-size: 14px; margin-right: 8px; }
+    .sere-field-label { font-weight: 600; color: #444; }
+    .sere-field-value { font-family: monospace; background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #222; }
+    .sere-mock-table th { background-color: #00a65a !important; color: #fff; font-size: 12px; }
+    .sere-mock-table td { font-size: 12px; vertical-align: middle; }
+    .sere-mock-header { background: #d6ebdf; padding: 8px 12px; border-radius: 3px 3px 0 0; font-size: 12px; color: #333; margin-bottom: 0; }
+    .sere-section-title { font-size: 14px; font-weight: 700; color: #00a65a; border-bottom: 2px solid #00a65a; padding-bottom: 4px; margin: 20px 0 12px 0; }
+    .sere-form-mock { background: #d6ebdf; border: 1px solid #b2d4be; border-radius: 3px; padding: 14px 18px; margin-bottom: 14px; font-size: 13px; }
+    .sere-form-mock .row-field { margin-bottom: 7px; }
+    .badge-matriculado { background-color: #00a65a; color: #fff; padding: 2px 7px; border-radius: 3px; font-size: 11px; }
+    .nav-path { font-size: 13px; background: #ecf0f1; border-radius: 4px; padding: 8px 14px; margin-bottom: 18px; color: #555; }
+    .nav-path span { color: #00a65a; font-weight: 600; }
+    .icon-edit-btn { color: #f39c12; font-size: 15px; }
+    .highlight-row { background-color: #fffbe6 !important; }
+  </style>
+
+  <div class="card card-success">
+    <div class="card-header">
+      <h3 class="card-title"><i class="fa fa-edit mr-2"></i>Editar Cadastro de Aluno no SERE</h3>
+    </div>
+    <div class="card-body">
+    <p>A edição do cadastro de um aluno permite corrigir ou atualizar informações como endereço, contatos, documentos, filiação, situação no Bolsa Família, perfil socioeconômico, necessidades especiais e observações. É uma operação rotineira e deve ser feita sempre que houver mudança nos dados do estudante.</p>
+
+    <!-- PASSO 1 -->
+    <h4 class="sere-section-title"><span class="sere-step-badge">1</span> Acessando a Turma</h4>
+    <p>No menu principal do SERE, acesse:</p>
+    <div class="nav-path">
+      <i class="fa fa-bars"></i>&nbsp; <span>Menu</span> &rarr; <span>Consulta Padrão</span> &rarr; <span>Por Turma</span>
+    </div>
+    <p>Será exibida a lista de turmas da escola. Clique sobre o nome da turma desejada para abrir a relação de alunos.</p>
+
+    <!-- PASSO 2 -->
+    <h4 class="sere-section-title"><span class="sere-step-badge">2</span> Localizando o Aluno na Turma</h4>
+    <p>Após clicar na turma, você verá a tabela de alunos matriculados. Para editar o cadastro de um aluno, clique no ícone <i class="fa fa-pencil icon-edit-btn"></i> na coluna <strong>Alterar</strong>, na linha correspondente ao aluno.</p>
+
+    <div class="sere-mock-header">
+      <strong>Curso:</strong> EDUC INFANTIL INTEGRAL &nbsp;|&nbsp;
+      <strong>Seriação:</strong> INFANTIL 1 &nbsp;|&nbsp;
+      <strong>Turno:</strong> Integral &nbsp;|&nbsp;
+      <strong>Turma:</strong> B &nbsp;|&nbsp;
+      <strong>Horário:</strong> 07h30 às 17h00
+    </div>
+    <div class="table-responsive" style="margin-bottom:16px;">
+      <table class="table table-bordered table-striped sere-mock-table">
+        <thead>
+          <tr>
+            <th>Nº</th><th>CGM</th><th>Nome do Aluno</th><th>Data Nascimento</th><th>Idade</th><th>Sexo</th><th>Sit. da Matrícula</th><th>Data Matric/Mov</th><th>Alterar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td><td>1041200001</td><td>ANA BEATRIZ FERREIRA SANTOS</td><td>14/03/2019</td><td>6</td><td>Feminino</td><td><span class="badge-matriculado">Matriculado</span></td><td>03/02/2025</td><td><i class="fa fa-pencil icon-edit-btn"></i></td>
+          </tr>
+          <tr>
+            <td>2</td><td>1041200002</td><td>BRENO AUGUSTO LIMA CARVALHO</td><td>22/07/2019</td><td>5</td><td>Masculino</td><td><span class="badge-matriculado">Matriculado</span></td><td>03/02/2025</td><td><i class="fa fa-pencil icon-edit-btn"></i></td>
+          </tr>
+          <tr>
+            <td>3</td><td>1041200003</td><td>CAROLINA MENEZES PINHEIRO</td><td>05/11/2019</td><td>5</td><td>Feminino</td><td><span class="badge-matriculado">Matriculado</span></td><td>03/02/2025</td><td><i class="fa fa-pencil icon-edit-btn"></i></td>
+          </tr>
+          <tr class="highlight-row">
+            <td>4</td><td>1041200004</td><td><strong>DAVI HENRIQUE SOUZA ROCHA</strong></td><td>18/01/2020</td><td>5</td><td>Masculino</td><td><span class="badge-matriculado">Matriculado</span></td><td>03/02/2025</td><td><i class="fa fa-pencil icon-edit-btn"></i></td>
+          </tr>
+          <tr>
+            <td>5</td><td>1041200005</td><td>EMILLY VITÓRIA GONÇALVES RAMOS</td><td>30/06/2019</td><td>6</td><td>Feminino</td><td><span class="badge-matriculado">Matriculado</span></td><td>03/02/2025</td><td><i class="fa fa-pencil icon-edit-btn"></i></td>
+          </tr>
+          <tr>
+            <td>6</td><td>1041200006</td><td>FELIPE AUGUSTO TEIXEIRA COSTA</td><td>09/04/2020</td><td>5</td><td>Masculino</td><td><span class="badge-matriculado">Matriculado</span></td><td>03/02/2025</td><td><i class="fa fa-pencil icon-edit-btn"></i></td>
+          </tr>
+          <tr>
+            <td>7</td><td>1041200007</td><td>GIOVANNA ALVES MARTINS</td><td>25/09/2019</td><td>5</td><td>Feminino</td><td><span class="badge-matriculado">Matriculado</span></td><td>04/02/2025</td><td><i class="fa fa-pencil icon-edit-btn"></i></td>
+          </tr>
+          <tr>
+            <td>8</td><td>1041200008</td><td>HEITOR GABRIEL NASCIMENTO PEREIRA</td><td>12/12/2019</td><td>5</td><td>Masculino</td><td><span class="badge-matriculado">Matriculado</span></td><td>04/02/2025</td><td><i class="fa fa-pencil icon-edit-btn"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sere-callout callout-info">
+      <i class="fa fa-info-circle"></i>&nbsp; Use o campo <strong>Filtro</strong> (acima da tabela) para localizar rapidamente um aluno digitando parte do nome ou da situação de matrícula.
+    </div>
+
+    <!-- PASSO 3 -->
+    <h4 class="sere-section-title"><span class="sere-step-badge">3</span> Formulário de Edição — Visão Geral</h4>
+    <p>Ao clicar no lápis, o sistema abre a tela <strong>Alterar / Excluir Aluno</strong>. Os dados são exibidos em seções. Abaixo, utilizamos o aluno fictício <strong>DAVI HENRIQUE SOUZA ROCHA</strong> como exemplo.</p>
+
+    <!-- 3A: Endereço -->
+    <h4 class="sere-section-title"><i class="fa fa-home"></i>&nbsp; Mudança de Endereço</h4>
+    <p>Na seção <strong>Endereço</strong>, preencha ou atualize os campos conforme os dados informados pela família. Os campos de Endereço, Cidade e Bairro são preenchidos automaticamente ao informar o CEP — mas podem ser corrigidos manualmente quando necessário.</p>
+    <div class="sere-form-mock">
+      <div style="font-weight:700; font-size:13px; color:#00a65a; margin-bottom:8px;"><i class="fa fa-home"></i>&nbsp; Endereço</div>
+      <div class="row-field"><span class="sere-field-label">País de Residência:</span> <span class="sere-field-value">BRASIL</span></div>
+      <div class="row-field">
+        <span class="sere-field-label">CEP:</span> <span class="sere-field-value">84051420</span>&nbsp;&nbsp;
+        <span class="sere-field-label">UF:</span> <span class="sere-field-value">PR</span>&nbsp;&nbsp;
+        <span class="sere-field-label">Cidade:</span> <span class="sere-field-value">PONTA GROSSA</span>
+      </div>
+      <div class="row-field">
+        <span class="sere-field-label">Endereço:</span> <span class="sere-field-value">RUA MARECHAL FLORIANO PEIXOTO</span>&nbsp;&nbsp;
+        <span class="sere-field-label">Número:</span> <span class="sere-field-value">342</span>
+      </div>
+      <div class="row-field">
+        <span class="sere-field-label">Complemento:</span> <span class="sere-field-value">APTO 12</span>&nbsp;&nbsp;
+        <span class="sere-field-label">Bairro:</span> <span class="sere-field-value">CENTRO</span>
+      </div>
+      <div class="row-field">
+        <span class="sere-field-label">Zona Residencial:</span> <span class="sere-field-value">Urbana</span>&nbsp;&nbsp;
+        <span class="sere-field-label">Tipo Ident. Geo:</span> <span class="sere-field-value">Copel</span>&nbsp;&nbsp;
+        <span class="sere-field-label">Núm. Ident. Geo:</span> <span class="sere-field-value">104783221</span>
+      </div>
+    </div>
+    <div class="sere-callout callout-warning">
+      <i class="fa fa-exclamation-triangle"></i>&nbsp; O <strong>Número de Identificação Geo</strong> (número da unidade consumidora da conta de energia) é essencial. Solicite à família o número impresso na conta de luz.
+    </div>
+
+    <!-- 3B: Contatos -->
+    <h4 class="sere-section-title"><i class="fa fa-phone"></i>&nbsp; Troca de Contatos</h4>
+    <p>Na seção <strong>Contato</strong>, atualize os celulares e e-mails sempre que a família informar novos dados. O celular do responsável é especialmente importante para comunicação via aplicativo <em>Escola Paraná</em>.</p>
+    <div class="sere-form-mock">
+      <div style="font-weight:700; font-size:13px; color:#00a65a; margin-bottom:8px;"><i class="fa fa-phone"></i>&nbsp; Contato</div>
+      <div class="row-field"><span class="sere-field-label">Celular/WhatsApp Aluno:</span> <span class="sere-field-value">(42) 99821-3344</span></div>
+      <div class="row-field"><span class="sere-field-label">Celular/WhatsApp Responsável:</span> <span class="sere-field-value">(42) 98854-7712</span></div>
+      <div class="row-field"><span class="sere-field-label">Telefone Residencial:</span> <span class="sere-field-value">3225-0198</span>&nbsp;&nbsp;<span class="sere-field-label">Telefone Comercial:</span> <span class="sere-field-value">&nbsp;</span></div>
+      <div class="row-field"><span class="sere-field-label">Email Responsável:</span> <span class="sere-field-value">marcia.souza@email.com</span>&nbsp;&nbsp;<span class="sere-field-label">Email Aluno:</span> <span class="sere-field-value">&nbsp;</span></div>
+    </div>
+
+    <!-- 3C: Documentos -->
+    <h4 class="sere-section-title"><i class="fa fa-file-text"></i>&nbsp; Inclusão de Documentos (CPF, RG, RNE)</h4>
+    <p>Na seção <strong>Documentação</strong>, inclua ou corrija os documentos do aluno. Para certidão de nascimento, selecione o modelo (Novo ou Antigo) e preencha os campos correspondentes.</p>
+    <div class="sere-form-mock">
+      <div style="font-weight:700; font-size:13px; color:#00a65a; margin-bottom:8px;"><i class="fa fa-file-text-o"></i>&nbsp; Documentação</div>
+      <div class="row-field">
+        <span class="sere-field-label">Certidão Civil:</span> <span class="sere-field-value">Modelo Novo</span>&nbsp;&nbsp;
+        <span class="sere-field-label">Tipo:</span> <span class="sere-field-value">Nascimento</span>&nbsp;&nbsp;
+        <span class="sere-field-label">Data de Emissão:</span> <span class="sere-field-value">10/03/2020</span>
+      </div>
+      <div class="row-field">
+        <span class="sere-field-label">UF do Cartório:</span> <span class="sere-field-value">PR</span>&nbsp;&nbsp;
+        <span class="sere-field-label">Município do Cartório:</span> <span class="sere-field-value">PONTA GROSSA</span>
+      </div>
+      <div class="row-field"><span class="sere-field-label">Matrícula (novo modelo):</span> <span class="sere-field-value">09321801002020100098010004112233</span></div>
+      <hr style="margin:8px 0;">
+      <div class="row-field"><span class="sere-field-label">CPF:</span> <span class="sere-field-value">087.532.419-05</span></div>
+      <div class="row-field"><span class="sere-field-label">RG:</span> <span class="sere-field-value">&nbsp;</span>&nbsp;&nbsp;<span style="font-size:11px; color:#888;">(crianças pequenas geralmente não possuem RG — campo pode ficar em branco)</span></div>
+      <div class="row-field"><span class="sere-field-label">Aluno possui Doc. Estrangeiro / Passaporte / RNE / RNM:</span> <span class="sere-field-value">Não</span></div>
+    </div>
+    <div class="sere-callout callout-info">
+      <i class="fa fa-info-circle"></i>&nbsp; Para alunos estrangeiros, marque <strong>Sim</strong> no campo "Aluno possui Doc. Estrangeiro" e preencha o número do passaporte, RNE ou RNM.
+    </div>
+
+    <!-- 3D: Filiação -->
+    <h4 class="sere-section-title"><i class="fa fa-users"></i>&nbsp; Inclusão / Retirada de Filiação</h4>
+    <p>Na seção <strong>Dados Familiares</strong>, estão os campos de Filiação 1 (Mãe), Filiação 2 (Pai) e Filiação 3 (opcional). Para <strong>ignorar</strong> uma filiação, marque a caixa <em>Não Declarado/Ignorado</em>.</p>
+    <div class="sere-form-mock">
+      <div style="font-weight:700; font-size:13px; color:#00a65a; margin-bottom:8px;"><i class="fa fa-users"></i>&nbsp; Dados Familiares</div>
+      <div class="row-field"><span class="sere-field-label">Nome da Mãe / Filiação 1:</span> <span class="sere-field-value">MÁRCIA CRISTINA SOUZA ROCHA</span></div>
+      <div class="row-field"><span class="sere-field-label">RG/RNE Mãe:</span> <span class="sere-field-value">98432211</span>&nbsp;&nbsp;<span class="sere-field-label">UF:</span> <span class="sere-field-value">PR</span></div>
+      <div class="row-field"><span class="sere-field-label">CPF da Mãe:</span> <span class="sere-field-value">052.310.987-44</span>&nbsp;&nbsp;<span class="sere-field-label">Celular Mãe:</span> <span class="sere-field-value">(42) 98854-7712</span></div>
+      <hr style="margin:8px 0;">
+      <div class="row-field"><span class="sere-field-label">Nome do Pai / Filiação 2:</span> <span class="sere-field-value">RODRIGO PEREIRA ROCHA</span></div>
+      <div class="row-field"><span class="sere-field-label">RG/RNE Pai:</span> <span class="sere-field-value">87654321</span>&nbsp;&nbsp;<span class="sere-field-label">UF:</span> <span class="sere-field-value">PR</span></div>
+      <hr style="margin:8px 0;">
+      <div class="row-field"><span class="sere-field-label">Filiação 3:</span> <span class="sere-field-value" style="color:#888;">(vazio — Não Declarado/Ignorado marcado)</span></div>
+      <hr style="margin:8px 0;">
+      <div class="row-field"><span class="sere-field-label">Nome do Responsável:</span> <span class="sere-field-value">Márcia Cristina Souza Rocha</span>&nbsp;&nbsp;<span class="sere-field-label">Parentesco:</span> <span class="sere-field-value">Mãe</span></div>
+      <div class="row-field"><span class="sere-field-label">CPF do Responsável:</span> <span class="sere-field-value">052.310.987-44</span></div>
+    </div>
+    <div class="sere-callout callout-info">
+      <i class="fa fa-info-circle"></i>&nbsp; Para liberar o acesso da mãe ou do pai ao aplicativo <strong>Escola Paraná</strong>, marque a opção <em>"Liberar acesso ao aplicativo Escola Paraná/Área do aluno?"</em> e certifique-se de que o celular e CPF estão preenchidos corretamente.
+    </div>
+
+    <!-- 3E: Bolsa Família -->
+    <h4 class="sere-section-title"><i class="fa fa-money"></i>&nbsp; Inclusão / Retirada do Bolsa Família</h4>
+    <p>Na seção <strong>Programas Sociais</strong>, marque se o aluno participa do Programa Bolsa Família e preencha os campos de NIS do Estudante, NIS do Responsável e Cadastro Único.</p>
+    <div class="sere-form-mock">
+      <div style="font-weight:700; font-size:13px; color:#00a65a; margin-bottom:8px;"><i class="fa fa-money"></i>&nbsp; Programas Sociais</div>
+      <div class="row-field"><span class="sere-field-label">Participa do Programa Bolsa Família:</span> <span class="sere-field-value">Sim</span></div>
+      <div class="row-field"><span class="sere-field-label">NIS do Estudante:</span> <span class="sere-field-value">16034421003</span></div>
+      <div class="row-field"><span class="sere-field-label">NIS do Responsável:</span> <span class="sere-field-value">16034421001</span></div>
+      <div class="row-field"><span class="sere-field-label">Cad. Único:</span> <span class="sere-field-value">21405783900</span></div>
+    </div>
+    <div class="sere-callout callout-warning">
+      <i class="fa fa-exclamation-triangle"></i>&nbsp; Para <strong>retirar</strong> o aluno do Bolsa Família, marque <strong>Não</strong> e deixe os campos de NIS em branco. Sempre confirme a situação atual com a família.
+    </div>
+
+    <!-- 3F: Socioeconômico -->
+    <h4 class="sere-section-title"><i class="fa fa-bar-chart"></i>&nbsp; Atualização do Questionário Socioeconômico</h4>
+    <p>Na seção <strong>Perfil Socioeconômico</strong>, preencha as informações sobre a realidade da família. Esses dados são utilizados para políticas públicas e planejamento escolar. Todos os campos marcados com <strong>*</strong> são obrigatórios.</p>
+    <div class="sere-form-mock">
+      <div style="font-weight:700; font-size:13px; color:#00a65a; margin-bottom:8px;"><i class="fa fa-bar-chart"></i>&nbsp; Perfil Socioeconômico</div>
+      <div class="row-field"><span class="sere-field-label">Renda Familiar Mensal:</span> <span class="sere-field-value">1 a 3 Salários Mínimos</span></div>
+      <div class="row-field"><span class="sere-field-label">Tipo de Moradia:</span> <span class="sere-field-value">Casa</span>&nbsp;&nbsp;<span class="sere-field-label">Forma de Ocupação:</span> <span class="sere-field-value">Própria</span></div>
+      <div class="row-field"><span class="sere-field-label">Tipo de Construção:</span> <span class="sere-field-value">Alvenaria</span></div>
+      <div class="row-field"><span class="sere-field-label">Serviços com acesso:</span> <span class="sere-field-value">Água encanada ✔ Energia Elétrica ✔ Esgoto ✔ Coleta de Lixo ✔</span></div>
+      <div class="row-field"><span class="sere-field-label">Ítens na moradia:</span> <span class="sere-field-value">Banheiro ✔ Geladeira ✔ Celular Smart ✔ Máquina de Lavar ✔</span></div>
+      <div class="row-field"><span class="sere-field-label">Tipo de conexão com internet:</span> <span class="sere-field-value">Fibra</span></div>
+      <div class="row-field"><span class="sere-field-label">Com quem o aluno reside:</span> <span class="sere-field-value">Pai ✔ Mãe ✔ Irmãos ✔</span></div>
+      <div class="row-field"><span class="sere-field-label">Total de pessoas na residência (incluindo o aluno):</span> <span class="sere-field-value">4</span></div>
+    </div>
+
+    <!-- 3G: Deficiências -->
+    <h4 class="sere-section-title"><i class="fa fa-universal-access"></i>&nbsp; Inclusão / Retirada de Deficiências e Transtornos</h4>
+    <p>Na seção <strong>Tipo de deficiência, transtorno do espectro autista ou altas habilidades/superdotação</strong>, marque ou desmarque as condições do aluno.</p>
+    <div class="sere-form-mock">
+      <div style="font-weight:700; font-size:13px; color:#00a65a; margin-bottom:8px;"><i class="fa fa-universal-access"></i>&nbsp; Deficiências / Transtornos</div>
+      <div class="row-field">
+        <table class="table table-bordered" style="font-size:12px; margin-bottom:0;">
+          <thead><tr style="background:#e8f5e9;"><th>Condição</th><th>Marcado?</th><th>Requer Atendimento?</th><th>Diagnóstico</th></tr></thead>
+          <tbody>
+            <tr><td>Distúrbios de aprendizagem</td><td style="color:green;"><strong>Sim</strong></td><td>Sim</td><td>TDAH</td></tr>
+            <tr><td>Transtorno do Espectro Autista</td><td style="color:#aaa;">Não</td><td>—</td><td>—</td></tr>
+            <tr><td>Altas habilidades/Superdotação</td><td style="color:#aaa;">Não</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row-field" style="margin-top:8px;"><span class="sere-field-label">Recursos para avaliação:</span> <span class="sere-field-value">Tempo adicional ✔</span></div>
+      <div class="row-field"><span class="sere-field-label">Atendimento em outro espaço:</span> <span class="sere-field-value">00 - Não Recebe</span></div>
+    </div>
+    <div class="sere-callout callout-danger">
+      <i class="fa fa-exclamation-circle"></i>&nbsp; A inclusão de deficiência deve ser feita <strong>somente com laudo médico</strong> em mãos.
+    </div>
+
+    <!-- 3H: Observações -->
+    <h4 class="sere-section-title"><i class="fa fa-sticky-note"></i>&nbsp; Colocar / Editar Observações</h4>
+    <p>O campo <strong>Observação</strong> permite registrar informações adicionais (até 500 caracteres), como Cartão SUS, alergias, condições médicas.</p>
+    <div class="sere-form-mock">
+      <div style="font-weight:700; font-size:13px; color:#00a65a; margin-bottom:8px;"><i class="fa fa-sticky-note-o"></i>&nbsp; Observação</div>
+      <div style="background:#fff; border:1px solid #b2d4be; border-radius:3px; padding:10px; font-size:13px;">
+        Cartão SUS: 700509112345678. Aluno em acompanhamento com neuropediatra — CID F90.0 (TDAH). Laudo arquivado na secretaria.
+      </div>
+    </div>
+    <div class="sere-callout callout-info">
+      <i class="fa fa-lightbulb-o"></i>&nbsp; <strong>Boas práticas:</strong> Registre sempre o número do Cartão SUS e o CID em caso de laudo.
+    </div>
+
+    <!-- PASSO 4 -->
+    <h4 class="sere-section-title"><span class="sere-step-badge">4</span> Salvando as Alterações</h4>
+    <p>Após realizar todas as edições, clique no botão <strong>alterar</strong> no rodapé do formulário para salvar as informações.</p>
+    <div class="sere-callout">
+      <i class="fa fa-check-circle"></i>&nbsp; <strong>Atenção:</strong> Os campos marcados com <span style="color:red;font-weight:bold;">*</span> são de preenchimento obrigatório.
+    </div>
+    <div class="text-center mt-2">
+      <span style="display:inline-block; background:#00a65a; color:#fff; padding:6px 22px; border-radius:3px; font-size:13px; font-weight:600; margin-right:8px;"><i class="fa fa-check"></i> alterar</span>
+      <span style="display:inline-block; background:#dd4b39; color:#fff; padding:6px 22px; border-radius:3px; font-size:13px; font-weight:600; margin-right:8px;"><i class="fa fa-trash"></i> excluir</span>
+      <span style="display:inline-block; background:#aaa; color:#fff; padding:6px 22px; border-radius:3px; font-size:13px; font-weight:600;"><i class="fa fa-arrow-left"></i> voltar</span>
+    </div>
+
+    </div>
+  </div>
+</div>
+<!-- O div#page-content é fechado aqui, depois segue normalmente o footer info -->
+            <!-- FOOTER INFO -->
+            <div class="card mt-4 mb-4">
+              <div class="card-body text-muted small">
+                <i class="fas fa-info-circle me-1"></i>
+                Última atualização: <strong>2026-06-15</strong> — Autor: <strong>Secretaria Escolar</strong>
+                <span class="ms-3"><i class="fas fa-folder me-1"></i>Criando Cadastros no SERE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOC / RIGHT SIDEBAR -->
+          <div class="col-xl-3 d-none d-xl-block">
+            <div class="toc-sticky">
+              
+              <div class="card mt-3">
+                <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-share-alt me-1"></i>Ações rápidas</h6></div>
+                <div class="card-body py-2">
+                  <button onclick="window.print()" class="btn btn-outline-secondary btn-sm w-100 mb-2"><i class="fas fa-print me-1"></i>Imprimir</button>
+                  <button onclick="toggleFavorite('editar_alunos','Editar Alunos')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="editar_alunos"><i class="fas fa-star me-1"></i>Favoritar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- RIGHT SIDEBAR (Favoritos/Histórico) -->
+  <aside class="control-sidebar control-sidebar-dark" id="right-sidebar">
+    <div class="control-sidebar-bg"></div>
+    <div class="p-3 control-sidebar-content">
+      <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-fav"><i class="fas fa-star"></i> Favoritos</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-hist"><i class="fas fa-history"></i> Histórico</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-fav">
+          <div id="favorites-list" class="text-center text-muted"><i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-favorites" style="display:none;" onclick="clearFavorites()"><i class="fas fa-trash"></i> Limpar favoritos</button>
+        </div>
+        <div class="tab-pane fade" id="tab-hist">
+          <div id="history-list" class="text-center text-muted"><i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-history" style="display:none;" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar histórico</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lightbox-img" src="" alt=""></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <footer class="main-footer">
+    <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-15</div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+<script>
+const PAGE_ID = 'editar_alunos';
+const PAGE_TITLE = 'Editar Alunos';
+
+let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
+function saveFavorites(){localStorage.setItem('manual_favorites',JSON.stringify(favorites));updateFavoritesUI();}
+function toggleFavorite(id,title){
+  const idx=favorites.findIndex(f=>f.id===id);
+  if(idx>-1) favorites.splice(idx,1); else favorites.push({id,title});
+  saveFavorites(); updateFavoriteStar(id);
+  showToast(idx>-1?'Removido dos favoritos':'Adicionado aos favoritos',idx>-1?'info':'success');
+}
+function updateFavoriteStar(id){
+  const isFav=favorites.some(f=>f.id===id);
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"]').forEach(el=>el.classList.toggle('active',isFav));
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"] i').forEach(el=>{el.className=isFav?'fas fa-star text-warning':'fas fa-star';});
+}
+function updateFavoritesUI(){
+  const c=document.getElementById('favorites-list');if(!c)return;
+  if(favorites.length===0){c.innerHTML='<i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.';document.getElementById('btn-clear-favorites')?.style&&(document.getElementById('btn-clear-favorites').style.display='none');return;}
+  c.innerHTML=favorites.map(f=>`<div class="favorite-item" onclick="location.href='${f.id}.html'"><i class="fas fa-star text-warning"></i> ${f.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-favorites');if(btn)btn.style.display='';
+}
+function clearFavorites(){if(confirm('Limpar todos os favoritos?')){favorites=[];saveFavorites();showToast('Favoritos limpos','info');}}
+
+let history2=JSON.parse(localStorage.getItem('manual_history')||'[]');
+function addToHistory(id,title){history2=history2.filter(h=>h.id!==id);history2.unshift({id,title,t:new Date().toISOString()});if(history2.length>20)history2.pop();localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();}
+function updateHistoryUI(){
+  const c=document.getElementById('history-list');if(!c)return;
+  if(history2.length===0){c.innerHTML='<i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.';return;}
+  c.innerHTML=history2.slice(0,10).map(h=>`<div class="history-item" onclick="location.href='${h.id}.html'"><i class="fas fa-history"></i> ${h.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-history');if(btn)btn.style.display='';
+}
+function clearHistory(){if(confirm('Limpar histórico?')){history2=[];localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();showToast('Histórico limpo','info');}}
+
+function showToast(msg,type='success'){
+  const c=document.getElementById('toast-container');if(!c)return;
+  const t=document.createElement('div');t.className='custom-toast';t.innerHTML=(type==='success'?'✓':'ℹ️')+' '+msg;
+  c.appendChild(t);setTimeout(()=>t.remove(),3000);
+}
+
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('reading-progress').style.width=Math.min(pct,100)+'%';
+  document.getElementById('back-to-top').classList.toggle('visible',d.scrollTop>300);
+  document.querySelectorAll('[id^="section-"]').forEach(sec=>{
+    const link=document.querySelector('.toc-nav a[href="#'+sec.id+'"]');if(!link)return;
+    const rect=sec.getBoundingClientRect();link.classList.toggle('active',rect.top<=80&&rect.bottom>0);
+  });
+});
+
+
+
+
+$(document).ready(function() {
+ 
+  // Sobe 2 níveis: procedimentos/ -> modulos/ -> Manual/
+  $('aside#sidebar-container').load('../../sidebar.html', function() {
+
+    $('[data-widget="treeview"]').Treeview('init');
+    $('.nav-link.active').trigger('click');
+
+    $('#btn-toggle-favorites').click(function(e) {
+      e.preventDefault();
+      $('#right-sidebar').addClass('control-sidebar-open');
+    });
+
+    $('#btn-toggle-history').click(function(e) {
+      e.preventDefault();
+      $('#right-sidebar').addClass('control-sidebar-open');
+    });
+
+  });
+
+  loadModule('dashboard');
+});
+
+
+
+
+function openLightbox(src){const lb=document.getElementById('lightbox');lb.classList.add('open');document.getElementById('lightbox-img').src=src;}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+
+const allPages=[
+  {id:"pre_matricula",title:"Pré-Matrícula"},
+  {id:"documentacao",title:"Documentação Necessária – Matrícula"},
+  {id:"matriculas",title:"Matrícula"},
+  {id:"transferencia-entrada",title:"Transferência – Entrada"},
+  {id:"transferencia-saida",title:"Transferência – Saída"},
+  {id:"historicos",title:"Históricos Escolares"},
+  {id:"declaracoes",title:"Declarações"},
+  {id:"editar_alunos",title:"Editar Alunos"}
+];
+const si=document.getElementById('global-search-input');
+const sd=document.getElementById('search-dropdown');
+if(si&&sd){
+  si.addEventListener('input',()=>{
+    const q=si.value.toLowerCase();if(q.length<2){sd.style.display='none';return;}
+    const r=allPages.filter(p=>p.title.toLowerCase().includes(q));
+    if(r.length){sd.innerHTML=r.map(p=>`<div class="search-result-item" onclick="location.href='${p.id}.html'"><i class="fas fa-file-alt me-2"></i>${p.title}</div>`).join('');sd.style.display='';}
+    else{sd.innerHTML='<div class="p-2 text-muted">Nenhum resultado</div>';sd.style.display='';}
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.input-group'))sd.style.display='none';});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  updateFavoriteStar(PAGE_ID);
+  addToHistory(PAGE_ID,PAGE_TITLE);
+  updateFavoritesUI();
+  updateHistoryUI();
+});
+</script>
+</body>
+</html>
