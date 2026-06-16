@@ -5,10 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="theme-color" content="#007bff">
-  <title>Matricula – Manual do Escriturário</title>
+  <title>Abertura do Ano Letivo – Manual do Escriturário</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+
+  <link rel="icon" href="/Manual/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Manual/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/Manual/assets/img/apple-touch-icon.png">
+
   <style>
     :root{--primary-color:#007bff;--success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;}
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f4f6f9;}
@@ -42,9 +47,6 @@
     @media print{.main-sidebar,.main-header,.control-sidebar,.main-footer,.back-to-top,#reading-progress{display:none!important;}.content-wrapper{margin-left:0!important;}}
     @media(max-width:768px){.brand-text,.user-panel .info{display:none;}.toc-sticky{display:none;}}
   </style>
-  <link rel="icon" href="/Manual/assets/img/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/Manual/assets/img/favicon-32.png">
-  <link rel="apple-touch-icon" href="/Manual/assets/img/apple-touch-icon.png">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
@@ -58,8 +60,8 @@
       <li class="nav-item d-none d-md-block">
         <ol class="breadcrumb mb-0 ms-2" style="font-size:13px;align-items:center;background:none;padding:0;">
           <li class="breadcrumb-item"><a href="../../index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Início</a></li>
-          <li class="breadcrumb-item text-muted">Matrícula</li>
-          <li class="breadcrumb-item active">Matricula</li>
+          <li class="breadcrumb-item text-muted">Planejamento e Censo</li>
+          <li class="breadcrumb-item active">Abertura do Ano Letivo</li>
         </ol>
       </li>
     </ul>
@@ -73,7 +75,7 @@
       </li>
       <li class="nav-item"><a class="nav-link" title="Imprimir" href="#" onclick="window.print();return false;"><i class="fas fa-print"></i></a></li>
       <li class="nav-item">
-        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="matriculas" title="Favoritar" onclick="toggleFavorite('matriculas','Matricula')"><i class="fas fa-star"></i></a>
+        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="iniciar_ano_letivo_rco" title="Favoritar" onclick="toggleFavorite('iniciar_ano_letivo_rco','Abertura do Ano Letivo')"><i class="fas fa-star"></i></a>
       </li>
       <li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a></li>
     </ul>
@@ -91,15 +93,15 @@
         <div class="row align-items-center">
           <div class="col">
             <h1 class="m-0 d-flex align-items-center gap-2">
-              <i class="fas fa-file-alt text-success me-1"></i>
-              Matricula
+              <i class="fas fa-file-alt text-primary me-1"></i>
+              Abertura do Ano Letivo
             </h1>
           </div>
           <div class="col-auto">
             <button onclick="window.print()" class="btn btn-outline-secondary btn-sm me-1">
               <i class="fas fa-print me-1"></i>Imprimir
             </button>
-            <button onclick="toggleFavorite('matriculas','Matricula')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="matriculas">
+            <button onclick="toggleFavorite('iniciar_ano_letivo_rco','Abertura do Ano Letivo')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="iniciar_ano_letivo_rco">
               <i class="fas fa-star me-1"></i>Favoritar
             </button>
           </div>
@@ -120,12 +122,12 @@
                     <i class="fas fa-file-alt"></i>
                   </div>
                   <div class="flex-grow-1">
-                    <h2 class="h4 mb-1">Matricula</h2>
+                    <h2 class="h4 mb-1">Abertura do Ano Letivo</h2>
                     
                     <div class="d-flex flex-wrap gap-3 small text-muted">
                       <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
-                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-10</span>
-                      <span><i class="fas fa-folder me-1"></i>Matrícula</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-16</span>
+                      <span><i class="fas fa-folder me-1"></i>Planejamento e Censo</span>
                     </div>
                   </div>
                 </div>
@@ -134,337 +136,232 @@
 
             <!-- CONTENT BLOCKS -->
             <div id="page-content">
-              <p class="mb-3 lh-lg"><div class="card card-primary">
+              <p class="mb-3 lh-lg"><div id="page-content">
+  <style>
+    /* Estilos complementares ao AdminLTE */
+    .sere-callout { border-left: 4px solid #00a65a; background: #f9f9f9; padding: 10px 15px; margin-bottom: 15px; border-radius: 2px; }
+    .sere-callout.callout-warning { border-left-color: #f39c12; }
+    .sere-callout.callout-info    { border-left-color: #00c0ef; }
+    .sere-callout.callout-danger  { border-left-color: #dd4b39; }
+    .sere-step-badge { display: inline-block; background: #00a65a; color: #fff; border-radius: 50%; width: 28px; height: 28px; text-align: center; line-height: 28px; font-weight: bold; font-size: 14px; margin-right: 8px; }
+    .sere-field-label { font-weight: 600; color: #444; }
+    .sere-field-value { font-family: monospace; background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #222; }
+    .sere-mock-table th { background-color: #00a65a !important; color: #fff; font-size: 12px; }
+    .sere-mock-table td { font-size: 12px; vertical-align: middle; }
+    .sere-mock-header { background: #d6ebdf; padding: 8px 12px; border-radius: 3px 3px 0 0; font-size: 12px; color: #333; margin-bottom: 0; }
+    .sere-section-title { font-size: 14px; font-weight: 700; color: #00a65a; border-bottom: 2px solid #00a65a; padding-bottom: 4px; margin: 20px 0 12px 0; }
+    .sere-form-mock { background: #d6ebdf; border: 1px solid #b2d4be; border-radius: 3px; padding: 14px 18px; margin-bottom: 14px; font-size: 13px; }
+    .sere-form-mock .row-field { margin-bottom: 7px; }
+    .badge-matriculado { background-color: #00a65a; color: #fff; padding: 2px 7px; border-radius: 3px; font-size: 11px; }
+    .nav-path { font-size: 13px; background: #ecf0f1; border-radius: 4px; padding: 8px 14px; margin-bottom: 18px; color: #555; }
+    .nav-path span { color: #00a65a; font-weight: 600; }
+    .icon-edit-btn { color: #f39c12; font-size: 15px; }
+    .highlight-row { background-color: #fffbe6 !important; }
+    .sere-passo-card { border: 1px solid #e0e0e0; border-radius: 4px; padding: 14px 16px; margin-bottom: 16px; background: #fff; }
+    .sere-passo-card h4 { font-size: 15px; font-weight: 700; color: #333; margin-bottom: 8px; }
+    .sere-link-modulo { display: inline-block; background: #00c0ef; color: #fff !important; padding: 5px 12px; border-radius: 3px; font-size: 12px; text-decoration: none; margin-top: 6px; }
+    .sere-link-modulo i { margin-right: 5px; }
+    .sere-form-replica label { font-size: 12px; font-weight: 600; color: #444; margin-bottom: 2px; }
+    .sere-form-replica .form-control[readonly] { background-color: #eee; }
+    .sere-form-replica .required-mark { color: #dd4b39; }
+  </style>
 
+  <div class="card card-success">
     <div class="card-header">
-        <h3 class="card-title">
-            <i class="fas fa-user-plus"></i> Realização da Matrícula no SERE
-        </h3>
+      <h3 class="card-title"><i class="fa fa-calendar-check mr-2"></i>Abertura do Ano Letivo no SERE</h3>
     </div>
-
     <div class="card-body">
 
-        <p>
-            Antes de iniciar qualquer matrícula, é fundamental verificar se o aluno já possui cadastro no município, ou seja, se já possui um número de CGM.
-        </p>
+      <div class="sere-callout callout-info">
+        <i class="fa fa-info-circle mr-2"></i>Este manual descreve, passo a passo, todas as rotinas necessárias para abrir corretamente o ano letivo no SERE, desde a rematrícula dos alunos até a liberação do RCO para os docentes.
+      </div>
 
-        <hr>
+      <!-- PASSO 1 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">1</span>Rematricular alunos do Ensino Fundamental</h4>
+        <p>O primeiro passo para iniciar o ano letivo é <strong>rematricular todos os alunos do ano letivo anterior</strong>. Esse procedimento é válido <u>somente para os alunos do Ensino Fundamental</u>.</p>
+        <div class="nav-path">
+          <i class="fa fa-sitemap mr-2"></i>MENU <span>&raquo;</span> MATRÍCULA <span>&raquo;</span> RENOVAÇÃO <span>&raquo;</span> POR TURMA
+        </div>
+      </div>
 
-        <h4>
-            <i class="fas fa-search"></i>
-            1. Consulta do CGM do Aluno
-        </h4>
+      <!-- PASSO 2 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">2</span>Inclusão manual de alunos novos e Educação Infantil</h4>
+        <p>Para os alunos da <strong>Educação Infantil</strong> e para os <strong>alunos novos</strong> vindos de outras escolas (Municipais de Ponta Grossa, Particulares, ou de outras cidades/estados), a inclusão nas turmas deve ser feita <strong>manualmente</strong>.</p>
+        <div class="nav-path">
+          <i class="fa fa-sitemap mr-2"></i>MENU <span>&raquo;</span> MATRÍCULA <span>&raquo;</span> INCLUIR <span>&raquo;</span> NOVAS
+        </div>
+      </div>
 
-        <p>
-            A consulta deve ser realizada no caminho:
-        </p>
+      <!-- PASSO 3 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">3</span>Exclusão de alunos que não retornaram</h4>
+        <p>Para os alunos que não estão mais frequentando a escola no ano letivo recém-iniciado, devemos <strong>excluí-los da lista de chamada</strong>.</p>
+        <div class="nav-path">
+          <i class="fa fa-sitemap mr-2"></i>MENU <span>&raquo;</span> MATRÍCULA <span>&raquo;</span> ALTERAR/EXCLUIR
+        </div>
+        <p>Informe o <span class="sere-field-label">CGM</span> do aluno e clique em <strong>Excluir</strong>.</p>
+      </div>
 
-        <div class="callout callout-info">
-            <h5>
-                <i class="fas fa-map-signs"></i>
-                Caminho
-            </h5>
+      <!-- PASSO 4 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">4</span>Cadastro de alunos sem CGM</h4>
+        <div class="sere-callout callout-danger">
+          <i class="fa fa-exclamation-triangle mr-2"></i><strong>Atenção:</strong> só podemos cadastrar alunos que <u>não possuem CGM</u> na <strong>base ABC</strong>.
+        </div>
+        <a href="/modulos/sere/cadastro_alunos.html" class="sere-link-modulo"><i class="fa fa-external-link-alt"></i>Como cadastrar alunos sem CGM</a>
+      </div>
 
-            <p>
-                <strong>MENU → Consulta Aluno na Base ABC</strong>
-            </p>
+      <!-- PASSO 5 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">5</span>Atualização dos dados dos alunos</h4>
+        <p>Depois de incluídos nas turmas, devemos atualizar as informações dos alunos, principalmente os <strong>alunos novos</strong> na unidade escolar.</p>
+        <a href="/modulos/sere/editar_alunos.html" class="sere-link-modulo"><i class="fa fa-external-link-alt"></i>Como editar dados dos alunos</a>
+      </div>
+
+      <!-- PASSO 6 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">6</span>Cadastro dos profissionais da educação</h4>
+        <p>Após isso, devemos incluir os professores e demais profissionais da educação no SERE, para que os docentes, pedagoga, diretora e escriturário possam ter acesso ao <strong>RCO</strong>.</p>
+        <a href="/modulos/sere/cadastro_funcionarios.html" class="sere-link-modulo"><i class="fa fa-external-link-alt"></i>Como cadastrar funcionários no SERE</a>
+      </div>
+
+      <!-- PASSO 7 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">7</span>Configurar Calendário Escolar no RCO</h4>
+        <p>Após os profissionais de educação incluídos e os professores vinculados às suas turmas, acessamos o <strong>RCO</strong>.</p>
+        <div class="nav-path">
+          <i class="fa fa-sitemap mr-2"></i>Aba <span>SECRETÁRIO</span> <span>&raquo;</span> <span>Calendário Escolar</span>
+        </div>
+        <p>Colocamos o período avaliativo e clicamos em <strong>Incluir</strong>. Os períodos devem seguir o calendário escolar do ano em vigência.</p>
+
+        <p class="sere-mock-header"><i class="fa fa-desktop mr-2"></i>Réplica da tela — Calendário Escolar</p>
+        <table class="table table-bordered sere-form-mock" style="margin-top:-1px;">
+          <tr><td class="sere-field-label" style="width:220px;">*Estabelecimento:</td><td><span class="sere-field-value">PONTA GROSSA - JUDITH M SILVEIRA,E M PROFA-EI EF</span></td></tr>
+          <tr><td class="sere-field-label">*Período Letivo:</td><td><span class="sere-field-value">2026-1</span></td></tr>
+          <tr><td class="sere-field-label">Período Avaliação:</td><td><span class="sere-field-value">Série Anual - Avaliação Bimestral - 1º Bimestre</span></td></tr>
+        </table>
+      </div>
+
+      <!-- PASSO 8 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">8</span>Definir regra de cálculo do período letivo</h4>
+        <p>Após cadastrar os períodos avaliativos, definimos a regra de cálculo:</p>
+        <div class="sere-callout">
+          <i class="fa fa-check-circle mr-2"></i>Clicar em <strong>Aritmética – 2 avaliações</strong>
+        </div>
+      </div>
+
+      <!-- PASSO 9 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">9</span>Definir grade de horários das turmas</h4>
+        <p>Depois disso, definimos as grades de horários para as turmas.</p>
+        <a href="modulos/sere/grade_aulas.html" class="sere-link-modulo"><i class="fa fa-external-link-alt"></i>Como cadastrar a grade de aulas</a>
+      </div>
+
+      <!-- PASSO 10 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">10</span>Solicitar acesso dos professores ao RCO</h4>
+        <p>Depois solicitamos às professoras que entrem de <strong>1 a 2 vezes</strong> no sistema RCO, para atualizar as turmas para o ano letivo.</p>
+        <div class="sere-callout callout-warning">
+          <i class="fa fa-exclamation-triangle mr-2"></i><strong>IMPORTANTE:</strong> se o professor não entrar no RCO, as turmas não irão puxar automaticamente para as turmas do Fundamental. Os professores da Educação Infantil também devem entrar no sistema, senão não é possível realizar a inclusão manual.
+        </div>
+      </div>
+
+      <!-- PASSO 11 -->
+      <div class="sere-passo-card">
+        <h4><span class="sere-step-badge">11</span>Incluir professores da Educação Infantil no RCO</h4>
+        <p>Para incluir os professores da Educação Infantil no RCO, devemos ir em:</p>
+        <div class="nav-path">
+          <i class="fa fa-sitemap mr-2"></i><span>Estabelecimento</span> &raquo; <span>Turma/Docente</span> &nbsp;ou&nbsp; <span>Secretário</span> &raquo; <span>Turma/Docente</span>
+        </div>
+        <p>Selecionar a turma, a disciplina e clicar em <strong>Incluir</strong>.</p>
+
+        <p class="sere-mock-header"><i class="fa fa-desktop mr-2"></i>Réplica da tela — Turma/Docente</p>
+        <table class="table table-bordered sere-form-mock" style="margin-top:-1px;">
+          <tr><td class="sere-field-label" style="width:220px;">*Estabelecimento:</td><td><span class="sere-field-value">PONTA GROSSA - JUDITH M SILVEIRA,E M PROFA-EI EF</span></td></tr>
+          <tr><td class="sere-field-label">*Período Letivo:</td><td><span class="sere-field-value">2026-1</span></td></tr>
+          <tr><td class="sere-field-label">*Turno:</td><td><span class="sere-field-value">Integral</span></td></tr>
+          <tr><td class="sere-field-label">*Turma:</td><td><span class="sere-field-value">EDUC INFANTIL INTEGRAL - INFANTIL 4 - Integral - A</span></td></tr>
+          <tr><td class="sere-field-label">Disciplina:</td><td><span class="sere-field-value">CAMPOS DE EXPERIENCIAS (1224)</span></td></tr>
+        </table>
+
+        <p>Depois disso, colocamos a <strong>data de abertura do ano letivo</strong> e clicamos em <strong>Atualizar Listagem</strong>. Após isso, o sistema carrega os nomes dos professores disponíveis para incluir.</p>
+        <div class="sere-callout callout-info">
+          <i class="fa fa-info-circle mr-2"></i>Lembrando que o nome do professor só fica disponível para inclusão <strong>depois que ele entra no RCO</strong> ao menos uma vez.
         </div>
 
-        <p>
-            A pesquisa deve ser realizada utilizando:
-        </p>
-
-        <ul>
-            <li>Nome do aluno conforme a Certidão de Nascimento;</li>
-            <li>Data de nascimento;</li>
-            <li>CGM (caso já seja conhecido).</li>
-        </ul>
-
-        <div class="callout callout-warning">
-
-            <h5>
-                <i class="fas fa-exclamation-triangle"></i>
-                Atenção
-            </h5>
-
-            <p>
-                O nome deve ser consultado exatamente como consta na Certidão de Nascimento, evitando abreviações ou diferenças de grafia.
-            </p>
-
+        <p class="sere-mock-header"><i class="fa fa-laptop-code mr-2"></i>Formulário interativo — Incluir Turma Docente</p>
+        <div class="sere-form-replica" style="background:#fff; border:1px solid #ddd;">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Estabelecimento</label>
+              <input type="text" class="form-control form-control-sm" value="PONTA GROSSA - JUDITH M SILVEIRA,E M PROFA-EI EF" readonly>
+            </div>
+            <div class="col-md-3">
+              <label>Período Letivo</label>
+              <input type="text" class="form-control form-control-sm" value="2026-1" readonly>
+            </div>
+            <div class="col-md-3">
+              <label>Turno</label>
+              <input type="text" class="form-control form-control-sm" value="Integral" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label>Turma</label>
+              <input type="text" class="form-control form-control-sm" value="EDUC INFANTIL INTEGRAL - INFANTIL 4 - Integral - A" readonly>
+            </div>
+            <div class="col-md-6">
+              <label>Disciplina</label>
+              <input type="text" class="form-control form-control-sm" value="CAMPOS DE EXPERIENCIAS (1224)" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-3">
+              <label><span class="required-mark">*</span>Data Início</label>
+              <input type="text" class="form-control form-control-sm" value="05/02/2026">
+            </div>
+            <div class="col-md-3">
+              <label>Data Fim</label>
+              <input type="text" class="form-control form-control-sm" placeholder="dd/mm/aaaa">
+            </div>
+            <div class="col-md-6">
+              <label><span class="required-mark">*</span>Docente &nbsp;<i class="fa fa-sync-alt" style="color:#00a65a; font-size:11px;"></i> Atualizar Listagem</label>
+              <select class="form-control form-control-sm" id="select-docente-ficticio">
+                <option selected>Selecione</option>
+                <option>FERNANDA APARECIDA DOS SANTOS - 05/02/2026 - 11/06/2026</option>
+                <option>JULIANA RIBEIRO DE LIMA - 05/02/2026 - 12/06/2026</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12 text-right">
+              <button type="button" class="btn btn-success btn-sm" onclick="alert('Vínculo de turma/docente salvo (exemplo fictício).')"><i class="fa fa-save mr-1"></i>Salvar</button>
+              <button type="button" class="btn btn-default btn-sm" onclick="document.getElementById('select-docente-ficticio').selectedIndex=0;"><i class="fa fa-times mr-1"></i>Cancelar</button>
+            </div>
+          </div>
         </div>
 
-        <hr>
-
-        <h4>
-            <i class="fas fa-random"></i>
-            2. Possíveis Situações
-        </h4>
-
-        <h5>
-            <i class="fas fa-times-circle"></i>
-            Aluno não possui CGM
-        </h5>
-
-        <p>
-            Caso o aluno não seja localizado na Base ABC, deverá ser realizado primeiramente o cadastro do aluno no SERE.
-        </p>
-
-        <div class="callout callout-info">
-
-            <h5>
-                <i class="fas fa-link"></i>
-                Procedimento relacionado
-            </h5>
-
-            <p>
-                <a href="/modulos/sere/cadastro_alunos.html">Como cadastrar um aluno</a>
-            </p>
-
-        </div>
-
-        <h5>
-            <i class="fas fa-check-circle"></i>
-            Aluno possui CGM
-        </h5>
-
-        <p>
-            Caso o aluno já possua CGM, ou tenha acabado de ser cadastrado, poderá ser iniciada a matrícula.
-        </p>
-
-        <hr>
-
-        <h4>
-            <i class="fas fa-school"></i>
-            3. Matrículas Oriundas da Rede Particular, Outros Municípios ou Outros Estados
-        </h4>
-
-        <p>
-            Para alunos provenientes da rede particular, municípios que não utilizam o SERE ou oriundos de outros estados, a matrícula deverá ser realizada pelo seguinte caminho:
-        </p>
-
-        <div class="callout callout-info">
-
-            <h5>
-                <i class="fas fa-map-signs"></i>
-                Caminho
-            </h5>
-
-            <p>
-                <strong>MENU → Matrícula → Incluir → Novas</strong>
-            </p>
-
-        </div>
-
-        <p>
-            Em seguida:
-        </p>
-
-        <ul>
-
-            <li>Informar o CGM do aluno;</li>
-
-            <li>Selecionar a turma correspondente;</li>
-
-            <li>Preencher a letra da turma (A, B, C, D, etc.);</li>
-
-            <li>Selecionar a forma de ingresso como <strong>Normal</strong>;</li>
-
-            <li>Realizar a caracterização da matrícula.</li>
-
-        </ul>
-
-        <hr>
-
-        <h4>
-            <i class="fas fa-list-check"></i>
-            4. Caracterização da Matrícula
-        </h4>
-
-        <p>
-            A combinação da caracterização deverá ser selecionada de acordo com a situação escolar do aluno.
-        </p>
-
-        <div class="callout callout-warning">
-
-            <h5>
-                <i class="fas fa-info-circle"></i>
-                Exemplos
-            </h5>
-
-            <ul>
-
-                <li>Matrícula Transferida + Aprovado;</li>
-
-                <li>Matrícula Transferida + Não Frequentou;</li>
-
-                <li>Matrícula Transferida + Reprovado;</li>
-
-                <li>Matrícula Transferida + Abandonou;</li>
-
-                <li>Matrícula Renovada + Aprovado;</li>
-
-                <li>Matrícula Renovada + Reprovado;</li>
-
-                <li>Primeira Matrícula no Ensino.</li>
-
-            </ul>
-
-        </div>
-
-        <p>
-            A caracterização deverá sempre corresponder à situação apresentada no histórico escolar e na documentação entregue pela família.
-        </p>
-
-        <hr>
-
-        <h4>
-            <i class="fas fa-save"></i>
-            5. Finalização
-        </h4>
-
-        <p>
-            Após o preenchimento de todas as informações, clicar em <strong>Salvar</strong> para concluir a matrícula.
-        </p>
-
-        <hr>
-
-        <h4>
-            <i class="fas fa-exchange-alt"></i>
-            6. Aluno Matriculado em Outra Escola no SERE
-        </h4>
-
-        <p>
-            Caso o aluno esteja ativo em outra unidade que utiliza o SERE, deverá ser realizada uma solicitação de transferência online.
-        </p>
-
-        <div class="callout callout-info">
-
-            <h5>
-                <i class="fas fa-map-signs"></i>
-                Caminho
-            </h5>
-
-            <p>
-                <strong>MENU → Transferência Online → Solicitações</strong>
-            </p>
-
-        </div>
-
-        <p>
-            Em seguida:
-        </p>
-
-        <ul>
-
-            <li>Informar o CGM do aluno;</li>
-
-            <li>Preencher quem está solicitando a transferência;</li>
-
-            <li>Indicar o responsável pelo aluno;</li>
-
-            <li>Inserir uma descrição da solicitação.</li>
-
-        </ul>
-
-        <div class="callout callout-warning">
-
-            <h5>
-                <i class="fas fa-file-alt"></i>
-                Exemplo de descrição
-            </h5>
-
-            <p>
-                Prezados,
-            </p>
-
-            <p>
-                Solicitamos a transferência do aluno, visto que o mesmo iniciará seus estudos em nossa unidade escolar.
-            </p>
-
-        </div>
-
-        <p>
-            Após preencher todas as informações, basta confirmar a solicitação.
-        </p>
-
-        <hr>
-
-        <h4>
-            <i class="fas fa-envelope"></i>
-            7. Recebimento da Transferência
-        </h4>
-
-        <p>
-            Após a escola de origem efetivar a transferência, surgirá uma mensagem no rodapé do SERE informando a existência de uma solicitação pendente.
-        </p>
-
-        <p>
-            O servidor deverá:
-        </p>
-
-        <ul>
-
-            <li>Clicar sobre a mensagem;</li>
-
-            <li>Abrir a solicitação recebida;</li>
-
-            <li>Clicar em <strong>Nova</strong>;</li>
-
-            <li>Realizar os mesmos procedimentos de uma matrícula comum.</li>
-
-        </ul>
-
-        <div class="callout callout-success">
-
-            <h5>
-                <i class="fas fa-graduation-cap"></i>
-                Importante
-            </h5>
-
-            <p>
-                Mesmo nas transferências online, é indispensável conferir a documentação apresentada, o histórico escolar, a série/ano pretendido e a caracterização da matrícula antes da conclusão do processo.
-            </p>
-
-        </div>
-
-        <hr>
-
-        <h4>
-            <i class="fas fa-check-double"></i>
-            Boas Práticas
-        </h4>
-
-        <ul>
-
-            <li>Conferir sempre o nome do aluno conforme a Certidão de Nascimento;</li>
-
-            <li>Verificar se o aluno já possui CGM antes de realizar novo cadastro;</li>
-
-            <li>Analisar cuidadosamente o histórico escolar;</li>
-
-            <li>Conferir a compatibilidade entre a série cursada e a série pretendida;</li>
-
-            <li>Selecionar corretamente a caracterização da matrícula;</li>
-
-            <li>Em caso de dúvidas sobre vida escolar, consultar o Setor de Documentação Escolar;</li>
-
-            <li>Somente concluir a matrícula após a conferência de toda a documentação.</li>
-
-        </ul>
+        <p>Após selecionar o docente, basta clicar em <strong>Salvar</strong>.</p>
+      </div>
+
+      <div class="sere-callout" style="border-left-color:#00a65a;">
+        <i class="fa fa-flag-checkered mr-2"></i><strong>Pronto!</strong> Concluídos esses passos, finalizamos a abertura do ano letivo.
+      </div>
 
     </div>
-
-</div>
-
-</p>
+  </div>
+</div></p>
             </div>
 
             <!-- FOOTER INFO -->
             <div class="card mt-4 mb-4">
               <div class="card-body text-muted small">
                 <i class="fas fa-info-circle me-1"></i>
-                Última atualização: <strong>2026-06-10</strong> — Autor: <strong>Secretaria Escolar</strong>
-                <span class="ms-3"><i class="fas fa-folder me-1"></i>Matrícula</span>
+                Última atualização: <strong>2026-06-16</strong> — Autor: <strong>Secretaria Escolar</strong>
+                <span class="ms-3"><i class="fas fa-folder me-1"></i>Planejamento e Censo</span>
               </div>
             </div>
           </div>
@@ -477,7 +374,7 @@
                 <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-share-alt me-1"></i>Ações rápidas</h6></div>
                 <div class="card-body py-2">
                   <button onclick="window.print()" class="btn btn-outline-secondary btn-sm w-100 mb-2"><i class="fas fa-print me-1"></i>Imprimir</button>
-                  <button onclick="toggleFavorite('matriculas','Matricula')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="matriculas"><i class="fas fa-star me-1"></i>Favoritar</button>
+                  <button onclick="toggleFavorite('iniciar_ano_letivo_rco','Abertura do Ano Letivo')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="iniciar_ano_letivo_rco"><i class="fas fa-star me-1"></i>Favoritar</button>
                 </div>
               </div>
             </div>
@@ -514,7 +411,7 @@
 
   <footer class="main-footer">
     <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
-    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-10</div>
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-16</div>
   </footer>
 </div>
 
@@ -522,8 +419,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
 <script>
-const PAGE_ID = 'matriculas';
-const PAGE_TITLE = 'Matricula';
+const PAGE_ID = 'iniciar_ano_letivo_rco';
+const PAGE_TITLE = 'Abertura do Ano Letivo';
 
 let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
 function saveFavorites(){localStorage.setItem('manual_favorites',JSON.stringify(favorites));updateFavoritesUI();}
@@ -613,7 +510,7 @@ const allPages=[
   {id:"transferencia-saida",title:"Transferência – Saída"},
   {id:"historicos",title:"Históricos Escolares"},
   {id:"declaracoes",title:"Declarações"},
-  {id:"matriculas",title:"Matricula"}
+  {id:"iniciar_ano_letivo_rco",title:"Abertura do Ano Letivo"}
 ];
 const si=document.getElementById('global-search-input');
 const sd=document.getElementById('search-dropdown');
