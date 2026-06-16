@@ -1,6 +1,320 @@
 {
-  "version": "1.0.0",
-  "generatedAt": "2026-06-03T15:44:38Z",
-  "totalItems": 0,
-  "items": []
+  "procedimentos": {
+    "total": 40,
+    "itens": [
+      {
+        "id": "pre_matricula",
+        "titulo": "Pré Matricula",
+        "url": "/Manual/modulos/matricula/pre_matricula.html",
+        "secao": "Matricula",
+        "icone": "fas fa-clipboard-list nav-icon text-success"
+      },
+      {
+        "id": "documentacao",
+        "titulo": "Documentação Necessária",
+        "url": "/Manual/modulos/matricula/documentacao.html",
+        "secao": "Matricula",
+        "icone": "fas fa-folder-open nav-icon text-success"
+      },
+      {
+        "id": "matriculas",
+        "titulo": "Matrícula",
+        "url": "/Manual/modulos/matricula/matriculas.html",
+        "secao": "Matricula",
+        "icone": "fas fa-user-plus nav-icon text-success"
+      },
+      {
+        "id": "anexo_de_documentos",
+        "titulo": "Anexo de Documentos",
+        "url": "/Manual/modulos/matricula/anexo_de_documentos.html",
+        "secao": "Matricula",
+        "icone": "fas fa-paperclip nav-icon text-success"
+      },
+      {
+        "id": "transferencias",
+        "titulo": "Transfeências",
+        "url": "/Manual/modulos/matricula/transferencias.html",
+        "secao": "Transferências",
+        "icone": "fas fa-exchange-alt nav-icon text-info"
+      },
+      {
+        "id": "historicos",
+        "titulo": "Historicos Escolares",
+        "url": "/Manual/modulos/procedimentos/historicos",
+        "secao": "Documentos SERE",
+        "icone": "fas fa-graduation-cap nav-icon text-danger"
+      },
+      {
+        "id": "declaracoes_de_matricula",
+        "titulo": "Declaração de Matricula",
+        "url": "/Manual/modulos/matricula/declaracoes_de_matricula.html",
+        "secao": "Documentos SERE",
+        "icone": "fas fa-file-alt nav-icon text-primary"
+      },
+      {
+        "id": "pareceres",
+        "titulo": "Pareceres",
+        "url": "/Manual/modulos/matricula/pareceres.html",
+        "secao": "Documentos SERE",
+        "icone": "fas fa-comment-dots nav-icon text-secondary"
+      },
+      {
+        "id": "guia_de_transferencia",
+        "titulo": "Guia de Transferência",
+        "url": "/Manual/modulos/matricula/guia_de_transferencia.html",
+        "secao": "Documentos SERE",
+        "icone": "fas fa-file-export nav-icon text-secondary"
+      },
+      {
+        "id": "abono_de_faltas",
+        "titulo": "Abono de Faltas",
+        "url": "/Manual/modulos/sere/abono_de_faltas.html",
+        "secao": "Procedimentos no RCO/SERE",
+        "icone": "fas fa-user-check nav-icon text-danger"
+      },
+      {
+        "id": "iniciar_ano_letivo_rco",
+        "titulo": "Iniciar Ano Letivo no RCO",
+        "url": "/Manual/modulos/procedimentos/iniciar_ano_letivo_rco.html",
+        "secao": "Procedimentos no RCO/SERE",
+        "icone": "fas fa-play-circle nav-icon text-primary"
+      },
+      {
+        "id": "grade_aulas",
+        "titulo": "Grade de Aulas",
+        "url": "/Manual/modulos/sere/grade_aulas.html",
+        "secao": "Procedimentos no RCO/SERE",
+        "icone": "fas fa-table nav-icon text-secondary"
+      },
+      {
+        "id": "lancar_livros_de_chamada",
+        "titulo": "Lançar Livros de Chamada",
+        "url": "/Manual/modulos/sere/lancar_livros_de_chamada.html",
+        "secao": "Procedimentos no RCO/SERE",
+        "icone": "fas fa-book nav-icon text-secondary"
+      },
+      {
+        "id": "encerramento_ano_letivo",
+        "titulo": "Encerramento do Ano Letivo",
+        "url": "/Manual/modulos/procedimentos/encerramento_ano_letivo.html",
+        "secao": "Procedimentos no RCO/SERE",
+        "icone": "fas fa-flag-checkered nav-icon text-secondary"
+      },
+      {
+        "id": "cadastro_alunos",
+        "titulo": "Cadastro de Alunos",
+        "url": "/Manual/modulos/sere/cadastro_alunos.html",
+        "secao": "Criando Cadastros no SERE",
+        "icone": "fas fa-user-graduate nav-icon text-danger"
+      },
+      {
+        "id": "cadastro_funcionarios",
+        "titulo": "Cadastro de Funcionários",
+        "url": "/Manual/modulos/sere/cadastro_funcionarios.html",
+        "secao": "Criando Cadastros no SERE",
+        "icone": "fas fa-id-badge nav-icon text-primary"
+      },
+      {
+        "id": "cadastro_professores",
+        "titulo": "Cadastro de Professores",
+        "url": "/Manual/modulos/sere/cadastro_professores.html",
+        "secao": "Criando Cadastros no SERE",
+        "icone": "fas fa-chalkboard-teacher nav-icon text-secondary"
+      },
+      {
+        "id": "editar_alunos",
+        "titulo": "Cadastro de Alunos",
+        "url": "/Manual/modulos/sere/editar_alunos.html",
+        "secao": "Editando Cadastros no SERE",
+        "icone": "fas fa-user-edit nav-icon text-danger"
+      },
+      {
+        "id": "editar_funcionarios",
+        "titulo": "Cadastro de Funcionários",
+        "url": "/Manual/modulos/procedimentos/editar_funcionarios.html",
+        "secao": "Editando Cadastros no SERE",
+        "icone": "fas fa-address-card nav-icon text-primary"
+      },
+      {
+        "id": "censo-escolar",
+        "titulo": "Censo Escolar",
+        "url": "/Manual/modulos/sere/censo-escolar.html",
+        "secao": "Censo Escolar",
+        "icone": "fas fa-chart-bar nav-icon text-info"
+      },
+      {
+        "id": "cadastro_alunos",
+        "titulo": "Cadastro dos Alunos",
+        "url": "/Manual/modulos/sere/cadastro_alunos.html",
+        "secao": "Censo Escolar",
+        "icone": "fas fa-child nav-icon text-success"
+      },
+      {
+        "id": "cadastro_funcionarios",
+        "titulo": "Cadastro dos Funcionários",
+        "url": "/Manual/modulos/sere/cadastro_funcionarios.html",
+        "secao": "Censo Escolar",
+        "icone": "fas fa-id-badge nav-icon text-primary"
+      },
+      {
+        "id": "cadastro_da_escola",
+        "titulo": "Cadastro da Escola",
+        "url": "/Manual/modulos/sere/cadastro_da_escola.html",
+        "secao": "Censo Escolar",
+        "icone": "fas fa-school nav-icon text-success"
+      },
+      {
+        "id": "iniciar_processos",
+        "titulo": "Iniciar Processos",
+        "url": "/Manual/modulos/sei/iniciar_processos.html",
+        "secao": "SEI",
+        "icone": "fas fa-play-circle nav-icon text-secondary"
+      },
+      {
+        "id": "cota",
+        "titulo": "Cota do Processo",
+        "url": "/Manual/modulos/sei/cota.html",
+        "secao": "SEI",
+        "icone": "fas fa-percentage nav-icon text-secondary"
+      },
+      {
+        "id": "documentos_externos",
+        "titulo": "Anexo de Documentos",
+        "url": "/Manual/modulos/sei/documentos_externos.html",
+        "secao": "SEI",
+        "icone": "fas fa-paperclip nav-icon text-info"
+      },
+      {
+        "id": "busca_processos",
+        "titulo": "Pesquisa de Processos",
+        "url": "/Manual/modulos/sei/busca_processos.html",
+        "secao": "SEI",
+        "icone": "fas fa-search nav-icon text-danger"
+      },
+      {
+        "id": "organizacao",
+        "titulo": "Organização",
+        "url": "/Manual/modulos/sei/organizacao.html",
+        "secao": "SEI",
+        "icone": "fas fa-sitemap nav-icon text-primary"
+      },
+      {
+        "id": "troca_de_senha",
+        "titulo": "Troca de Senha do SEI",
+        "url": "/Manual/modulos/sei/troca_de_senha.html",
+        "secao": "SEI",
+        "icone": "fas fa-key nav-icon text-primary"
+      },
+      {
+        "id": "justificativas",
+        "titulo": "Justificativas",
+        "url": "/Manual/modulos/servidores/justificativas.html",
+        "secao": "Justificativas e Quinzenal",
+        "icone": "fas fa-comment-alt nav-icon text-secondary"
+      },
+      {
+        "id": "quinzenal",
+        "titulo": "Quinzenal",
+        "url": "/Manual/modulos/servidores/quinzenal.html",
+        "secao": "Justificativas e Quinzenal",
+        "icone": "fas fa-calendar-alt nav-icon text-info"
+      },
+      {
+        "id": "atestados",
+        "titulo": "Atestados",
+        "url": "/Manual/modulos/servidores/atestados.html",
+        "secao": "Justificativas e Quinzenal",
+        "icone": "fas fa-file-medical nav-icon text-danger"
+      },
+      {
+        "id": "declaracoes",
+        "titulo": "Declarações",
+        "url": "/Manual/modulos/servidores/declaracoes.html",
+        "secao": "Justificativas e Quinzenal",
+        "icone": "fas fa-file-alt nav-icon text-primary"
+      },
+      {
+        "id": "cat",
+        "titulo": "CAT",
+        "url": "/Manual/modulos/servidores/CAT.html",
+        "secao": "Justificativas e Quinzenal",
+        "icone": "fas fa-hard-hat nav-icon text-warning"
+      },
+      {
+        "id": "abonos",
+        "titulo": "Abonos",
+        "url": "/Manual/modulos/servidores/abonos.html",
+        "secao": "Legislação - Servidores",
+        "icone": "fas fa-calendar-check nav-icon text-success"
+      },
+      {
+        "id": "compensacao_de_horas",
+        "titulo": "Compensação de Horas",
+        "url": "/Manual/modulos/servidores/compensacao_de_horas.html",
+        "secao": "Legislação - Servidores",
+        "icone": "fas fa-clock nav-icon text-warning"
+      },
+      {
+        "id": "carta_de_apresentacao",
+        "titulo": "Carta de Apresentação",
+        "url": "/Manual/modulos/servidores/carta_de_apresentacao.html",
+        "secao": "Documentação - Servidores",
+        "icone": "fas fa-envelope nav-icon text-primary"
+      },
+      {
+        "id": "ficha_funcional",
+        "titulo": "Ficha Funcional",
+        "url": "/Manual/modulos/servidores/ficha_funcional.html",
+        "secao": "Documentação - Servidores",
+        "icone": "fas fa-id-card nav-icon text-info"
+      },
+      {
+        "id": "solicitacao_de_vale_transporte",
+        "titulo": "Vale Transporte",
+        "url": "/Manual/modulos/servidores/solicitacao_de_vale_transporte.html",
+        "secao": "Documentação - Servidores",
+        "icone": "fas fa-bus nav-icon text-primary"
+      },
+      {
+        "id": "ficha_epi",
+        "titulo": "Ficha EPI",
+        "url": "/Manual/modulos/servidores/ficha_epi.html",
+        "secao": "Documentação - Servidores",
+        "icone": "fas fa-hard-hat nav-icon text-warning"
+      }
+    ]
+  },
+  "legislacoes": {
+    "total": 4,
+    "itens": [
+      {
+        "id": "14648",
+        "titulo": "Lei 14.648",
+        "url": "/Manual/modulos/legislacao/14648.html",
+        "secao": "Legislação - Servidores",
+        "icone": "fas fa-gavel nav-icon text-secondary"
+      },
+      {
+        "id": "14936",
+        "titulo": "Lei 14.936",
+        "url": "/Manual/modulos/legislacao/14936.html",
+        "secao": "Legislação - Servidores",
+        "icone": "fas fa-gavel nav-icon text-secondary"
+      },
+      {
+        "id": "progressoes_14648",
+        "titulo": "Progressão Horizontal - 14.648",
+        "url": "/Manual/modulos/legislacao/progressoes_14648.html",
+        "secao": "Legislação - Servidores",
+        "icone": "fas fa-arrow-up nav-icon text-success"
+      },
+      {
+        "id": "progressoes_14936",
+        "titulo": "Progressão Horizontal e Vertical - 14.936",
+        "url": "/Manual/modulos/legislacao/progressoes_14936.html",
+        "secao": "Legislação - Servidores",
+        "icone": "fas fa-arrows-alt-v nav-icon text-success"
+      }
+    ]
+  }
 }

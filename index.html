@@ -347,7 +347,7 @@ const modules = {
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>6</h3>
+              <h3 id="dashboard-procedimentos-count">–</h3>
               <p>Procedimentos</p>
             </div>
             <div class="icon"><i class="fas fa-list-check"></i></div>
@@ -356,7 +356,7 @@ const modules = {
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>2</h3>
+              <h3 id="dashboard-legislacoes-count">–</h3>
               <p>Legislações</p>
             </div>
             <div class="icon"><i class="fas fa-balance-scale"></i></div>
@@ -623,7 +623,41 @@ function loadModule(moduleId) {
     addToHistory(moduleId, module.title);
     updateFavoriteStar(moduleId);
     initializeChecklists();
+    if (moduleId === 'dashboard') {
+      loadDashboardCounts();
+    }
   }, 300);
+}
+
+// Busca data/indice.json e atualiza os contadores do dashboard
+let indiceCache = null;
+
+function loadDashboardCounts() {
+  if (indiceCache) {
+    renderDashboardCounts(indiceCache);
+    return;
+  }
+  fetch('data/indice.json')
+    .then(res => {
+      if (!res.ok) throw new Error('Falha ao carregar indice.json');
+      return res.json();
+    })
+    .then(data => {
+      indiceCache = data;
+      renderDashboardCounts(data);
+    })
+    .catch(err => {
+      console.error('Erro ao carregar contadores do dashboard:', err);
+      $('#dashboard-procedimentos-count').text('—');
+      $('#dashboard-legislacoes-count').text('—');
+    });
+}
+
+function renderDashboardCounts(data) {
+  const totalProcedimentos = data?.procedimentos?.total ?? 0;
+  const totalLegislacoes = data?.legislacoes?.total ?? 0;
+  $('#dashboard-procedimentos-count').text(totalProcedimentos);
+  $('#dashboard-legislacoes-count').text(totalLegislacoes);
 }
 
 function updateFavoriteStar(moduleId) {
