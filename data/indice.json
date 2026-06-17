@@ -1,6 +1,6 @@
 {
   "procedimentos": {
-    "total": 40,
+    "total": 39,
     "itens": [
       {
         "id": "pre_matricula",
@@ -38,9 +38,9 @@
         "icone": "fas fa-exchange-alt nav-icon text-info"
       },
       {
-        "id": "historicos",
-        "titulo": "Historicos Escolares",
-        "url": "/Manual/modulos/procedimentos/historicos",
+        "id": "historico_escolar",
+        "titulo": "Historico Escolar",
+        "url": "/Manual/modulos/matricula/historico_escolar.html",
         "secao": "Documentos SERE",
         "icone": "fas fa-graduation-cap nav-icon text-danger"
       },
@@ -75,7 +75,7 @@
       {
         "id": "iniciar_ano_letivo_rco",
         "titulo": "Iniciar Ano Letivo no RCO",
-        "url": "/Manual/modulos/procedimentos/iniciar_ano_letivo_rco.html",
+        "url": "/Manual/modulos/sere/iniciar_ano_letivo_rco.html",
         "secao": "Procedimentos no RCO/SERE",
         "icone": "fas fa-play-circle nav-icon text-primary"
       },
@@ -96,7 +96,7 @@
       {
         "id": "encerramento_ano_letivo",
         "titulo": "Encerramento do Ano Letivo",
-        "url": "/Manual/modulos/procedimentos/encerramento_ano_letivo.html",
+        "url": "/Manual/modulos/sere/encerramento_ano_letivo.html",
         "secao": "Procedimentos no RCO/SERE",
         "icone": "fas fa-flag-checkered nav-icon text-secondary"
       },
@@ -127,13 +127,6 @@
         "url": "/Manual/modulos/sere/editar_alunos.html",
         "secao": "Editando Cadastros no SERE",
         "icone": "fas fa-user-edit nav-icon text-danger"
-      },
-      {
-        "id": "editar_funcionarios",
-        "titulo": "Cadastro de Funcionários",
-        "url": "/Manual/modulos/procedimentos/editar_funcionarios.html",
-        "secao": "Editando Cadastros no SERE",
-        "icone": "fas fa-address-card nav-icon text-primary"
       },
       {
         "id": "censo-escolar",

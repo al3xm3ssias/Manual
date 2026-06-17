@@ -5,10 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="theme-color" content="#007bff">
-  <title>Justificativas – Manual do Escriturário</title>
+  <title>Fechamento do ano Letivo – Manual do Escriturário</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+
+  <link rel="icon" href="/Manual/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Manual/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/Manual/assets/img/apple-touch-icon.png">
+
   <style>
     :root{--primary-color:#007bff;--success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;}
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f4f6f9;}
@@ -42,9 +47,6 @@
     @media print{.main-sidebar,.main-header,.control-sidebar,.main-footer,.back-to-top,#reading-progress{display:none!important;}.content-wrapper{margin-left:0!important;}}
     @media(max-width:768px){.brand-text,.user-panel .info{display:none;}.toc-sticky{display:none;}}
   </style>
-  <link rel="icon" href="/Manual/assets/img/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/Manual/assets/img/favicon-32.png">
-  <link rel="apple-touch-icon" href="/Manual/assets/img/apple-touch-icon.png">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
@@ -58,8 +60,8 @@
       <li class="nav-item d-none d-md-block">
         <ol class="breadcrumb mb-0 ms-2" style="font-size:13px;align-items:center;background:none;padding:0;">
           <li class="breadcrumb-item"><a href="../../index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Início</a></li>
-          <li class="breadcrumb-item text-muted">Justificativas e Quinzenal</li>
-          <li class="breadcrumb-item active">Justificativas</li>
+          <li class="breadcrumb-item text-muted">Planejamento e Censo</li>
+          <li class="breadcrumb-item active">Fechamento do ano Letivo</li>
         </ol>
       </li>
     </ul>
@@ -73,7 +75,7 @@
       </li>
       <li class="nav-item"><a class="nav-link" title="Imprimir" href="#" onclick="window.print();return false;"><i class="fas fa-print"></i></a></li>
       <li class="nav-item">
-        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="justificativas" title="Favoritar" onclick="toggleFavorite('justificativas','Justificativas')"><i class="fas fa-star"></i></a>
+        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="encerramento_ano_letivo" title="Favoritar" onclick="toggleFavorite('encerramento_ano_letivo','Fechamento do ano Letivo')"><i class="fas fa-star"></i></a>
       </li>
       <li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a></li>
     </ul>
@@ -91,15 +93,15 @@
         <div class="row align-items-center">
           <div class="col">
             <h1 class="m-0 d-flex align-items-center gap-2">
-              <i class="fas fa-file-alt text-success me-1"></i>
-              Justificativas
+              <i class="fas fa-file-alt text-danger me-1"></i>
+              Fechamento do ano Letivo
             </h1>
           </div>
           <div class="col-auto">
             <button onclick="window.print()" class="btn btn-outline-secondary btn-sm me-1">
               <i class="fas fa-print me-1"></i>Imprimir
             </button>
-            <button onclick="toggleFavorite('justificativas','Justificativas')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="justificativas">
+            <button onclick="toggleFavorite('encerramento_ano_letivo','Fechamento do ano Letivo')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="encerramento_ano_letivo">
               <i class="fas fa-star me-1"></i>Favoritar
             </button>
           </div>
@@ -120,12 +122,12 @@
                     <i class="fas fa-file-alt"></i>
                   </div>
                   <div class="flex-grow-1">
-                    <h2 class="h4 mb-1">Justificativas</h2>
+                    <h2 class="h4 mb-1">Fechamento do ano Letivo</h2>
                     
                     <div class="d-flex flex-wrap gap-3 small text-muted">
                       <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
-                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-10</span>
-                      <span><i class="fas fa-folder me-1"></i>Justificativas e Quinzenal</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-17</span>
+                      <span><i class="fas fa-folder me-1"></i>Planejamento e Censo</span>
                     </div>
                   </div>
                 </div>
@@ -134,177 +136,223 @@
 
             <!-- CONTENT BLOCKS -->
             <div id="page-content">
-              <p class="mb-3 lh-lg"><div class="card card-primary">
+              <p class="mb-3 lh-lg"><div id="page-content">
+  <style>
+    /* Estilos complementares ao AdminLTE */
+    .sere-callout { border-left: 4px solid #00a65a; background: #f9f9f9; padding: 10px 15px; margin-bottom: 15px; border-radius: 2px; }
+    .sere-callout.callout-warning { border-left-color: #f39c12; }
+    .sere-callout.callout-info    { border-left-color: #00c0ef; }
+    .sere-callout.callout-danger  { border-left-color: #dd4b39; }
+    .sere-step-badge { display: inline-block; background: #00a65a; color: #fff; border-radius: 50%; width: 28px; height: 28px; text-align: center; line-height: 28px; font-weight: bold; font-size: 14px; margin-right: 8px; }
+    .sere-field-label { font-weight: 600; color: #444; }
+    .sere-field-value { font-family: monospace; background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #222; }
+    .sere-mock-table th { background-color: #00a65a !important; color: #fff; font-size: 12px; }
+    .sere-mock-table td { font-size: 12px; vertical-align: middle; }
+    .sere-mock-header { background: #d6ebdf; padding: 8px 12px; border-radius: 3px 3px 0 0; font-size: 12px; color: #333; margin-bottom: 0; }
+    .sere-section-title { font-size: 14px; font-weight: 700; color: #00a65a; border-bottom: 2px solid #00a65a; padding-bottom: 4px; margin: 20px 0 12px 0; }
+    .sere-form-mock { background: #d6ebdf; border: 1px solid #b2d4be; border-radius: 3px; padding: 14px 18px; margin-bottom: 14px; font-size: 13px; }
+    .sere-form-mock .row-field { margin-bottom: 7px; }
+    .badge-matriculado { background-color: #00a65a; color: #fff; padding: 2px 7px; border-radius: 3px; font-size: 11px; }
+    .nav-path { font-size: 13px; background: #ecf0f1; border-radius: 4px; padding: 8px 14px; margin-bottom: 18px; color: #555; }
+    .nav-path span { color: #00a65a; font-weight: 600; }
+    .icon-edit-btn { color: #f39c12; font-size: 15px; }
+    .highlight-row { background-color: #fffbe6 !important; }
 
+    /* Estilos específicos do mock da tela "Verificar consistência" */
+    .sere-screen-mock { background: #d9ecdf; border: 1px solid #b9d8c3; border-radius: 4px; padding: 0; margin-bottom: 16px; overflow: hidden; }
+    .sere-screen-mock .screen-topbar { background: #00a65a; height: 8px; }
+    .sere-screen-mock .screen-title { text-align: center; font-weight: 700; color: #1c5b35; padding: 12px 10px 4px; font-size: 15px; }
+    .sere-screen-mock .screen-warning { text-align: center; font-size: 12px; font-weight: 700; color: #1c5b35; padding-bottom: 10px; }
+    .sere-screen-mock .screen-body { background: #cdebda; margin: 0 14px 14px; border-radius: 3px; padding: 14px 16px; }
+    .sere-screen-mock .momento-label { font-weight: 700; font-size: 12px; color: #333; margin-bottom: 8px; }
+    .sere-screen-mock .momento-option { font-size: 12px; color: #333; padding: 4px 0; display: flex; align-items: flex-start; }
+    .sere-screen-mock .momento-option input { margin-right: 8px; margin-top: 2px; }
+    .sere-screen-mock .momento-option strong { color: #1c5b35; margin-right: 6px; }
+    .sere-screen-mock .momento-desc { color: #555; margin-left: 4px; }
+    .sere-screen-mock .screen-instructions { font-size: 12px; color: #333; padding: 10px 16px 4px; }
+    .sere-screen-mock .screen-actions { text-align: center; padding: 10px 0 16px; }
+    .sere-screen-mock .btn-consistencia { background: #6fbf4e; border: 1px solid #5aa83d; color: #fff; font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 2px; margin-right: 6px; }
+    .sere-screen-mock .btn-voltar { background: #8fd16a; border: 1px solid #6fb84d; color: #fff; font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 2px; }
+    .sere-result-ok { background: #dff0d8; border: 1px solid #b6dba0; color: #2c662d; padding: 10px 14px; border-radius: 3px; font-size: 13px; font-weight: 600; margin-top: 10px; }
+  </style>
+
+  <div class="card card-success">
     <div class="card-header">
-        <h3 class="card-title">
-            <i class="fas fa-clock"></i> Envio das Justificativas do Relógio Ponto
-        </h3>
+      <h3 class="card-title"><i class="fas fa-calendar-check"></i> Fechamento do Ano Letivo</h3>
     </div>
-
     <div class="card-body">
 
-        <p>
-            Mensalmente, o Setor de Relógio Ponto encaminha às unidades escolares o relatório para conferência das ocorrências registradas no espelho ponto. Todas as ocorrências constantes no relatório deverão ser analisadas e, quando necessário, justificadas por meio do Sistema Eletrônico de Informações (SEI).
-        </p>
+      <div class="nav-path"><i class="fas fa-route"></i> Procedimento: <span>Fechamento do Ano Letivo</span> &raquo; Lançamentos, Frequência, Consistência e Relatório Final</div>
 
-        <div class="callout callout-warning">
-            <h5><i class="fas fa-exclamation-triangle"></i> Atenção</h5>
-            <p>
-                Tudo o que constar no relatório deverá ser justificado. A ausência de justificativas ou de documentação comprobatória poderá resultar em desconto em folha de pagamento.
-            </p>
+      <div class="sere-callout callout-warning">
+        <i class="fas fa-exclamation-triangle"></i>
+        <strong>Atenção:</strong> antes de iniciar o fechamento, confira sempre os informativos disponibilizados pela Documentação Escolar. Pode haver algum detalhe adicional específico do ano vigente, portanto este passo a passo é um guia geral e não deve ser seguido cegamente, ao pé da letra, sem checar as orientações oficiais mais recentes.
+      </div>
+
+      <!-- PASSO 1 -->
+      <div class="sere-section-title"><span class="sere-step-badge">1</span> Lançamento do Livro de Chamada</div>
+      <p>Para iniciar o processo de fechamento, primeiro é necessário visitar os livros de chamada físicos e realizar o lançamento das frequências no SERE.</p>
+
+      <div class="sere-form-mock">
+        <div class="row-field"><span class="sere-field-label">Módulo relacionado:</span> <span class="sere-field-value">Lançamento de Livros de Chamada</span></div>
+      </div>
+
+      <a href="/Manual/modulos/sere/lancar_livros_de_chamada.html" class="btn btn-success btn-sm" target="_blank">
+        <i class="fas fa-book"></i> Lançar Livro de Chamada
+      </a>
+
+      <!-- PASSO 2 -->
+      <div class="sere-section-title"><span class="sere-step-badge">2</span> Consulta ao Percentual de Frequência</div>
+      <p>Após lançar os livros de chamada, é preciso consultar os percentuais de frequência das turmas no SERE.</p>
+
+      <div class="sere-form-mock">
+        <div class="row-field"><span class="sere-field-label">Caminho:</span> Menu &raquo; Relatórios &raquo; Avaliação &raquo; Percentual de Frequência</div>
+        <div class="row-field"><span class="sere-field-label">Ação:</span> Clique sobre a turma e, em seguida, clique em <span class="sere-field-value">Confirmar</span></div>
+      </div>
+
+      <div class="sere-callout callout-info">
+        <i class="fas fa-info-circle"></i>
+        Confira a quantidade de faltas de cada aluno e verifique se nenhum aluno reprovou por falta.
+      </div>
+
+      <table class="table table-bordered sere-mock-table">
+        <thead>
+          <tr>
+            <th>Etapa</th>
+            <th>Limite de Faltas</th>
+            <th>Situação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td>Ensino Fundamental</td>
+            <td>Mais de 45 a 50 faltas</td>
+            <td><span class="badge-matriculado" style="background-color:#dd4b39;">Reprovado por falta</span></td>
+          </tr>
+          <tr>
+            <td>Educação Infantil</td>
+            <td>Mais de 101 faltas</td>
+            <td><span class="badge-matriculado" style="background-color:#f39c12;">Pode ser considerado desistente</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sere-callout callout-warning">
+        <i class="fas fa-hand-paper"></i>
+        A SME recomenda manter sempre um controle das faltas e conversar com a família. Alunos nessa situação devem ser comunicados à SME e ao Conselho Tutelar.
+      </div>
+
+      <!-- PASSO 3 -->
+      <div class="sere-section-title"><span class="sere-step-badge">3</span> Verificação da Crítica de Consistência de Dezembro</div>
+      <p>Com os percentuais de frequência conferidos, o próximo passo é verificar a Crítica de Consistência de Dezembro.</p>
+
+      <div class="sere-form-mock">
+        <div class="row-field"><span class="sere-field-label">Caminho:</span> Menu &raquo; Fechamento &raquo; Gerar Arquivo ABC/Liberar Dados &raquo; Verificar Consistência do Aluno</div>
+      </div>
+
+      <div class="sere-callout callout-danger">
+        <i class="fas fa-bug"></i>
+        Caso o sistema aponte erros, corrija-os e gere a verificação novamente, para garantir que o arquivo final não seja enviado com inconsistências.
+      </div>
+
+      <div class="sere-callout callout-warning">
+        <i class="fas fa-exclamation-triangle"></i>
+        <strong>Lembrete:</strong> por diversos anos, o setor de Documentação Escolar orientou que o arquivo final <u>não</u> deveria ser gerado pela escola, sendo este gerado durante as férias de janeiro pela própria Documentação Escolar. Até o momento, este processo permanece a cargo da Documentação Escolar, mas pode haver mudanças. Caso isso ocorra, este tutorial será atualizado.
+      </div>
+
+      <p><strong>Simulação da tela "Verificar consistência para a Liberação de Dados":</strong></p>
+
+      <div class="sere-screen-mock">
+        <div class="screen-topbar"></div>
+        <div class="screen-title">Verificar consistência para a Liberação de Dados</div>
+        <div class="screen-warning">ATENÇÃO: Só é permitido fazer a consistência de hora em hora.</div>
+        <div class="screen-body">
+          <div class="momento-label">Momento:</div>
+          <div class="momento-option"><input type="radio" disabled> <strong>Matrícula Inicial - Janeiro</strong> <span class="momento-desc">Cursos Anuais e/ou Semestrais com início em Janeiro.</span></div>
+          <div class="momento-option"><input type="radio" disabled> <strong>Matrícula Inicial - Agosto</strong> <span class="momento-desc">Cursos Anuais e/ou Semestrais com início em Janeiro e Julho.</span></div>
+          <div class="momento-option"><input type="radio" checked disabled> <strong>Relatório Final - Dezembro</strong> <span class="momento-desc">Cursos Anuais e/ou Semestrais com encerramento em Julho e Dezembro.</span></div>
         </div>
-
-        <hr>
-
-        <h4><i class="fas fa-clipboard-check"></i> Regras de Justificativa</h4>
-
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Situação</th>
-                    <th>Procedimento</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Atrasos superiores a 5 minutos</td>
-                    <td>Devem ser obrigatoriamente justificados.</td>
-                </tr>
-                <tr>
-                    <td>3ª ausência de marcação</td>
-                    <td>Necessita justificativa e assinatura da diretora.</td>
-                </tr>
-                <tr>
-                    <td>Folga aniversário</td>
-                    <td>Anexar cópia do RG.</td>
-                </tr>
-                <tr>
-                    <td>Jurado</td>
-                    <td>Apresentar declaração de comparecimento.</td>
-                </tr>
-                <tr>
-                    <td>Mestrado, Doutorado e Estágio Obrigatório</td>
-                    <td>Anexar ficha de frequência assinada pelo supervisor.</td>
-                </tr>
-                <tr>
-                    <td>Fisioterapia, Nutrição, Psicologia e Fonoaudiologia</td>
-                    <td>Anexar também o pedido médico.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <hr>
-
-        <h4>
-            <i class="fas fa-file-pdf"></i>
-            Organização do PDF Único
-        </h4>
-
-        <div class="callout callout-info">
-            <h5><i class="fas fa-folder-open"></i> Importante</h5>
-
-            <p>
-                Toda a documentação deverá ser enviada em um único arquivo PDF, obedecendo rigorosamente a ordem alfabética dos servidores (A → Z).
-            </p>
+        <div class="screen-instructions">Para a liberação de dados é necessário executar a função de verificação de consistências. Para isso, selecione o momento e pressione o botão "Consistência" abaixo.</div>
+        <div class="screen-actions">
+          <button class="btn-consistencia" disabled>Consistência</button>
+          <button class="btn-voltar" disabled>voltar</button>
         </div>
+      </div>
 
-        <ul>
-            <li>Justificativa do servidor;</li>
-            <li>Atestados médicos;</li>
-            <li>Declarações;</li>
-            <li>Documentos pessoais;</li>
-            <li>Compensações de horas;</li>
-            <li>Doação de sangue;</li>
-            <li>Folga eleitoral;</li>
-            <li>Demais documentos comprobatórios.</li>
-        </ul>
+      <p>Ao selecionar <strong>Relatório Final - Dezembro</strong> e clicar em <span class="sere-field-value">Consistência</span>, se não houver problemas, o sistema exibirá a seguinte mensagem:</p>
 
-        <p>
-            A ficha de horas extras deverá ser inserida ao final do arquivo.
-        </p>
+      <div class="sere-result-ok">
+        <i class="fas fa-check-circle"></i> Não foram encontrados problemas na consistência dos alunos.
+      </div>
 
-        <div class="callout callout-success">
-            <h5><i class="fas fa-users"></i> Todos os Servidores</h5>
+      <p>Essa mensagem é o sinal de que não há erros pendentes para essa etapa.</p>
 
-            <p>
-                Mesmo quando não houver ocorrências, a ficha deverá ser enviada com a observação:
-            </p>
+      <!-- PASSO 4 -->
+      <div class="sere-section-title"><span class="sere-step-badge">4</span> Alunos Aprovados por Conselho de Classe</div>
 
-            <p class="text-center">
-                <strong>"NADA A JUSTIFICAR"</strong>
-            </p>
-        </div>
+      <div class="sere-callout callout-info">
+        <i class="fas fa-users"></i>
+        Verifique os alunos que forem aprovados pelo Conselho de Classe. Siga as orientações fornecidas pela Assessora Pedagógica.
+      </div>
 
-        <hr>
+      <!-- PASSO 5 -->
+      <div class="sere-section-title"><span class="sere-step-badge">5</span> Cálculo do Resultado Final</div>
+      <p>Por fim, vamos registrar o cálculo final do ano letivo.</p>
 
-        <h4>
-            <i class="fas fa-laptop"></i>
-            Inclusão do Documento no SEI
-        </h4>
+      <div class="sere-form-mock">
+        <div class="row-field"><span class="sere-field-label">Caminho:</span> Fechamento &raquo; Cálculo Resultado Final &raquo; Por Turma</div>
+        <div class="row-field"><span class="sere-field-label">Ação:</span> Clique sobre a turma e, em seguida, clique em <span class="sere-field-value">Salvar</span></div>
+      </div>
 
-        <ol>
-            <li>Clique em <strong>Incluir Documento</strong>.</li>
+      <div class="sere-callout callout-warning">
+        <i class="fas fa-exclamation-triangle"></i>
+        Para as turmas de <strong>3º ano</strong> e <strong>5º ano</strong>, o sistema indicará os alunos como reprovados, por se tratar de encerramento de ciclo. Por isso, você pode marcar como aprovado todos os alunos que foram aprovados na unidade escolar.
+      </div>
 
-            <li>Selecione a opção <strong>Externo</strong>.</li>
+      <!-- PASSO 6 -->
+      <div class="sere-section-title"><span class="sere-step-badge">6</span> Emissão do Relatório Final</div>
+      <p>Após o cálculo do resultado final, emitimos o relatório final de cada turma.</p>
 
-            <li>Em Tipo de Documento, informe:
-                <div class="alert alert-secondary mt-2">
-                    JUSTIFICATIVA
-                </div>
-            </li>
+      <div class="sere-form-mock">
+        <div class="row-field"><span class="sere-field-label">Caminho:</span> Menu &raquo; Relatório &raquo; Documentos Oficiais &raquo; Relatório Final</div>
+        <div class="row-field"><span class="sere-field-label">Ação:</span> Clique sobre a turma, depois em <span class="sere-field-value">Confirmar</span> e imprima 2 cópias do documento.</div>
+      </div>
 
-            <li>Preencha o nome na árvore e a data do documento.</li>
+      <table class="table table-bordered sere-mock-table">
+        <thead>
+          <tr>
+            <th>Via</th>
+            <th>Destino</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1ª via</td>
+            <td>SME</td>
+          </tr>
+          <tr>
+            <td>2ª via</td>
+            <td>Arquivo da escola</td>
+          </tr>
+        </tbody>
+      </table>
 
-            <li>Selecione:
-                <ul>
-                    <li>Formato: <strong>Digitalizado nesta unidade</strong>;</li>
-                    <li>Tipo de conferência: <strong>Cópia simples / Documento Original</strong>.</li>
-                </ul>
-            </li>
-
-            <li>Remetente, Interessado e Assunto podem permanecer em branco.</li>
-
-            <li>Defina o nível de acesso:
-                <ul>
-                    <li>Processo restrito → Documento público;</li>
-                    <li>Processo público → Documento restrito (Informações pessoais).</li>
-                </ul>
-            </li>
-
-            <li>Anexe o PDF previamente organizado.</li>
-
-            <li>Clique em Salvar.</li>
-        </ol>
-
-        <hr>
-
-        <h4>
-            <i class="fas fa-share"></i>
-            Encaminhamento
-        </h4>
-
-        <div class="callout callout-warning">
-            <h5><i class="fas fa-paper-plane"></i> Unidade de Destino</h5>
-
-            <p class="text-center">
-                <strong>SME/DA/CTARH/RPONTO</strong>
-            </p>
-        </div>
+      <div class="sere-callout callout-danger">
+        <i class="fas fa-stamp"></i>
+        As duas vias devem ser <strong>assinadas e carimbadas</strong> com o carimbo do escriturário e do diretor. Caso a unidade escolar não possua escriturário, apenas a diretora assina e carimba.
+      </div>
 
     </div>
-
-</div>
-
-</p>
+  </div>
+</div></p>
             </div>
 
             <!-- FOOTER INFO -->
             <div class="card mt-4 mb-4">
               <div class="card-body text-muted small">
                 <i class="fas fa-info-circle me-1"></i>
-                Última atualização: <strong>2026-06-10</strong> — Autor: <strong>Secretaria Escolar</strong>
-                <span class="ms-3"><i class="fas fa-folder me-1"></i>Justificativas e Quinzenal</span>
+                Última atualização: <strong>2026-06-17</strong> — Autor: <strong>Secretaria Escolar</strong>
+                <span class="ms-3"><i class="fas fa-folder me-1"></i>Planejamento e Censo</span>
               </div>
             </div>
           </div>
@@ -317,7 +365,7 @@
                 <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-share-alt me-1"></i>Ações rápidas</h6></div>
                 <div class="card-body py-2">
                   <button onclick="window.print()" class="btn btn-outline-secondary btn-sm w-100 mb-2"><i class="fas fa-print me-1"></i>Imprimir</button>
-                  <button onclick="toggleFavorite('justificativas','Justificativas')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="justificativas"><i class="fas fa-star me-1"></i>Favoritar</button>
+                  <button onclick="toggleFavorite('encerramento_ano_letivo','Fechamento do ano Letivo')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="encerramento_ano_letivo"><i class="fas fa-star me-1"></i>Favoritar</button>
                 </div>
               </div>
             </div>
@@ -354,7 +402,7 @@
 
   <footer class="main-footer">
     <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
-    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-10</div>
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-17</div>
   </footer>
 </div>
 
@@ -362,8 +410,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
 <script>
-const PAGE_ID = 'justificativas';
-const PAGE_TITLE = 'Justificativas';
+const PAGE_ID = 'encerramento_ano_letivo';
+const PAGE_TITLE = 'Fechamento do ano Letivo';
 
 let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
 function saveFavorites(){localStorage.setItem('manual_favorites',JSON.stringify(favorites));updateFavoritesUI();}
@@ -452,7 +500,7 @@ const allPages=[
   {id:"transferencia-saida",title:"Transferência – Saída"},
   {id:"historicos",title:"Históricos Escolares"},
   {id:"declaracoes",title:"Declarações"},
-  {id:"justificativas",title:"Justificativas"}
+  {id:"encerramento_ano_letivo",title:"Fechamento do ano Letivo"}
 ];
 const si=document.getElementById('global-search-input');
 const sd=document.getElementById('search-dropdown');
