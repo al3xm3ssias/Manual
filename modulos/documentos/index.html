@@ -1,0 +1,254 @@
+<!--
+  Módulo: Documentos e Modelos
+  Carregado dinamicamente (via $('#content-area').load(...) ou fetch) dentro do
+  index.html principal do Manual do Escriturário Escolar.
+
+  Consome data/documentos.json (gerado por gerar_indice_documentos.py) e renderiza
+  cards agrupados por categoria. PDFs abrem no próprio site (nova aba); os demais
+  tipos (Word/Excel/ODT/ODS) ganham botão de download direto.
+-->
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title"><i class="fas fa-folder-open text-primary"></i> Documentos e Modelos</h3>
+  </div>
+  <div class="card-body">
+    <p class="text-muted mb-3">
+      Modelos de documentos, fichas, leis, decretos e informativos usados na rotina da secretaria escolar.
+      Arquivos em <strong>PDF</strong> abrem direto no navegador; os demais formatos (Word, Excel, ODT, ODS)
+      devem ser baixados para edição.
+    </p>
+
+    <!-- Busca rápida dentro dos documentos -->
+    <div class="input-group mb-4">
+      <span class="input-group-text"><i class="fas fa-search"></i></span>
+      <input type="text" class="form-control" id="doc-search-input" placeholder="Filtrar por nome do documento...">
+    </div>
+
+    <div id="documentos-loading" class="text-center text-muted py-4">
+      <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+      Carregando documentos...
+    </div>
+
+    <div id="documentos-erro" class="alert alert-warning" style="display:none;">
+      <i class="fas fa-exclamation-triangle"></i>
+      Não foi possível carregar a lista de documentos. Verifique se <code>data/documentos.json</code> existe.
+    </div>
+
+    <div id="documentos-container"></div>
+  </div>
+</div>
+
+<style>
+  .doc-card-categoria .card-header {
+    cursor: pointer;
+  }
+  .doc-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .doc-item:last-child {
+    border-bottom: none;
+  }
+  .doc-item:hover {
+    background: #f8f9fa;
+  }
+  .doc-item-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .doc-item-icon {
+    font-size: 1.4rem;
+    width: 32px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .doc-item-icon.icon-pdf { color: #dc3545; }
+  .doc-item-icon.icon-word { color: #2b579a; }
+  .doc-item-icon.icon-excel { color: #1d6f42; }
+  .doc-item-icon.icon-outro { color: #6c757d; }
+  .doc-item-name {
+    font-size: 0.92rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .doc-item-size {
+    font-size: 0.75rem;
+    color: #999;
+    margin-left: 6px;
+  }
+  .doc-item-actions {
+    flex-shrink: 0;
+  }
+  .doc-categoria-badge {
+    font-size: 0.75rem;
+    font-weight: normal;
+  }
+  .doc-item.doc-hidden {
+    display: none;
+  }
+</style>
+
+<script>
+(function () {
+  // Evita registrar listeners duplicados se o módulo for carregado mais de uma vez
+  if (window.__documentosModuleInitialized) {
+    carregarDocumentos();
+  } else {
+    window.__documentosModuleInitialized = true;
+    carregarDocumentos();
+  }
+
+  function iconePorTipo(tipo) {
+    switch (tipo) {
+      case 'pdf':   return { classe: 'icon-pdf',   icone: 'fa-file-pdf' };
+      case 'word':  return { classe: 'icon-word',  icone: 'fa-file-word' };
+      case 'excel': return { classe: 'icon-excel', icone: 'fa-file-excel' };
+      default:      return { classe: 'icon-outro', icone: 'fa-file' };
+    }
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function montarItemDocumento(arquivo) {
+    const tipoInfo = iconePorTipo(arquivo.tipo);
+    const urlEncoded = encodeURI(arquivo.url);
+    const nomeExibido = escapeHtml(arquivo.nome);
+
+    let acoes = '';
+    if (arquivo.tipo === 'pdf') {
+      // PDF: abre no próprio navegador (nova aba) + opção de download
+      acoes = `
+        <a href="${urlEncoded}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary" title="Abrir PDF">
+          <i class="fas fa-eye"></i> Abrir
+        </a>
+        <a href="${urlEncoded}" download class="btn btn-sm btn-outline-secondary" title="Baixar PDF">
+          <i class="fas fa-download"></i>
+        </a>`;
+    } else {
+      // Demais tipos: apenas download direto (navegador não renderiza nativamente)
+      acoes = `
+        <a href="${urlEncoded}" download class="btn btn-sm btn-outline-secondary" title="Baixar arquivo">
+          <i class="fas fa-download"></i> Baixar
+        </a>`;
+    }
+
+    return `
+      <div class="doc-item" data-nome-busca="${escapeHtml(arquivo.nome_completo.toLowerCase())}">
+        <div class="doc-item-info">
+          <i class="fas ${tipoInfo.icone} doc-item-icon ${tipoInfo.classe}"></i>
+          <div>
+            <div class="doc-item-name" title="${escapeHtml(arquivo.nome_completo)}">${nomeExibido}</div>
+            <span class="badge bg-light text-dark doc-categoria-badge">.${arquivo.extensao}</span>
+            <span class="doc-item-size">${arquivo.tamanho_legivel}</span>
+          </div>
+        </div>
+        <div class="doc-item-actions">
+          ${acoes}
+        </div>
+      </div>`;
+  }
+
+  function montarCardCategoria(categoria, index) {
+    const itensHtml = categoria.arquivos.map(montarItemDocumento).join('');
+    const collapseId = `doc-collapse-${categoria.slug}`;
+    const expandido = index === 0 ? 'show' : ''; // primeira categoria já aberta
+
+    return `
+      <div class="card doc-card-categoria mb-3">
+        <div class="card-header" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="${index === 0}">
+          <h3 class="card-title">
+            <i class="fas fa-folder text-warning"></i> ${escapeHtml(categoria.categoria)}
+            <span class="badge bg-secondary ms-2">${categoria.total}</span>
+          </h3>
+          <div class="card-tools">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+        <div id="${collapseId}" class="collapse ${expandido}">
+          <div class="card-body p-0">
+            ${itensHtml}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function renderizarDocumentos(dados) {
+    const container = document.getElementById('documentos-container');
+    if (!dados.categorias || dados.categorias.length === 0) {
+      container.innerHTML = '<p class="text-muted">Nenhum documento encontrado.</p>';
+      return;
+    }
+    container.innerHTML = dados.categorias.map(montarCardCategoria).join('');
+  }
+
+  function configurarBusca() {
+    const input = document.getElementById('doc-search-input');
+    if (!input) return;
+    input.addEventListener('input', function () {
+      const termo = this.value.trim().toLowerCase();
+      const itens = document.querySelectorAll('#documentos-container .doc-item');
+      itens.forEach(function (item) {
+        const nome = item.getAttribute('data-nome-busca') || '';
+        if (termo === '' || nome.includes(termo)) {
+          item.classList.remove('doc-hidden');
+        } else {
+          item.classList.add('doc-hidden');
+        }
+      });
+
+      // Esconde categorias sem nenhum item visível durante a busca
+      document.querySelectorAll('.doc-card-categoria').forEach(function (card) {
+        const algumVisivel = card.querySelectorAll('.doc-item:not(.doc-hidden)').length > 0;
+        card.style.display = algumVisivel ? '' : 'none';
+        if (termo !== '' && algumVisivel) {
+          // Abre automaticamente categorias com resultado durante a busca
+          const collapseEl = card.querySelector('.collapse');
+          if (collapseEl && !collapseEl.classList.contains('show')) {
+            collapseEl.classList.add('show');
+          }
+        }
+      });
+    });
+  }
+
+  function carregarDocumentos() {
+    const loadingEl = document.getElementById('documentos-loading');
+    const erroEl = document.getElementById('documentos-erro');
+    const containerEl = document.getElementById('documentos-container');
+
+    if (loadingEl) loadingEl.style.display = '';
+    if (erroEl) erroEl.style.display = 'none';
+    if (containerEl) containerEl.innerHTML = '';
+
+    fetch('data/documentos.json')
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (dados) {
+        if (loadingEl) loadingEl.style.display = 'none';
+        renderizarDocumentos(dados);
+        configurarBusca();
+      })
+      .catch(function (err) {
+        console.error('Erro ao carregar documentos.json:', err);
+        if (loadingEl) loadingEl.style.display = 'none';
+        if (erroEl) erroEl.style.display = '';
+      });
+  }
+})();
+</script>

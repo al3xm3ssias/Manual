@@ -207,6 +207,42 @@
               <p>Histórico</p>
             </a>
           </li>
+
+
+          <!--
+  TRECHO PARA INSERIR NO SEU sidebar.html
+  =========================================
+  Adicione este <li> dentro da sua <ul class="nav nav-pills nav-sidebar ...">,
+  na posição em que quiser que "Documentos e Modelos" apareça no menu.
+
+  Ele segue o mesmo padrão dos outros itens de 1 nível (sem submenu/treeview),
+  igual a um link direto de módulo. Se preferir que vire um item com
+  sub-categorias expansíveis dentro da PRÓPRIA sidebar (em vez de abrir o
+  módulo e filtrar por lá), me avise e eu monto a versão com treeview.
+-->
+
+<li class="nav-item">
+  <a href="#" class="nav-link" onclick="loadModule('documentos'); return false;">
+    <i class="nav-icon fas fa-folder-open"></i>
+    <p>Documentos e Modelos</p>
+  </a>
+</li>
+
+
+<!--
+  E no objeto/registro de módulos do seu app.js (ou onde você mapeia
+  moduleId -> caminho do arquivo HTML para o .load()/fetch), adicione:
+
+  'documentos': {
+    title: 'Documentos e Modelos',
+    path: 'modulos/documentos/index.html'
+  }
+
+  Ajuste conforme o nome real da variável/função que você usa para resolver
+  o caminho de cada módulo (no index.html que você me enviou era um objeto
+  "modules" inline; se no seu app.js real for diferente, me mostra o app.js
+  ou o router.js que eu adapto certinho).
+-->
         </ul>
       </nav>
     </div>

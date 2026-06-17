@@ -1,0 +1,437 @@
+{
+  "gerado_em": "2026-06-17T15:26:17",
+  "total_categorias": 6,
+  "total_arquivos": 43,
+  "total_ignorados": 8,
+  "categorias": [
+    {
+      "categoria": "Atribuições",
+      "slug": "atribuicões",
+      "total": 9,
+      "arquivos": [
+        {
+          "nome": "01-ATRIBUIÇÕES DA FUNÇÃO DIRETOR (A) ESCOLAR",
+          "nome_completo": "01-ATRIBUIÇÕES DA FUNÇÃO DIRETOR (A) ESCOLAR.docx",
+          "extensao": "docx",
+          "tipo": "word",
+          "url": "modulos/documentos/Atribuições/01-ATRIBUIÇÕES DA FUNÇÃO DIRETOR (A) ESCOLAR.docx",
+          "tamanho_bytes": 35847,
+          "tamanho_legivel": "35 KB"
+        },
+        {
+          "nome": "02-ATRIBUIÇÕES - FUNÇÃO PROFESSOR",
+          "nome_completo": "02-ATRIBUIÇÕES - FUNÇÃO PROFESSOR.docx",
+          "extensao": "docx",
+          "tipo": "word",
+          "url": "modulos/documentos/Atribuições/02-ATRIBUIÇÕES - FUNÇÃO PROFESSOR.docx",
+          "tamanho_bytes": 17827,
+          "tamanho_legivel": "17 KB"
+        },
+        {
+          "nome": "03-ATRIBUIÇÕES DA COORDENAÇÃO PEDAGÓGICA",
+          "nome_completo": "03-ATRIBUIÇÕES DA COORDENAÇÃO PEDAGÓGICA.docx",
+          "extensao": "docx",
+          "tipo": "word",
+          "url": "modulos/documentos/Atribuições/03-ATRIBUIÇÕES DA COORDENAÇÃO PEDAGÓGICA.docx",
+          "tamanho_bytes": 45897,
+          "tamanho_legivel": "45 KB"
+        },
+        {
+          "nome": "04-ATRIBUIÇÕES DE ESCRITURÁRIO ",
+          "nome_completo": "04-ATRIBUIÇÕES DE ESCRITURÁRIO .odt",
+          "extensao": "odt",
+          "tipo": "word",
+          "url": "modulos/documentos/Atribuições/04-ATRIBUIÇÕES DE ESCRITURÁRIO .odt",
+          "tamanho_bytes": 44318,
+          "tamanho_legivel": "43 KB"
+        },
+        {
+          "nome": "05-SERVENTE ESCOLAR –  FUNÇÃO MERENDEIRA",
+          "nome_completo": "05-SERVENTE ESCOLAR –  FUNÇÃO MERENDEIRA.doc",
+          "extensao": "doc",
+          "tipo": "word",
+          "url": "modulos/documentos/Atribuições/05-SERVENTE ESCOLAR –  FUNÇÃO MERENDEIRA.doc",
+          "tamanho_bytes": 35328,
+          "tamanho_legivel": "34 KB"
+        },
+        {
+          "nome": "06-ATRIBUIÇÕES SERVENTE ESCOLAR - FUNÇÃO AUXILIAR DE MERENDEIRA ",
+          "nome_completo": "06-ATRIBUIÇÕES SERVENTE ESCOLAR - FUNÇÃO AUXILIAR DE MERENDEIRA .doc",
+          "extensao": "doc",
+          "tipo": "word",
+          "url": "modulos/documentos/Atribuições/06-ATRIBUIÇÕES SERVENTE ESCOLAR - FUNÇÃO AUXILIAR DE MERENDEIRA .doc",
+          "tamanho_bytes": 33280,
+          "tamanho_legivel": "32 KB"
+        },
+        {
+          "nome": "07-ATRIBUIÇÕES -  SERVENTE ESCOLAR ",
+          "nome_completo": "07-ATRIBUIÇÕES -  SERVENTE ESCOLAR .doc",
+          "extensao": "doc",
+          "tipo": "word",
+          "url": "modulos/documentos/Atribuições/07-ATRIBUIÇÕES -  SERVENTE ESCOLAR .doc",
+          "tamanho_bytes": 30720,
+          "tamanho_legivel": "30 KB"
+        },
+        {
+          "nome": "08-ATRIBUIÇÕES – ESTAGIÁRIOS CONTRATO REMUNERADO (BOLSA)",
+          "nome_completo": "08-ATRIBUIÇÕES – ESTAGIÁRIOS CONTRATO REMUNERADO (BOLSA).doc",
+          "extensao": "doc",
+          "tipo": "word",
+          "url": "modulos/documentos/Atribuições/08-ATRIBUIÇÕES – ESTAGIÁRIOS CONTRATO REMUNERADO (BOLSA).doc",
+          "tamanho_bytes": 25600,
+          "tamanho_legivel": "25 KB"
+        },
+        {
+          "nome": "13-ATRIBUIÇÕES DE ASSISTENTE DE EDUCAÇÃO",
+          "nome_completo": "13-ATRIBUIÇÕES DE ASSISTENTE DE EDUCAÇÃO.doc",
+          "extensao": "doc",
+          "tipo": "word",
+          "url": "modulos/documentos/Atribuições/13-ATRIBUIÇÕES DE ASSISTENTE DE EDUCAÇÃO.doc",
+          "tamanho_bytes": 34304,
+          "tamanho_legivel": "34 KB"
+        }
+      ]
+    },
+    {
+      "categoria": "Calendario Escolares",
+      "slug": "calendario-escolares",
+      "total": 2,
+      "arquivos": [
+        {
+          "nome": "Calendario-SME-2026",
+          "nome_completo": "Calendario-SME-2026.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Calendario Escolares/Calendario-SME-2026.pdf",
+          "tamanho_bytes": 407323,
+          "tamanho_legivel": "398 KB"
+        },
+        {
+          "nome": "HTPC-CMEIs",
+          "nome_completo": "HTPC-CMEIs.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Calendario Escolares/HTPC-CMEIs.pdf",
+          "tamanho_bytes": 142269,
+          "tamanho_legivel": "139 KB"
+        }
+      ]
+    },
+    {
+      "categoria": "Documentos modelo CTARH",
+      "slug": "documentos-modelo-ctarh",
+      "total": 12,
+      "arquivos": [
+        {
+          "nome": "09-TERMO DE EXERCÍCIO",
+          "nome_completo": "09-TERMO DE EXERCÍCIO.docx",
+          "extensao": "docx",
+          "tipo": "word",
+          "url": "modulos/documentos/Documentos modelo CTARH/09-TERMO DE EXERCÍCIO.docx",
+          "tamanho_bytes": 11179,
+          "tamanho_legivel": "11 KB"
+        },
+        {
+          "nome": "10-FICHA PARA COMPENSAÇÃO DE HORAS – 2026",
+          "nome_completo": "10-FICHA PARA COMPENSAÇÃO DE HORAS – 2026.odt",
+          "extensao": "odt",
+          "tipo": "word",
+          "url": "modulos/documentos/Documentos modelo CTARH/10-FICHA PARA COMPENSAÇÃO DE HORAS – 2026.odt",
+          "tamanho_bytes": 22558,
+          "tamanho_legivel": "22 KB"
+        },
+        {
+          "nome": "11-FICHA FUNCIONAL    -    ANO 2026 -    CGPSME",
+          "nome_completo": "11-FICHA FUNCIONAL    -    ANO 2026 -    CGPSME.xls",
+          "extensao": "xls",
+          "tipo": "excel",
+          "url": "modulos/documentos/Documentos modelo CTARH/11-FICHA FUNCIONAL    -    ANO 2026 -    CGPSME.xls",
+          "tamanho_bytes": 15872,
+          "tamanho_legivel": "16 KB"
+        },
+        {
+          "nome": "12-Registro da Ocorrência",
+          "nome_completo": "12-Registro da Ocorrência.docx",
+          "extensao": "docx",
+          "tipo": "word",
+          "url": "modulos/documentos/Documentos modelo CTARH/12-Registro da Ocorrência.docx",
+          "tamanho_bytes": 11323,
+          "tamanho_legivel": "11 KB"
+        },
+        {
+          "nome": "14-ACORDO INDIVIDUAL DE COMPENSAÇÃO DE JORNADA",
+          "nome_completo": "14-ACORDO INDIVIDUAL DE COMPENSAÇÃO DE JORNADA.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Documentos modelo CTARH/14-ACORDO INDIVIDUAL DE COMPENSAÇÃO DE JORNADA.pdf",
+          "tamanho_bytes": 760777,
+          "tamanho_legivel": "743 KB"
+        },
+        {
+          "nome": "15-INSTRUÇÃO NORMATIVA N° 0072026 - SME HORA",
+          "nome_completo": "15-INSTRUÇÃO NORMATIVA N° 0072026 - SME HORA.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Documentos modelo CTARH/15-INSTRUÇÃO NORMATIVA N° 0072026 - SME HORA.pdf",
+          "tamanho_bytes": 1035938,
+          "tamanho_legivel": "1012 KB"
+        },
+        {
+          "nome": "16-INSTRUÇÃO NORMATIVA N.° 0062026",
+          "nome_completo": "16-INSTRUÇÃO NORMATIVA N.° 0062026.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Documentos modelo CTARH/16-INSTRUÇÃO NORMATIVA N.° 0062026.pdf",
+          "tamanho_bytes": 818328,
+          "tamanho_legivel": "799 KB"
+        },
+        {
+          "nome": "17-INSTRUÇÃO NORMATIVA N° 0052026 - SME",
+          "nome_completo": "17-INSTRUÇÃO NORMATIVA N° 0052026 - SME.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Documentos modelo CTARH/17-INSTRUÇÃO NORMATIVA N° 0052026 - SME.pdf",
+          "tamanho_bytes": 1051896,
+          "tamanho_legivel": "1.0 MB"
+        },
+        {
+          "nome": "18 - MODELO DE JUSTIFICATIVA",
+          "nome_completo": "18 - MODELO DE JUSTIFICATIVA.docx",
+          "extensao": "docx",
+          "tipo": "word",
+          "url": "modulos/documentos/Documentos modelo CTARH/18 - MODELO DE JUSTIFICATIVA.docx",
+          "tamanho_bytes": 9969,
+          "tamanho_legivel": "10 KB"
+        },
+        {
+          "nome": "19-modelo justificativa diretoras",
+          "nome_completo": "19-modelo justificativa diretoras.docx",
+          "extensao": "docx",
+          "tipo": "word",
+          "url": "modulos/documentos/Documentos modelo CTARH/19-modelo justificativa diretoras.docx",
+          "tamanho_bytes": 12149,
+          "tamanho_legivel": "12 KB"
+        },
+        {
+          "nome": "20-FICHA DE HORA EXTRA",
+          "nome_completo": "20-FICHA DE HORA EXTRA.odt",
+          "extensao": "odt",
+          "tipo": "word",
+          "url": "modulos/documentos/Documentos modelo CTARH/20-FICHA DE HORA EXTRA.odt",
+          "tamanho_bytes": 258142,
+          "tamanho_legivel": "252 KB"
+        },
+        {
+          "nome": "21-ACORDO INDIVIDUAL DE REDUÇÃO DA INTRAJORNADA",
+          "nome_completo": "21-ACORDO INDIVIDUAL DE REDUÇÃO DA INTRAJORNADA.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Documentos modelo CTARH/21-ACORDO INDIVIDUAL DE REDUÇÃO DA INTRAJORNADA.pdf",
+          "tamanho_bytes": 727488,
+          "tamanho_legivel": "710 KB"
+        }
+      ]
+    },
+    {
+      "categoria": "Informativos EFE",
+      "slug": "informativos-efe",
+      "total": 16,
+      "arquivos": [
+        {
+          "nome": "01-INFORMATIVO N 01 - ABERTURA DO ANO LETIVO",
+          "nome_completo": "01-INFORMATIVO N 01 - ABERTURA DO ANO LETIVO.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/01-INFORMATIVO N 01 - ABERTURA DO ANO LETIVO.PDF",
+          "tamanho_bytes": 394756,
+          "tamanho_legivel": "386 KB"
+        },
+        {
+          "nome": "02-INFORMATIVO N 02 - HTPC CMEIs",
+          "nome_completo": "02-INFORMATIVO N 02 - HTPC CMEIs.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/02-INFORMATIVO N 02 - HTPC CMEIs.PDF",
+          "tamanho_bytes": 87423,
+          "tamanho_legivel": "85 KB"
+        },
+        {
+          "nome": "03-INFORMATIVO N 03 - GRADE DE HORARIO",
+          "nome_completo": "03-INFORMATIVO N 03 - GRADE DE HORARIO.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/03-INFORMATIVO N 03 - GRADE DE HORARIO.PDF",
+          "tamanho_bytes": 324511,
+          "tamanho_legivel": "317 KB"
+        },
+        {
+          "nome": "04-INFORMATIVO N 04 - PASTA VIRTUAL E HISTORICOS",
+          "nome_completo": "04-INFORMATIVO N 04 - PASTA VIRTUAL E HISTORICOS.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/04-INFORMATIVO N 04 - PASTA VIRTUAL E HISTORICOS.PDF",
+          "tamanho_bytes": 197229,
+          "tamanho_legivel": "193 KB"
+        },
+        {
+          "nome": "05-INFORMATIVO N 05 - AVALIACAO EDUCACAO INFANTIL",
+          "nome_completo": "05-INFORMATIVO N 05 - AVALIACAO EDUCACAO INFANTIL.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/05-INFORMATIVO N 05 - AVALIACAO EDUCACAO INFANTIL.PDF",
+          "tamanho_bytes": 146608,
+          "tamanho_legivel": "143 KB"
+        },
+        {
+          "nome": "06-INFORMATIVO N 06 - FECHAMENTO 1 TRIMESTRE",
+          "nome_completo": "06-INFORMATIVO N 06 - FECHAMENTO 1 TRIMESTRE.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/06-INFORMATIVO N 06 - FECHAMENTO 1 TRIMESTRE.PDF",
+          "tamanho_bytes": 148707,
+          "tamanho_legivel": "145 KB"
+        },
+        {
+          "nome": "07-INFORMATIVO N 07 - SERP",
+          "nome_completo": "07-INFORMATIVO N 07 - SERP.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/07-INFORMATIVO N 07 - SERP.PDF",
+          "tamanho_bytes": 266215,
+          "tamanho_legivel": "260 KB"
+        },
+        {
+          "nome": "08-INFORMATIVO N 08 - CENSO",
+          "nome_completo": "08-INFORMATIVO N 08 - CENSO.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/08-INFORMATIVO N 08 - CENSO.PDF",
+          "tamanho_bytes": 310915,
+          "tamanho_legivel": "304 KB"
+        },
+        {
+          "nome": "09-INFORMATIVO N 09 - AEE E SRM",
+          "nome_completo": "09-INFORMATIVO N 09 - AEE E SRM.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/09-INFORMATIVO N 09 - AEE E SRM.PDF",
+          "tamanho_bytes": 79455,
+          "tamanho_legivel": "78 KB"
+        },
+        {
+          "nome": "10-INFORMATIVO N 10 - REPOSICAO",
+          "nome_completo": "10-INFORMATIVO N 10 - REPOSICAO.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/10-INFORMATIVO N 10 - REPOSICAO.PDF",
+          "tamanho_bytes": 71584,
+          "tamanho_legivel": "70 KB"
+        },
+        {
+          "nome": "11-INSTRUCAO NORMATIVA 11 - AVALIACAO ESCOLAR",
+          "nome_completo": "11-INSTRUCAO NORMATIVA 11 - AVALIACAO ESCOLAR.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/11-INSTRUCAO NORMATIVA 11 - AVALIACAO ESCOLAR.PDF",
+          "tamanho_bytes": 1517091,
+          "tamanho_legivel": "1.4 MB"
+        },
+        {
+          "nome": "7.1-JOGO DO SERP",
+          "nome_completo": "7.1-JOGO DO SERP.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/7.1-JOGO DO SERP.PDF",
+          "tamanho_bytes": 1003048,
+          "tamanho_legivel": "980 KB"
+        },
+        {
+          "nome": "7.2-TUTORIAL ARQUIVAMENTO CASO SERP ESCOLA",
+          "nome_completo": "7.2-TUTORIAL ARQUIVAMENTO CASO SERP ESCOLA.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/7.2-TUTORIAL ARQUIVAMENTO CASO SERP ESCOLA.PDF",
+          "tamanho_bytes": 875164,
+          "tamanho_legivel": "855 KB"
+        },
+        {
+          "nome": "7.3-TUTORIAL EMITIR RELATORIO DE INFREQUENCIA ESCOLAR ATRAVES DO SERP",
+          "nome_completo": "7.3-TUTORIAL EMITIR RELATORIO DE INFREQUENCIA ESCOLAR ATRAVES DO SERP.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/7.3-TUTORIAL EMITIR RELATORIO DE INFREQUENCIA ESCOLAR ATRAVES DO SERP.PDF",
+          "tamanho_bytes": 258245,
+          "tamanho_legivel": "252 KB"
+        },
+        {
+          "nome": "7.4-TUTORIAL REABERTURA CASOS ARQUIVADOS",
+          "nome_completo": "7.4-TUTORIAL REABERTURA CASOS ARQUIVADOS.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/7.4-TUTORIAL REABERTURA CASOS ARQUIVADOS.PDF",
+          "tamanho_bytes": 206428,
+          "tamanho_legivel": "202 KB"
+        },
+        {
+          "nome": "7.5-TUTORIAL REGISTRO DE INFREQUENCIA",
+          "nome_completo": "7.5-TUTORIAL REGISTRO DE INFREQUENCIA.PDF",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Informativos EFE/7.5-TUTORIAL REGISTRO DE INFREQUENCIA.PDF",
+          "tamanho_bytes": 976370,
+          "tamanho_legivel": "953 KB"
+        }
+      ]
+    },
+    {
+      "categoria": "Leis e Decretos",
+      "slug": "leis-e-decretos",
+      "total": 2,
+      "arquivos": [
+        {
+          "nome": "Lei Ordinária 14936 2023 de Ponta Grossa PR",
+          "nome_completo": "Lei Ordinária 14936 2023 de Ponta Grossa PR.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Leis e Decretos/Lei Ordinária 14936 2023 de Ponta Grossa PR.pdf",
+          "tamanho_bytes": 797573,
+          "tamanho_legivel": "779 KB"
+        },
+        {
+          "nome": "Lei Ordinária N° 14648_2023 - Leis.org",
+          "nome_completo": "Lei Ordinária N° 14648_2023 - Leis.org.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Leis e Decretos/Lei Ordinária N° 14648_2023 - Leis.org.pdf",
+          "tamanho_bytes": 863249,
+          "tamanho_legivel": "843 KB"
+        }
+      ]
+    },
+    {
+      "categoria": "Modelos de documentos da EFE",
+      "slug": "modelos-de-documentos-da-efe",
+      "total": 2,
+      "arquivos": [
+        {
+          "nome": "MODELO LISTA DE ALUNOS RES",
+          "nome_completo": "MODELO LISTA DE ALUNOS RES.xlsx",
+          "extensao": "xlsx",
+          "tipo": "excel",
+          "url": "modulos/documentos/Modelos de documentos da EFE/MODELO LISTA DE ALUNOS RES.xlsx",
+          "tamanho_bytes": 8039,
+          "tamanho_legivel": "8 KB"
+        },
+        {
+          "nome": "PLANILHA ESCOLA completa",
+          "nome_completo": "PLANILHA ESCOLA completa.ods",
+          "extensao": "ods",
+          "tipo": "excel",
+          "url": "modulos/documentos/Modelos de documentos da EFE/PLANILHA ESCOLA completa.ods",
+          "tamanho_bytes": 20429,
+          "tamanho_legivel": "20 KB"
+        }
+      ]
+    }
+  ]
+}
