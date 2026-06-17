@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="theme-color" content="#007bff">
+  <title>Historico Escolar – Manual do Escriturário</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+
+  <link rel="icon" href="/Manual/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Manual/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/Manual/assets/img/apple-touch-icon.png">
+
+  <style>
+    :root{--primary-color:#007bff;--success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f4f6f9;}
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#007bff,#28a745);z-index:99999;width:0%;transition:width 0.1s linear;pointer-events:none;}
+    .back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:#007bff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.3s;font-size:16px;box-shadow:0 4px 14px rgba(0,123,255,0.35);border:none;z-index:1000;}
+    .back-to-top.visible{opacity:1;}
+    .page-info-card{border-radius:10px;border-left:5px solid var(--primary-color);margin-bottom:20px;}
+    .icon-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+    .toc-sticky{position:sticky;top:72px;}
+    .toc-nav a{display:block;padding:5px 14px;font-size:13px;color:#495057;text-decoration:none;border-left:3px solid transparent;transition:all 0.15s;}
+    .toc-nav a:hover,.toc-nav a.active{color:#007bff;border-left-color:#007bff;background:#f8f9fa;}
+    .lightbox-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);z-index:99990;display:none;align-items:center;justify-content:center;cursor:zoom-out;}
+    .lightbox-overlay.open{display:flex;}
+    .lightbox-overlay img{max-width:92%;max-height:92vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .lightbox-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;line-height:1;}
+    .img-zoomable{cursor:zoom-in;transition:transform 0.2s;}
+    .img-zoomable:hover{transform:scale(1.02);}
+    .toast-container{position:fixed;bottom:20px;right:20px;z-index:9998;}
+    .custom-toast{background:white;border-left:4px solid var(--primary-color);padding:12px 20px;margin-top:10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.2);animation:slideIn .3s ease;display:flex;align-items:center;gap:10px;}
+    @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    .favorite-item,.history-item{padding:8px;margin-bottom:5px;background:rgba(255,255,255,.1);border-radius:5px;cursor:pointer;transition:all .2s;}
+    .favorite-item:hover,.history-item:hover{background:rgba(255,255,255,.2);}
+    .search-results-dropdown{position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ddd;border-radius:4px;max-height:300px;overflow-y:auto;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+    .search-result-item{padding:10px;cursor:pointer;border-bottom:1px solid #eee;}
+    .search-result-item:hover{background:#f8f9fa;}
+    .btn-favorite{cursor:pointer;transition:all .2s;}
+    .btn-favorite:hover{transform:scale(1.1);}
+    .btn-favorite.active{color:var(--warning-color);}
+    .steps-container .step-num{width:36px;height:36px;border-radius:50%;background:#007bff;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;}
+    pre code{font-family:'Cascadia Code','Consolas','Monaco',monospace;}
+    @media print{.main-sidebar,.main-header,.control-sidebar,.main-footer,.back-to-top,#reading-progress{display:none!important;}.content-wrapper{margin-left:0!important;}}
+    @media(max-width:768px){.brand-text,.user-panel .info{display:none;}.toc-sticky{display:none;}}
+
+    /* ===== Estilos complementares (alinhados ao exemplo) ===== */
+    .sere-callout { border-left: 4px solid #00a65a; background: #f9f9f9; padding: 10px 15px; margin-bottom: 15px; border-radius: 2px; }
+    .sere-callout.callout-warning { border-left-color: #f39c12; }
+    .sere-callout.callout-info    { border-left-color: #00c0ef; }
+    .sere-callout.callout-danger  { border-left-color: #dd4b39; }
+    .sere-step-badge { display: inline-block; background: #00a65a; color: #fff; border-radius: 50%; width: 28px; height: 28px; text-align: center; line-height: 28px; font-weight: bold; font-size: 14px; margin-right: 8px; }
+    .sere-field-label { font-weight: 600; color: #444; }
+    .sere-field-value { font-family: monospace; background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #222; }
+    .sere-mock-table th { background-color: #00a65a !important; color: #fff; font-size: 12px; }
+    .sere-mock-table td { font-size: 12px; vertical-align: middle; }
+    .sere-mock-header { background: #d6ebdf; padding: 8px 12px; border-radius: 3px 3px 0 0; font-size: 12px; color: #333; margin-bottom: 0; }
+    .sere-section-title { font-size: 14px; font-weight: 700; color: #00a65a; border-bottom: 2px solid #00a65a; padding-bottom: 4px; margin: 20px 0 12px 0; }
+    .sere-form-mock { background: #d6ebdf; border: 1px solid #b2d4be; border-radius: 3px; padding: 14px 18px; margin-bottom: 14px; font-size: 13px; }
+    .sere-form-mock .row-field { margin-bottom: 7px; }
+    .badge-matriculado { background-color: #00a65a; color: #fff; padding: 2px 7px; border-radius: 3px; font-size: 11px; }
+    .nav-path { font-size: 13px; background: #ecf0f1; border-radius: 4px; padding: 8px 14px; margin-bottom: 18px; color: #555; }
+    .nav-path span { color: #00a65a; font-weight: 600; }
+    .icon-edit-btn { color: #f39c12; font-size: 15px; }
+    .highlight-row { background-color: #fffbe6 !important; }
+    .pdf-item { border:1px solid #e0e0e0; border-radius:5px; padding:12px; margin-bottom:12px; background:#fff; display:flex; align-items:center; gap:12px; }
+    .pdf-icon { font-size:28px; color:#d9534f; flex-shrink:0; }
+    .pdf-info { flex:1; }
+    .pdf-name { font-weight:600; font-size:13px; }
+    .pdf-signed { font-size:12px; color:#3c763d; margin-top:4px; }
+    .pdf-actions { margin-top:6px; display:flex; gap:6px; flex-wrap:wrap; }
+    .link-green { color:#00a65a; cursor:pointer; text-decoration:underline; }
+    .link-blue { color:#007bff; cursor:pointer; text-decoration:underline; }
+    .confirm-box { background:#fcf8e3; border:1px solid #faebcc; border-radius:3px; padding:12px 18px; margin:8px 0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    .alert-success { background:#dff0d8; border:1px solid #d6e9c6; border-radius:3px; padding:12px 18px; color:#3c763d; }
+    .vo-list { font-size:13px; columns:2 240px; column-gap:20px; list-style:square; padding-left:18px; }
+    .vo-list li { margin-bottom:4px; }
+    @media(max-width:600px){ .vo-list { columns:1; } }
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<div class="wrapper">
+
+  <div id="reading-progress"></div>
+
+  <!-- NAVBAR -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom shadow-sm">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-md-block">
+        <ol class="breadcrumb mb-0 ms-2" style="font-size:13px;align-items:center;background:none;padding:0;">
+          <li class="breadcrumb-item"><a href="../../index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Início</a></li>
+          <li class="breadcrumb-item text-muted">Documentos SERE</li>
+          <li class="breadcrumb-item active">Historico Escolar</li>
+        </ol>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item d-none d-md-inline-block">
+        <div class="input-group input-group-sm" style="position:relative;">
+          <input class="form-control form-control-navbar" type="search" id="global-search-input" placeholder="Buscar procedimentos..." autocomplete="off">
+          <div class="input-group-append"><button class="btn btn-navbar" type="button"><i class="fas fa-search"></i></button></div>
+          <div class="search-results-dropdown" id="search-dropdown" style="display:none;"></div>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" title="Imprimir" href="#" onclick="window.print();return false;"><i class="fas fa-print"></i></a></li>
+      <li class="nav-item">
+        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="historico_escolar" title="Favoritar" onclick="toggleFavorite('historico_escolar','Historico Escolar')"><i class="fas fa-star"></i></a>
+      </li>
+      <li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a></li>
+    </ul>
+  </nav>
+
+  <!-- SIDEBAR -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" id="sidebar-container"></aside>
+
+  <!-- CONTENT WRAPPER -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <h1 class="m-0 d-flex align-items-center gap-2">
+              <i class="fas fa-file-alt text-success me-1"></i>
+              Historico Escolar
+            </h1>
+          </div>
+          <div class="col-auto">
+            <button onclick="window.print()" class="btn btn-outline-secondary btn-sm me-1">
+              <i class="fas fa-print me-1"></i>Imprimir
+            </button>
+            <button onclick="toggleFavorite('historico_escolar','Historico Escolar')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="historico_escolar">
+              <i class="fas fa-star me-1"></i>Favoritar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- MAIN CONTENT -->
+          <div class="col-xl-9">
+            <!-- Page info card -->
+            <div class="card page-info-card">
+              <div class="card-body">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="icon-circle bg-primary text-white">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h2 class="h4 mb-1">Historico Escolar</h2>
+                    <div class="d-flex flex-wrap gap-3 small text-muted">
+                      <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-17</span>
+                      <span><i class="fas fa-folder me-1"></i>Documentos SERE</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== CONTEÚDO PRINCIPAL REESCRITO ===== -->
+            <div id="page-content">
+              <style>
+                /* Estilos complementares ao AdminLTE (já incluídos no head, mas repetidos para portabilidade) */
+                .sere-callout { border-left: 4px solid #00a65a; background: #f9f9f9; padding: 10px 15px; margin-bottom: 15px; border-radius: 2px; }
+                .sere-callout.callout-warning { border-left-color: #f39c12; }
+                .sere-callout.callout-info    { border-left-color: #00c0ef; }
+                .sere-callout.callout-danger  { border-left-color: #dd4b39; }
+                .sere-step-badge { display: inline-block; background: #00a65a; color: #fff; border-radius: 50%; width: 28px; height: 28px; text-align: center; line-height: 28px; font-weight: bold; font-size: 14px; margin-right: 8px; }
+                .sere-field-label { font-weight: 600; color: #444; }
+                .sere-field-value { font-family: monospace; background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #222; }
+                .sere-mock-table th { background-color: #00a65a !important; color: #fff; font-size: 12px; }
+                .sere-mock-table td { font-size: 12px; vertical-align: middle; }
+                .sere-mock-header { background: #d6ebdf; padding: 8px 12px; border-radius: 3px 3px 0 0; font-size: 12px; color: #333; margin-bottom: 0; }
+                .sere-section-title { font-size: 14px; font-weight: 700; color: #00a65a; border-bottom: 2px solid #00a65a; padding-bottom: 4px; margin: 20px 0 12px 0; }
+                .sere-form-mock { background: #d6ebdf; border: 1px solid #b2d4be; border-radius: 3px; padding: 14px 18px; margin-bottom: 14px; font-size: 13px; }
+                .sere-form-mock .row-field { margin-bottom: 7px; }
+                .badge-matriculado { background-color: #00a65a; color: #fff; padding: 2px 7px; border-radius: 3px; font-size: 11px; }
+                .nav-path { font-size: 13px; background: #ecf0f1; border-radius: 4px; padding: 8px 14px; margin-bottom: 18px; color: #555; }
+                .nav-path span { color: #00a65a; font-weight: 600; }
+                .icon-edit-btn { color: #f39c12; font-size: 15px; }
+                .highlight-row { background-color: #fffbe6 !important; }
+                .pdf-item { border:1px solid #e0e0e0; border-radius:5px; padding:12px; margin-bottom:12px; background:#fff; display:flex; align-items:center; gap:12px; }
+                .pdf-icon { font-size:28px; color:#d9534f; flex-shrink:0; }
+                .pdf-info { flex:1; }
+                .pdf-name { font-weight:600; font-size:13px; }
+                .pdf-signed { font-size:12px; color:#3c763d; margin-top:4px; }
+                .pdf-actions { margin-top:6px; display:flex; gap:6px; flex-wrap:wrap; }
+                .link-green { color:#00a65a; cursor:pointer; text-decoration:underline; }
+                .link-blue { color:#007bff; cursor:pointer; text-decoration:underline; }
+                .confirm-box { background:#fcf8e3; border:1px solid #faebcc; border-radius:3px; padding:12px 18px; margin:8px 0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+                .alert-success { background:#dff0d8; border:1px solid #d6e9c6; border-radius:3px; padding:12px 18px; color:#3c763d; }
+                .vo-list { font-size:13px; columns:2 240px; column-gap:20px; list-style:square; padding-left:18px; }
+                .vo-list li { margin-bottom:4px; }
+                @media(max-width:600px){ .vo-list { columns:1; } }
+              </style>
+
+              <div class="card card-success">
+                <div class="card-header">
+                  <i class="fa fa-graduation-cap" style="margin-right:8px;"></i> Histórico Escolar – Gerar, Emitir e Corrigir
+                </div>
+                <div class="card-body">
+
+                  <!-- Caminho -->
+                  <div class="nav-path">
+                    <i class="fa fa-map-marker" style="color:#00a65a;margin-right:6px;"></i>
+                    Menu <span>›</span> Relatórios <span>›</span> <strong>Histórico Escolar</strong>
+                  </div>
+
+                  <p style="font-size:13px;">Para gerar, emitir ou corrigir dados do Histórico Escolar, acesse o caminho acima. Antes de tudo, o primeiro procedimento é <strong>gravar os dados do aluno no histórico escolar</strong>.</p>
+
+                  <!-- ── PASSO 1 ── -->
+                  <div class="sere-section-title">
+                    <span class="sere-step-badge">1</span> Gravar Matrículas no Histórico
+                  </div>
+
+                  <div class="nav-path">
+                    Menu <span>›</span> Relatórios <span>›</span> Histórico Escolar <span>›</span> <strong>Gravar Matrículas no Histórico</strong>
+                  </div>
+
+                  <p style="font-size:13px;">Coloque o CGM do aluno e clique em <strong>Pesquisar</strong>:</p>
+
+                  <!-- Tela: Pesquisar Aluno -->
+                  <div class="sere-form-mock">
+                    <div style="font-weight:600;font-size:13px;margin-bottom:8px;">Pesquisar Aluno – Carregar Dados Histórico Escolar</div>
+                    <div class="row-field"><span class="sere-field-label">CGM:</span> <span class="sere-field-value" style="display:inline-block;width:140px;">&nbsp;</span></div>
+                    <div class="row-field"><span class="sere-field-label">RG:</span> <span class="sere-field-value" style="display:inline-block;width:200px;">&nbsp;</span></div>
+                    <div class="row-field"><span class="sere-field-label">Nome:</span> <span class="sere-field-value" style="display:inline-block;width:320px;">&nbsp;</span></div>
+                    <div class="row-field"><span class="sere-field-label">Data de Nascimento:</span> <span class="sere-field-value" style="display:inline-block;width:110px;">&nbsp;</span></div>
+                    <hr style="border-color:#b2d4be;margin:10px 0;">
+                    <div>
+                      <button class="btn btn-success btn-sm">pesquisar</button>
+                      <button class="btn btn-default btn-sm">limpar</button>
+                      <button class="btn btn-default btn-sm">voltar</button>
+                    </div>
+                  </div>
+
+                  <p style="font-size:13px;">Depois, confirme o carregamento dos dados:</p>
+
+                  <!-- Tela: Confirmar carregamento -->
+                  <div class="sere-form-mock">
+                    <div style="font-weight:600;font-size:13px;margin-bottom:8px;">Carregar Dados para Histórico Escolar</div>
+                    <div style="font-size:13px;">
+                      <strong>CGM:</strong> 2045871233 &nbsp;
+                      <strong>Nome:</strong> LARISSA APARECIDA MENDES SILVA &nbsp;
+                      <strong>Data de Nascimento:</strong> 14/09/2014
+                    </div>
+                    <hr style="border-color:#b2d4be;margin:10px 0;">
+                    <div>
+                      <button class="btn btn-success btn-sm">confirmar</button>
+                      <button class="btn btn-default btn-sm">voltar</button>
+                    </div>
+                  </div>
+
+                  <p style="font-size:13px;">Ao clicar em <strong>Confirmar</strong>, o sistema exibirá:</p>
+
+                  <div class="confirm-box">
+                    <span>Confirma carga dos dados para Histórico Escolar?</span>
+                    <div>
+                      <button class="btn btn-success btn-sm">Sim</button>
+                      <button class="btn btn-default btn-sm">Não</button>
+                    </div>
+                  </div>
+
+                  <p style="font-size:13px;margin-top:12px;">Clique em <strong>Sim</strong>. Após isso aparecerá a mensagem:</p>
+
+                  <div class="alert-success">
+                    <i class="fa fa-check-circle"></i>
+                    Carga dos dados para Histórico Escolar realizada com Sucesso!
+                  </div>
+
+                  <div class="sere-callout callout-info" style="margin-top:14px;">
+                    Se o aluno frequentou todos os anos regularmente do 1º ao 5º ano na mesma escola (ou até o ano de saída, em caso de transferência), você já pode ir direto para o <strong>Passo 4 – Emitir o Histórico Escolar</strong>.
+                  </div>
+
+                  <!-- ── PASSO 2 ── -->
+                  <div class="sere-section-title">
+                    <span class="sere-step-badge">2</span> Aluno transferido (ensino particular ou outro estado)
+                  </div>
+
+                  <p style="font-size:13px;">Se o aluno veio transferido do ensino particular ou de outro estado, é necessário editar o histórico:</p>
+
+                  <div class="nav-path">
+                    Menu <span>›</span> Relatórios <span>›</span> Histórico Escolar <span>›</span> <strong>Incluir Nova Seriação</strong>
+                  </div>
+
+                  <p style="font-size:13px;">Selecione <strong>Ensino Fundamental – 9 Anos</strong> e preencha a seriação que falta no histórico:</p>
+
+                  <!-- Tela: Incluir Seriação -->
+                  <div class="sere-form-mock" style="max-width:780px;">
+                    <div style="font-weight:600;font-size:13px;margin-bottom:8px;">Incluir Seriação Histórico Escolar</div>
+                    <div style="font-size:13px;margin-bottom:10px;">
+                      <strong>C.G.M.:</strong> 2045871233 &nbsp;
+                      <strong>Nome:</strong> LARISSA APARECIDA MENDES SILVA &nbsp;
+                      <strong>Data de Nascimento:</strong> 14/09/2014
+                    </div>
+                    <div style="font-size:13px;margin-bottom:10px;"><strong>Tipo Histórico:</strong> Ensino Fundamental – 9 Anos</div>
+
+                    <table class="table" style="background:#fff;font-size:13px;margin-bottom:14px;">
+                      <tr>
+                        <td style="width:50%;border-color:#c8ddb9;">
+                          <label style="font-weight:700;font-size:12px;">* Seriação:</label><br>
+                          <select style="width:100%;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;"><option>4º Ano</option></select>
+                        </td>
+                        <td style="border-color:#c8ddb9;">
+                          <label style="font-weight:700;font-size:12px;">* Resultado Final:</label><br>
+                          <select style="width:100%;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;"><option>Aprovado</option></select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="border-color:#c8ddb9;">
+                          <label style="font-weight:700;font-size:12px;">Total Horas:</label><br>
+                          <input type="text" value="800" style="width:90%;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;">
+                        </td>
+                        <td style="border-color:#c8ddb9;">
+                          <label style="font-weight:700;font-size:12px;">* Ano:</label><br>
+                          <input type="text" value="2021" style="width:90%;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="border-color:#c8ddb9;">
+                          <label style="font-weight:700;font-size:12px;">* Lei:</label><br>
+                          <select style="width:100%;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;"><option>9394/96</option></select>
+                        </td>
+                        <td style="border-color:#c8ddb9;">
+                          <label style="font-weight:700;font-size:12px;">* UF:</label><br>
+                          <select style="width:100%;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;"><option>SP</option></select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="border-color:#c8ddb9;">
+                          <label style="font-weight:700;font-size:12px;">* Município:</label><br>
+                          <input type="text" value="Campinas" style="width:98%;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="border-color:#c8ddb9;">
+                          <label style="font-weight:700;font-size:12px;">* Estabelecimento:</label><br>
+                          <input type="text" value="E.M. Professor Antônio Ferreira" style="width:98%;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;">
+                        </td>
+                      </tr>
+                    </table>
+
+                    <p style="font-weight:700;color:#00a65a;font-size:13px;margin:10px 0 8px;">Disciplina</p>
+
+                    <div style="margin-bottom:7px;font-size:12px;">
+                      <input type="checkbox" id="doc-anexo"> <label for="doc-anexo">Documentação em anexo</label>
+                    </div>
+                    <div style="margin-bottom:7px;font-size:12px;">
+                      <strong style="display:inline-block;width:160px;">* Disciplina:</strong>
+                      <input type="text" value="HISTORIA" style="width:260px;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;"> <i class="fa fa-search" style="color:#555;"></i>
+                    </div>
+                    <div style="margin-bottom:7px;font-size:12px;display:flex;align-items:center;flex-wrap:wrap;gap:8px;">
+                      <strong>* Composição Curricular:</strong>
+                      <select style="padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;"><option>Base Nacional Comum</option></select>
+                      <strong>* Total Horas:</strong>
+                      <input type="text" value="80" style="width:55px;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;">
+                      <strong>Nota:</strong>
+                      <input type="text" value="8,5" style="width:55px;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;">
+                    </div>
+                    <div style="margin-bottom:12px;font-size:12px;">
+                      <strong style="display:inline-block;width:160px;">Vo:</strong>
+                      <input type="text" style="width:260px;padding:4px;border:1px solid #aaa;border-radius:3px;font-size:12px;"> <i class="fa fa-search" style="color:#555;"></i>
+                    </div>
+
+                    <div style="text-align:center;margin-bottom:12px;">
+                      <button class="btn btn-success btn-sm">nova disciplina</button>
+                      <button class="btn btn-success btn-sm">incluir disciplina</button>
+                    </div>
+
+                    <table class="table sere-mock-table" style="background:#fff;font-size:12px;">
+                      <thead>
+                        <tr>
+                          <th>Disciplina</th>
+                          <th>Composição Curricular</th>
+                          <th>Nota</th>
+                          <th>Total Horas</th>
+                          <th>Vo</th>
+                          <th>Excluir</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>ARTE</td><td>Base Nacional Comum</td><td>9,0</td><td>80</td><td></td><td style="color:red;text-align:center;">✕</td></tr>
+                        <tr><td>CIENCIAS</td><td>Base Nacional Comum</td><td>7,5</td><td>80</td><td></td><td style="color:red;text-align:center;">✕</td></tr>
+                        <tr><td>EDUCACAO FISICA</td><td>Base Nacional Comum</td><td>9,5</td><td>80</td><td></td><td style="color:red;text-align:center;">✕</td></tr>
+                        <tr><td>ENSINO RELIGIOSO</td><td>Base Nacional Comum</td><td>–</td><td>40</td><td style="font-size:11px;color:#888;">Componente sem nota</td><td style="color:red;text-align:center;">✕</td></tr>
+                        <tr><td>GEOGRAFIA</td><td>Base Nacional Comum</td><td>8,0</td><td>80</td><td></td><td style="color:red;text-align:center;">✕</td></tr>
+                        <tr><td>HISTORIA</td><td>Base Nacional Comum</td><td>8,5</td><td>80</td><td></td><td style="color:red;text-align:center;">✕</td></tr>
+                        <tr><td>LINGUA PORTUGUESA</td><td>Base Nacional Comum</td><td>7,0</td><td>120</td><td></td><td style="color:red;text-align:center;">✕</td></tr>
+                        <tr><td>MATEMATICA</td><td>Base Nacional Comum</td><td>6,5</td><td>120</td><td></td><td style="color:red;text-align:center;">✕</td></tr>
+                        <tr><td>L.E. - INGLES</td><td>Parte Diversificada</td><td>9,0</td><td>40</td><td></td><td style="color:red;text-align:center;">✕</td></tr>
+                      </tbody>
+                    </table>
+
+                    <div style="text-align:center;margin-top:12px;">
+                      <button class="btn btn-success btn-sm">salvar seriação</button>
+                      <button class="btn btn-default btn-sm">voltar</button>
+                    </div>
+                  </div>
+
+                  <p style="font-size:13px;">Preencha as informações em conformidade com o histórico da escola anterior. Em caso de dúvida, entre em contato com a <strong>Andressa</strong> ou com o <strong>Rodrigo</strong>, da documentação escolar.</p>
+
+                  <p style="font-size:13px;">Caso tenha disciplinas a mais, indique se é da <strong>Base Nacional Comum</strong> ou da <strong>Parte Diversificada</strong>. Exemplo: L.E. – INGLÊS normalmente é Parte Diversificada.</p>
+
+                  <p style="font-size:13px;">O campo <strong>Vo (Vide Observação)</strong> é usado quando a disciplina possui observação/menção especial. As opções mais comuns são:</p>
+
+                  <ul class="vo-list">
+                    <li>Disciplinas cuja aprovação decorre apenas da apuração de assiduidade.</li>
+                    <li>Dependência realizada no ano ____.</li>
+                    <li>Adaptação realizada no ano ____.</li>
+                    <li>Aproveitamento de Estudos da disciplina de _______________.</li>
+                    <li>Resultado contido em _______________.</li>
+                    <li>Resultado inserido no contexto curricular como um todo.</li>
+                    <li>Dependência.</li>
+                    <li>Progressão Parcial.</li>
+                    <li>Classificado para a __ série - Deliberação nº ____/__ - CEE.</li>
+                    <li>Reclassificação - Deliberação nº ____/__ - CEE.</li>
+                    <li>Avaliação através de Parecer Descritivo - Deliberação nº 07/99 - CEE.</li>
+                    <li>A disciplina de Ensino Religioso não terá nota ou menção para a aprovação.</li>
+                    <li>Componente Curricular sem nota ou menção conforme Regimento Escolar.</li>
+                    <li>Progressão Continuada.</li>
+                    <li>Disciplina concluída pelo ENEM.</li>
+                    <li>Disciplina concluída pelo ENCCEJA.</li>
+                    <li>Disciplina concluída pelos exames da EJA.</li>
+                    <li>Programa de Aceleração de Estudos. Parecer CP/CEE nº 19/15.</li>
+                    <li>Aceleração de Estudos 1/4 - Lei 9394/96.</li>
+                    <li>Aceleração de Estudos 1/5 - Lei 9394/96.</li>
+                    <li>(demais opções conforme sistema)</li>
+                  </ul>
+
+                  <p style="font-size:13px;">Após o preenchimento, clique em <strong>salvar seriação</strong>.</p>
+
+                  <!-- ── PASSO 3 ── -->
+                  <div class="sere-section-title">
+                    <span class="sere-step-badge">3</span> Alterar / Excluir Histórico Escolar
+                  </div>
+
+                  <div class="nav-path">
+                    Menu <span>›</span> Relatórios <span>›</span> Histórico Escolar <span>›</span> <strong>Alterar/Excluir</strong>
+                  </div>
+
+                  <p style="font-size:13px;">Caso seja necessário editar alguma informação do histórico, informe o CGM do aluno:</p>
+
+                  <!-- Tela: Alterar/Excluir -->
+                  <div class="sere-form-mock" style="max-width:720px;">
+                    <div style="font-weight:600;font-size:13px;margin-bottom:8px;">Alterar/Excluir Histórico Escolar</div>
+                    <div style="font-size:13px;margin-bottom:10px;">
+                      <strong>CGM:</strong> 2045871233&nbsp;
+                      <strong>Nome:</strong> LARISSA APARECIDA MENDES SILVA &nbsp;
+                      <strong>Data de Nascimento:</strong> 14/09/2014
+                    </div>
+                    <table class="table" style="background:#fff;font-size:12px;">
+                      <thead>
+                        <tr>
+                          <th>Tipo Histórico</th>
+                          <th>Seriação</th>
+                          <th>Disciplina</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><a class="link-green">Ensino Fundamental - 9 Anos</a></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><a class="link-green">1º Ano</a></td>
+                          <td></td>
+                        </tr>
+                        <tr><td></td><td></td><td><a class="link-blue">ARTE</a></td></tr>
+                        <tr><td></td><td></td><td><a class="link-blue">CIENCIAS</a></td></tr>
+                        <tr><td></td><td></td><td><a class="link-blue">EDUCACAO FISICA</a></td></tr>
+                        <tr><td></td><td></td><td><a class="link-blue">ENSINO RELIGIOSO</a></td></tr>
+                        <tr><td></td><td></td><td><a class="link-blue">GEOGRAFIA</a></td></tr>
+                        <tr><td></td><td></td><td><a class="link-blue">HISTORIA</a></td></tr>
+                        <tr><td></td><td></td><td><a class="link-blue">LINGUA PORTUGUESA</a></td></tr>
+                        <tr><td></td><td></td><td><a class="link-blue">MATEMATICA</a></td></tr>
+                        <tr>
+                          <td></td>
+                          <td><a class="link-green">2º Ano</a></td>
+                          <td></td>
+                        </tr>
+                        <tr><td></td><td></td><td><a class="link-blue">ARTE</a></td></tr>
+                        <tr><td></td><td></td><td style="color:#aaa;font-size:12px;">(... demais disciplinas e séries seguem na mesma estrutura)</td></tr>
+                      </tbody>
+                    </table>
+                    <div class="sere-callout callout-info" style="margin-top:8px;">
+                      <strong>O que cada link permite editar:</strong><br>
+                      • Clique no <strong>Tipo Histórico</strong> para editar as observações da turma.<br>
+                      • Clique na <strong>Seriação</strong> para editar dados da instituição ou carga horária.<br>
+                      • Clique na <strong>Disciplina</strong> para editar ou excluir dados daquela disciplina.<br>
+                      Em todos os casos, ao final clique em <strong>salvar</strong>.
+                    </div>
+                  </div>
+
+                  <!-- ── PASSO 4 ── -->
+                  <div class="sere-section-title" id="emitir-historico">
+                    <span class="sere-step-badge">4</span> Emitir o Histórico Escolar
+                  </div>
+
+                  <div class="nav-path">
+                    Menu <span>›</span> Relatórios <span>›</span> Histórico Escolar <span>›</span> <strong>Emitir</strong>
+                  </div>
+
+                  <p style="font-size:13px;">Após conferir e corrigir os dados, vamos emitir o histórico. Informe o CGM e selecione o tipo:</p>
+
+                  <!-- Tela: Selecionar Tipo -->
+                  <div class="sere-form-mock" style="max-width:620px;">
+                    <div style="font-weight:600;font-size:13px;margin-bottom:8px;">Selecionar Tipo de Histórico – Relatório de Histórico Escolar</div>
+                    <div style="font-size:13px;margin-bottom:10px;">
+                      <strong>CGM:</strong> 2045871233&nbsp;
+                      <strong>Nome:</strong> LARISSA APARECIDA MENDES SILVA &nbsp;
+                      <strong>Data de Nascimento:</strong> 14/09/2014
+                    </div>
+                    <div style="font-size:13px;margin-bottom:10px;">
+                      <a class="link-green" style="display:block;margin-bottom:4px;">Ensino Fundamental - 9 Anos</a>
+                      <a class="link-green" style="display:block;">Educação Infantil</a>
+                    </div>
+                    <div>
+                      <button class="btn btn-default btn-sm">voltar</button>
+                    </div>
+                  </div>
+
+                  <p style="font-size:13px;">Ao clicar no tipo desejado, os documentos gerados serão listados. Clique em <strong>Gerar Documento</strong> para criar um novo:</p>
+
+                  <!-- Tela: Imprimir Histórico Escolar -->
+                  <div class="sere-form-mock" style="max-width:720px;">
+                    <div style="font-weight:600;font-size:13px;margin-bottom:8px;">Imprimir Histórico Escolar</div>
+                    <div style="font-size:13px;margin-bottom:10px;">
+                      <strong>CGM:</strong> 2045871233&nbsp;
+                      <strong>Nome:</strong> LARISSA APARECIDA MENDES SILVA &nbsp;
+                      <strong>Data de Nascimento:</strong> 14/09/2014
+                    </div>
+                    <div style="font-size:13px;margin-bottom:12px;"><strong>Tipo de Ensino:</strong> Ensino Fundamental - 9 Anos</div>
+
+                    <!-- PDF assinado (Diretor + Secretário) -->
+                    <div class="pdf-item">
+                      <span class="pdf-icon"><i class="fa fa-file-pdf-o"></i></span>
+                      <div class="pdf-info">
+                        <div class="pdf-name">Histórico_Escolar.pdf – gerado em 25 de março de 2026 às 15:14 hs</div>
+                        <div class="pdf-signed">
+                          <i class="fa fa-check-square"></i> Assinado pelo Diretor(a).<br>
+                          <i class="fa fa-check-square"></i> Assinado pelo Secretário(a).
+                        </div>
+                        <div class="pdf-actions">
+                          <button class="btn btn-success btn-sm">Exibir</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PDF assinado (Diretor + Secretário) -->
+                    <div class="pdf-item">
+                      <span class="pdf-icon"><i class="fa fa-file-pdf-o"></i></span>
+                      <div class="pdf-info">
+                        <div class="pdf-name">Histórico_Escolar.pdf – gerado em 25 de março de 2026 às 15:00 hs</div>
+                        <div class="pdf-signed">
+                          <i class="fa fa-check-square"></i> Assinado pelo Diretor(a).<br>
+                          <i class="fa fa-check-square"></i> Assinado pelo Secretário(a).
+                        </div>
+                        <div class="pdf-actions">
+                          <button class="btn btn-success btn-sm">Exibir</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PDF aguardando assinatura -->
+                    <div class="pdf-item">
+                      <span class="pdf-icon"><i class="fa fa-file-pdf-o"></i></span>
+                      <div class="pdf-info">
+                        <div class="pdf-name">Histórico_Escolar.pdf – gerado em 25 de março de 2026 às 14:33 hs</div>
+                        <div class="pdf-actions">
+                          <button class="btn btn-success btn-sm">Exibir</button>
+                          <button class="btn btn-warning btn-sm">Assinar como Diretor</button>
+                          <button class="btn btn-success btn-sm">Assinar como Secretário</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PDF assinado (Diretor + Secretário) -->
+                    <div class="pdf-item">
+                      <span class="pdf-icon"><i class="fa fa-file-pdf-o"></i></span>
+                      <div class="pdf-info">
+                        <div class="pdf-name">Histórico_Escolar.pdf – gerado em 25 de março de 2026 às 13:38 hs</div>
+                        <div class="pdf-signed">
+                          <i class="fa fa-check-square"></i> Assinado pelo Diretor(a).<br>
+                          <i class="fa fa-check-square"></i> Assinado pelo Secretário(a).
+                        </div>
+                        <div class="pdf-actions">
+                          <button class="btn btn-success btn-sm">Exibir</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PDFs aguardando assinatura -->
+                    <div class="pdf-item">
+                      <span class="pdf-icon"><i class="fa fa-file-pdf-o"></i></span>
+                      <div class="pdf-info">
+                        <div class="pdf-name">Histórico_Escolar.pdf – gerado em 25 de março de 2026 às 13:31 hs</div>
+                        <div class="pdf-actions">
+                          <button class="btn btn-success btn-sm">Exibir</button>
+                          <button class="btn btn-warning btn-sm">Assinar como Diretor</button>
+                          <button class="btn btn-success btn-sm">Assinar como Secretário</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="pdf-item">
+                      <span class="pdf-icon"><i class="fa fa-file-pdf-o"></i></span>
+                      <div class="pdf-info">
+                        <div class="pdf-name">Histórico_Escolar.pdf – gerado em 25 de março de 2026 às 13:31 hs</div>
+                        <div class="pdf-actions">
+                          <button class="btn btn-success btn-sm">Exibir</button>
+                          <button class="btn btn-warning btn-sm">Assinar como Diretor</button>
+                          <button class="btn btn-success btn-sm">Assinar como Secretário</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr style="border-color:#b2d4be;margin:12px 0;">
+                    <div style="text-align:center;">
+                      <button class="btn btn-success">Gerar Documento</button>
+                      <button class="btn btn-default" style="margin-left:6px;">voltar</button>
+                    </div>
+                  </div>
+
+                  <p style="font-size:13px;">Visualize o documento clicando em <strong>Exibir</strong>. Se tudo estiver correto, assine.</p>
+
+                  <div class="sere-callout callout-warning">
+                    <h4><i class="fa fa-info-circle"></i> Lembrete sobre assinaturas</h4>
+                    Se a unidade escolar possuir secretário(a), ele(a) deve assinar <strong>primeiro</strong>, e depois o diretor. Caso não haja secretário(a), apenas o diretor assina.
+                  </div>
+
+                  <p style="font-size:13px;">Em casos de transferência, é possível realizar o download do documento e encaminhar à escola de destino, ou anexá-lo na pasta virtual do aluno.</p>
+
+                </div><!-- /.card-body -->
+              </div><!-- /.card card-success -->
+            </div><!-- /#page-content -->
+
+            <!-- FOOTER INFO -->
+            <div class="card mt-4 mb-4">
+              <div class="card-body text-muted small">
+                <i class="fas fa-info-circle me-1"></i>
+                Última atualização: <strong>2026-06-17</strong> — Autor: <strong>Secretaria Escolar</strong>
+                <span class="ms-3"><i class="fas fa-folder me-1"></i>Documentos SERE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOC / RIGHT SIDEBAR -->
+          <div class="col-xl-3 d-none d-xl-block">
+            <div class="toc-sticky">
+              <div class="card mt-3">
+                <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-share-alt me-1"></i>Ações rápidas</h6></div>
+                <div class="card-body py-2">
+                  <button onclick="window.print()" class="btn btn-outline-secondary btn-sm w-100 mb-2"><i class="fas fa-print me-1"></i>Imprimir</button>
+                  <button onclick="toggleFavorite('historico_escolar','Historico Escolar')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="historico_escolar"><i class="fas fa-star me-1"></i>Favoritar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- RIGHT SIDEBAR (Favoritos/Histórico) -->
+  <aside class="control-sidebar control-sidebar-dark" id="right-sidebar">
+    <div class="control-sidebar-bg"></div>
+    <div class="p-3 control-sidebar-content">
+      <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-fav"><i class="fas fa-star"></i> Favoritos</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-hist"><i class="fas fa-history"></i> Histórico</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-fav">
+          <div id="favorites-list" class="text-center text-muted"><i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-favorites" style="display:none;" onclick="clearFavorites()"><i class="fas fa-trash"></i> Limpar favoritos</button>
+        </div>
+        <div class="tab-pane fade" id="tab-hist">
+          <div id="history-list" class="text-center text-muted"><i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-history" style="display:none;" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar histórico</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lightbox-img" src="" alt=""></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <footer class="main-footer">
+    <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-17</div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+<script>
+const PAGE_ID = 'historico_escolar';
+const PAGE_TITLE = 'Historico Escolar';
+
+let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
+function saveFavorites(){localStorage.setItem('manual_favorites',JSON.stringify(favorites));updateFavoritesUI();}
+function toggleFavorite(id,title){
+  const idx=favorites.findIndex(f=>f.id===id);
+  if(idx>-1) favorites.splice(idx,1); else favorites.push({id,title});
+  saveFavorites(); updateFavoriteStar(id);
+  showToast(idx>-1?'Removido dos favoritos':'Adicionado aos favoritos',idx>-1?'info':'success');
+}
+function updateFavoriteStar(id){
+  const isFav=favorites.some(f=>f.id===id);
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"]').forEach(el=>el.classList.toggle('active',isFav));
+  document.querySelectorAll('.btn-favorite[data-module="'+id+'"] i').forEach(el=>{el.className=isFav?'fas fa-star text-warning':'fas fa-star';});
+}
+function updateFavoritesUI(){
+  const c=document.getElementById('favorites-list');if(!c)return;
+  if(favorites.length===0){c.innerHTML='<i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.';document.getElementById('btn-clear-favorites')?.style&&(document.getElementById('btn-clear-favorites').style.display='none');return;}
+  c.innerHTML=favorites.map(f=>`<div class="favorite-item" onclick="location.href='${f.id}.html'"><i class="fas fa-star text-warning"></i> ${f.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-favorites');if(btn)btn.style.display='';
+}
+function clearFavorites(){if(confirm('Limpar todos os favoritos?')){favorites=[];saveFavorites();showToast('Favoritos limpos','info');}}
+
+let history2=JSON.parse(localStorage.getItem('manual_history')||'[]');
+function addToHistory(id,title){history2=history2.filter(h=>h.id!==id);history2.unshift({id,title,t:new Date().toISOString()});if(history2.length>20)history2.pop();localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();}
+function updateHistoryUI(){
+  const c=document.getElementById('history-list');if(!c)return;
+  if(history2.length===0){c.innerHTML='<i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.';return;}
+  c.innerHTML=history2.slice(0,10).map(h=>`<div class="history-item" onclick="location.href='${h.id}.html'"><i class="fas fa-history"></i> ${h.title}</div>`).join('');
+  const btn=document.getElementById('btn-clear-history');if(btn)btn.style.display='';
+}
+function clearHistory(){if(confirm('Limpar histórico?')){history2=[];localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();showToast('Histórico limpo','info');}}
+
+function showToast(msg,type='success'){
+  const c=document.getElementById('toast-container');if(!c)return;
+  const t=document.createElement('div');t.className='custom-toast';t.innerHTML=(type==='success'?'✓':'ℹ️')+' '+msg;
+  c.appendChild(t);setTimeout(()=>t.remove(),3000);
+}
+
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('reading-progress').style.width=Math.min(pct,100)+'%';
+  document.getElementById('back-to-top').classList.toggle('visible',d.scrollTop>300);
+});
+
+$(document).ready(function() {
+  $('aside#sidebar-container').load('../../sidebar.html', function() {
+    $('[data-widget="treeview"]').Treeview('init');
+  });
+});
+
+function openLightbox(src){const lb=document.getElementById('lightbox');lb.classList.add('open');document.getElementById('lightbox-img').src=src;}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+
+const allPages=[
+  {id:"pre_matricula",title:"Pré-Matrícula"},
+  {id:"documentacao",title:"Documentação Necessária – Matrícula"},
+  {id:"matriculas",title:"Matrícula"},
+  {id:"transferencia-entrada",title:"Transferência – Entrada"},
+  {id:"transferencia-saida",title:"Transferência – Saída"},
+  {id:"historicos",title:"Históricos Escolares"},
+  {id:"declaracoes",title:"Declarações"},
+  {id:"historico_escolar",title:"Historico Escolar"}
+];
+const si=document.getElementById('global-search-input');
+const sd=document.getElementById('search-dropdown');
+if(si&&sd){
+  si.addEventListener('input',()=>{
+    const q=si.value.toLowerCase();if(q.length<2){sd.style.display='none';return;}
+    const r=allPages.filter(p=>p.title.toLowerCase().includes(q));
+    if(r.length){sd.innerHTML=r.map(p=>`<div class="search-result-item" onclick="location.href='${p.id}.html'"><i class="fas fa-file-alt me-2"></i>${p.title}</div>`).join('');sd.style.display='';}
+    else{sd.innerHTML='<div class="p-2 text-muted">Nenhum resultado</div>';sd.style.display='';}
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.input-group'))sd.style.display='none';});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  updateFavoriteStar(PAGE_ID);
+  addToHistory(PAGE_ID,PAGE_TITLE);
+  updateFavoritesUI();
+  updateHistoryUI();
+});
+</script>
+</body>
+</html>

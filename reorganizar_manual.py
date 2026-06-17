@@ -46,7 +46,7 @@ RE_MODULOS = re.compile(
 # Fallback por palavras-chave no título da seção, quando não há irmãos resolvidos
 PALAVRAS_CHAVE: list[tuple[list[str], str]] = [
     (["matrícula", "matricula", "transferência", "transferencia", "documento sere"],  "matricula"),
-    (["sere", "rco", "cadastro", "censo", "chamada", "letivo", "editar"],            "sere"),
+    (["sere", "rco", "cadastro", "censo", "chamada", "letivo", "editar", "historico escolar", "historico","historicos"],            "sere"),
     (["sei", "processo", "cota"],                                                     "sei"),
     (["servidor", "justificativa", "quinzenal", "atestado", "declaração", "cat",
       "compensação", "vale transporte", "ficha", "carta"],                            "servidores"),
