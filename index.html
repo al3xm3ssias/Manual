@@ -1091,7 +1091,18 @@ $(document).ready(function() {
     });
   });
 
-  loadModule('dashboard');
+  // Se chegamos aqui via redirecionamento de outra página (ex.: abonos.html
+  // tentando abrir um módulo interno como "documentos"), abrimos o módulo
+  // pedido em vez do dashboard. Veja a função loadModule() de fallback
+  // criada nas páginas de procedimento/legislação.
+  const urlParams = new URLSearchParams(window.location.search);
+  const moduloInicial = urlParams.get('modulo') || 'dashboard';
+  loadModule(moduloInicial);
+
+  // Limpa o parâmetro da URL pra não reabrir o módulo se a página for recarregada
+  if (urlParams.get('modulo')) {
+    history.replaceState(null, '', window.location.pathname);
+  }
 });
 
 

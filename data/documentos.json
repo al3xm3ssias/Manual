@@ -1,7 +1,7 @@
 {
-  "gerado_em": "2026-06-18T07:36:09",
+  "gerado_em": "2026-06-18T11:17:58",
   "total_categorias": 6,
-  "total_arquivos": 43,
+  "total_arquivos": 48,
   "total_ignorados": 8,
   "categorias": [
     {
@@ -120,7 +120,7 @@
     {
       "categoria": "Documentos modelo CTARH",
       "slug": "documentos-modelo-ctarh",
-      "total": 12,
+      "total": 13,
       "arquivos": [
         {
           "nome": "09-TERMO DE EXERCÍCIO",
@@ -229,6 +229,15 @@
           "url": "modulos/documentos/Documentos modelo CTARH/21-ACORDO INDIVIDUAL DE REDUÇÃO DA INTRAJORNADA.pdf",
           "tamanho_bytes": 727488,
           "tamanho_legivel": "710 KB"
+        },
+        {
+          "nome": "22 - Ficha de Hora Extra",
+          "nome_completo": "22 - Ficha de Hora Extra.odt",
+          "extensao": "odt",
+          "tipo": "word",
+          "url": "modulos/documentos/Documentos modelo CTARH/22 - Ficha de Hora Extra.odt",
+          "tamanho_bytes": 258142,
+          "tamanho_legivel": "252 KB"
         }
       ]
     },
@@ -386,8 +395,17 @@
     {
       "categoria": "Leis e Decretos",
       "slug": "leis-e-decretos",
-      "total": 2,
+      "total": 6,
       "arquivos": [
+        {
+          "nome": "FICHA_DE_CONTROLE_DE_TITULOS___PROGRESSAO_HORIZONTAL___PROFESSORES_2025",
+          "nome_completo": "FICHA_DE_CONTROLE_DE_TITULOS___PROGRESSAO_HORIZONTAL___PROFESSORES_2025.docx",
+          "extensao": "docx",
+          "tipo": "word",
+          "url": "modulos/documentos/Leis e Decretos/FICHA_DE_CONTROLE_DE_TITULOS___PROGRESSAO_HORIZONTAL___PROFESSORES_2025.docx",
+          "tamanho_bytes": 43458,
+          "tamanho_legivel": "42 KB"
+        },
         {
           "nome": "Lei Ordinária 14936 2023 de Ponta Grossa PR",
           "nome_completo": "Lei Ordinária 14936 2023 de Ponta Grossa PR.pdf",
@@ -405,6 +423,33 @@
           "url": "modulos/documentos/Leis e Decretos/Lei Ordinária N° 14648_2023 - Leis.org.pdf",
           "tamanho_bytes": 863249,
           "tamanho_legivel": "843 KB"
+        },
+        {
+          "nome": "REQUERIMENTO MODELO PROG HORIZONTAL SERVIDORES LOTADOS NAS UNIDADES ESCOLARES",
+          "nome_completo": "REQUERIMENTO MODELO PROG HORIZONTAL SERVIDORES LOTADOS NAS UNIDADES ESCOLARES.doc",
+          "extensao": "doc",
+          "tipo": "word",
+          "url": "modulos/documentos/Leis e Decretos/REQUERIMENTO MODELO PROG HORIZONTAL SERVIDORES LOTADOS NAS UNIDADES ESCOLARES.doc",
+          "tamanho_bytes": 116224,
+          "tamanho_legivel": "114 KB"
+        },
+        {
+          "nome": "REQUERIMENTO PADRÃO PARA PROGRESSÃO DE NÍVEL",
+          "nome_completo": "REQUERIMENTO PADRÃO PARA PROGRESSÃO DE NÍVEL.doc",
+          "extensao": "doc",
+          "tipo": "word",
+          "url": "modulos/documentos/Leis e Decretos/REQUERIMENTO PADRÃO PARA PROGRESSÃO DE NÍVEL.doc",
+          "tamanho_bytes": 954368,
+          "tamanho_legivel": "932 KB"
+        },
+        {
+          "nome": "TABELA_DE_PONTUACAO",
+          "nome_completo": "TABELA_DE_PONTUACAO.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Leis e Decretos/TABELA_DE_PONTUACAO.pdf",
+          "tamanho_bytes": 131860,
+          "tamanho_legivel": "129 KB"
         }
       ]
     },

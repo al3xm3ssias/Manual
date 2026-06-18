@@ -135,6 +135,48 @@
   //   índice (e avisamos no console, já que isso indica um item
   //   desatualizado ou fora do índice).
   // ------------------------------------------------------------
+  // ------------------------------------------------------------
+  // Fallback de loadModule() para páginas externas (não-index.html)
+  // ------------------------------------------------------------
+  // loadModule() "de verdade" só existe dentro do index.html, pois
+  // depende do objeto `modules` e do #content-area do SPA. Só que o
+  // sidebar.html é compartilhado por TODAS as páginas, e seus links
+  // chamam onclick="loadModule('algumId')" diretamente — então, fora
+  // do index.html, esse clique falhava silenciosamente (função
+  // inexistente).
+  //
+  // Aqui criamos uma versão "de fora": primeiro tentamos resolver o
+  // id no indice.json (mesma lógica do irParaModulo) — se for um
+  // procedimento/legislação cadastrado, navegamos direto pra URL real,
+  // sem dar a volta pelo index.html. Só quando o id NÃO está no índice
+  // (ou seja, é um módulo interno só-SPA, como "documentos", "mapa",
+  // "eca" etc.) é que redirecionamos para o index.html pedindo pra
+  // abrir esse módulo.
+  //
+  // No próprio index.html, a função real (definida no script inline,
+  // que carrega DEPOIS deste arquivo) sobrescreve este fallback — então
+  // este bloco nunca chega a ser usado lá.
+  function loadModuleFallbackExterno(moduleId) {
+    carregarIndiceModulos()
+      .then(function (data) {
+        var url = buscarUrlNoIndice(moduleId, data);
+        if (url) {
+          window.location.href = url;
+        } else {
+          window.location.href = '../../index.html?modulo=' + encodeURIComponent(moduleId);
+        }
+      })
+      .catch(function (err) {
+        console.error('[sidebar-direita] falha ao carregar indice.json:', err);
+        // Melhor esforço: assume que é um módulo interno do SPA.
+        window.location.href = '../../index.html?modulo=' + encodeURIComponent(moduleId);
+      });
+  }
+
+  if (typeof window.loadModule !== 'function') {
+    window.loadModule = loadModuleFallbackExterno;
+  }
+
   function irParaModulo(id) {
     if (typeof window.loadModule === 'function') {
       window.loadModule(id);
