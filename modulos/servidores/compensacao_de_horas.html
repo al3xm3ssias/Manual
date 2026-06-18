@@ -357,8 +357,8 @@
     <div class="control-sidebar-bg"></div>
     <div class="p-3 control-sidebar-content">
       <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-fav"><i class="fas fa-star"></i> Favoritos</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-hist"><i class="fas fa-history"></i> Histórico</a></li>
+        <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-fav"><i class="fas fa-star"></i> Favoritos</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-hist"><i class="fas fa-history"></i> Histórico</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane fade show active" id="tab-fav">
@@ -386,46 +386,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+<script src="../../assets/js/sidebar-direita.js"></script>
 <script>
 const PAGE_ID = 'compensacao_de_horas';
 const PAGE_TITLE = 'COMPENSAÇÃO DE HORAS';
 
-let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
-function saveFavorites(){localStorage.setItem('manual_favorites',JSON.stringify(favorites));updateFavoritesUI();}
-function toggleFavorite(id,title){
-  const idx=favorites.findIndex(f=>f.id===id);
-  if(idx>-1) favorites.splice(idx,1); else favorites.push({id,title});
-  saveFavorites(); updateFavoriteStar(id);
-  showToast(idx>-1?'Removido dos favoritos':'Adicionado aos favoritos',idx>-1?'info':'success');
-}
-function updateFavoriteStar(id){
-  const isFav=favorites.some(f=>f.id===id);
-  document.querySelectorAll('.btn-favorite[data-module="'+id+'"]').forEach(el=>el.classList.toggle('active',isFav));
-  document.querySelectorAll('.btn-favorite[data-module="'+id+'"] i').forEach(el=>{el.className=isFav?'fas fa-star text-warning':'fas fa-star';});
-}
-function updateFavoritesUI(){
-  const c=document.getElementById('favorites-list');if(!c)return;
-  if(favorites.length===0){c.innerHTML='<i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.';document.getElementById('btn-clear-favorites')?.style&&(document.getElementById('btn-clear-favorites').style.display='none');return;}
-  c.innerHTML=favorites.map(f=>`<div class="favorite-item" onclick="location.href='${f.id}.html'"><i class="fas fa-star text-warning"></i> ${f.title}</div>`).join('');
-  const btn=document.getElementById('btn-clear-favorites');if(btn)btn.style.display='';
-}
-function clearFavorites(){if(confirm('Limpar todos os favoritos?')){favorites=[];saveFavorites();showToast('Favoritos limpos','info');}}
+// toggleFavorite, updateFavoriteStar, updateFavoritesUI, clearFavorites,
+// addToHistory, updateHistoryUI, clearHistory e showToast agora vêm de
+// ../../assets/js/sidebar-direita.js (script centralizado).
 
-let history2=JSON.parse(localStorage.getItem('manual_history')||'[]');
-function addToHistory(id,title){history2=history2.filter(h=>h.id!==id);history2.unshift({id,title,t:new Date().toISOString()});if(history2.length>20)history2.pop();localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();}
-function updateHistoryUI(){
-  const c=document.getElementById('history-list');if(!c)return;
-  if(history2.length===0){c.innerHTML='<i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.';return;}
-  c.innerHTML=history2.slice(0,10).map(h=>`<div class="history-item" onclick="location.href='${h.id}.html'"><i class="fas fa-history"></i> ${h.title}</div>`).join('');
-  const btn=document.getElementById('btn-clear-history');if(btn)btn.style.display='';
-}
-function clearHistory(){if(confirm('Limpar histórico?')){history2=[];localStorage.setItem('manual_history',JSON.stringify(history2));updateHistoryUI();showToast('Histórico limpo','info');}}
-
-function showToast(msg,type='success'){
-  const c=document.getElementById('toast-container');if(!c)return;
-  const t=document.createElement('div');t.className='custom-toast';t.innerHTML=(type==='success'?'✓':'ℹ️')+' '+msg;
-  c.appendChild(t);setTimeout(()=>t.remove(),3000);
-}
 
 window.addEventListener('scroll',()=>{
   const d=document.documentElement;
@@ -449,14 +418,16 @@ $(document).ready(function() {
     $('[data-widget="treeview"]').Treeview('init');
     $('.nav-link.active').trigger('click');
 
+    // abrirSidebarDireita vem de ../../assets/js/sidebar-direita.js
+    // e já abre a control-sidebar E troca para a aba correta.
     $('#btn-toggle-favorites').click(function(e) {
       e.preventDefault();
-      $('#right-sidebar').addClass('control-sidebar-open');
+      abrirSidebarDireita('favorites');
     });
 
     $('#btn-toggle-history').click(function(e) {
       e.preventDefault();
-      $('#right-sidebar').addClass('control-sidebar-open');
+      abrirSidebarDireita('history');
     });
 
   });

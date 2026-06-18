@@ -752,6 +752,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+<script src="../../assets/js/sidebar-direita.js"></script>
 
   <!-- ================================================================
        APLICAÇÃO — GERADOR
@@ -1611,55 +1612,10 @@
 
 <script>
   /* Favoritos */
-  let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
+  // toggleFavorite, updateFavoriteStar, updateFavoritesUI, clearFavorites,
+// addToHistory, updateHistoryUI, clearHistory e showToast agora vêm de
+// ../../assets/js/sidebar-direita.js (script centralizado).
 
-  function toggleFavorite(moduleId, title) {
-    const index = favorites.findIndex(f => f.id === moduleId);
-    if (index > -1) {
-      favorites.splice(index, 1);
-      showToast('Removido dos favoritos', 'info');
-    } else {
-      favorites.push({ id: moduleId, title });
-      showToast('Adicionado aos favoritos', 'success');
-    }
-    localStorage.setItem('manual_favorites', JSON.stringify(favorites));
-    updateFavoriteStar(moduleId);
-  }
-
-  function updateFavoriteStar(moduleId) {
-    const isFav = favorites.some(f => f.id === moduleId);
-    const star = document.querySelector(\`.btn-favorite[data-module="\${moduleId}"]\`);
-    if (star) {
-      star.classList.toggle('active', isFav);
-      star.classList.toggle('text-warning', isFav);
-    }
-  }
-
-  /* Checklist */
-  function initializeChecklists() {
-    document.querySelectorAll('.checklist-item').forEach(item => {
-      const id = item.dataset.id;
-      if (localStorage.getItem('checklist_' + id) === 'true') {
-        item.classList.add('completed');
-      }
-      item.addEventListener('click', function() {
-        this.classList.toggle('completed');
-        const done = this.classList.contains('completed');
-        localStorage.setItem('checklist_' + id, done);
-        showToast(done ? 'Item concluído ✓' : 'Item desmarcado', done ? 'success' : 'info');
-      });
-    });
-  }
-
-  /* Toast */
-  function showToast(message, type = 'success') {
-    const container = document.getElementById('toast-container');
-    const toast = document.createElement('div');
-    toast.className = 'custom-toast';
-    toast.innerHTML = (type === 'success' ? '✓' : 'ℹ️') + ' ' + message;
-    container.appendChild(toast);
-    setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity .3s'; setTimeout(() => toast.remove(), 300); }, 3000);
-  }
 
   /* Init */
   document.addEventListener('DOMContentLoaded', () => {

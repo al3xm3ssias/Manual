@@ -183,8 +183,15 @@
       transform: scale(1.1);
     }
 
-    .btn-favorite.active {
+    .btn-favorite.favorito-marcado {
       color: var(--warning-color);
+    }
+
+    /* Evita fundo sólido caso .btn-favorite seja usado em um <button>
+       Bootstrap (.btn) — .active é reservada pelo Bootstrap para esse
+       efeito, por isso usamos a classe própria .favorito-marcado. */
+    .btn.btn-favorite.favorito-marcado {
+      background-color: transparent;
     }
 
     /* PIX Widget */
@@ -411,6 +418,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+<script src="assets/js/sidebar-direita.js"></script>
 
 <script>
 // ============================================================
@@ -418,19 +426,10 @@
 // ============================================================
 
 
-// Gerenciamento de Favoritos
-let favorites = JSON.parse(localStorage.getItem('manual_favorites') || '[]');
-let history = JSON.parse(localStorage.getItem('manual_history') || '[]');
+// Favoritos, histórico, toggleFavorite, updateFavoritesUI, updateHistoryUI,
+// clearFavorites, clearHistory e showToast agora vêm de
+// assets/js/sidebar-direita.js (script centralizado).
 let pageHistory = [];
-
-function getFavoritesCount() {
-  return favorites.length;
-}
-
-function saveFavorites() {
-  localStorage.setItem('manual_favorites', JSON.stringify(favorites));
-  updateFavoritesUI();
-}
 
 
 function initPixQR() {
@@ -711,97 +710,37 @@ const modules = {
 };
 
 
-function toggleFavorite(moduleId, title) {
-  const index = favorites.findIndex(f => f.id === moduleId);
-  if (index > -1) {
-    favorites.splice(index, 1);
-    showToast('Removido dos favoritos', 'info');
-  } else {
-    favorites.push({ id: moduleId, title: title });
-    showToast('Adicionado aos favoritos', 'success');
-  }
-  saveFavorites();
-}
-
-function updateFavoritesUI() {
-  $('#favorites-count').text(favorites.length);
-  $('#dashboard-favorites-count').text(favorites.length);
-  const container = $('#favorites-list');
-  if (favorites.length === 0) {
-    container.html('<i class="fas fa-star fa-2x mb-2 d-block"></i> Nenhum favorito ainda.');
-    $('#btn-clear-favorites').hide();
-  } else {
-    let html = '';
-    favorites.forEach(fav => {
-      html += `<div class="favorite-item" onclick="loadModule('${fav.id}')">
-                <i class="fas fa-star text-warning"></i> ${fav.title}
-               </div>`;
-    });
-    container.html(html);
-    $('#btn-clear-favorites').show();
-  }
-}
-
-function clearFavorites() {
-  if (confirm('Deseja limpar todos os favoritos?')) {
-    favorites = [];
-    saveFavorites();
-    showToast('Favoritos limpos', 'info');
-  }
-}
-
-// Gerenciamento de Histórico
-function addToHistory(moduleId, title) {
-  history = history.filter(h => h.id !== moduleId);
-  history.unshift({ id: moduleId, title: title, timestamp: new Date().toISOString() });
-  if (history.length > 20) history.pop();
-  localStorage.setItem('manual_history', JSON.stringify(history));
-  updateHistoryUI();
-}
-
-function updateHistoryUI() {
-  const container = $('#history-list');
-  if (history.length === 0) {
-    container.html('<i class="fas fa-history fa-2x mb-2 d-block"></i> Seu histórico aparecerá aqui.');
-    $('#btn-clear-history').hide();
-  } else {
-    let html = '';
-    history.slice(0, 10).forEach(h => {
-      html += `<div class="history-item" onclick="loadModule('${h.id}')">
-                <i class="fas fa-history"></i> ${h.title}
-               </div>`;
-    });
-    container.html(html);
-    $('#btn-clear-history').show();
-  }
-}
-
-function clearHistory() {
-  if (confirm('Deseja limpar o histórico?')) {
-    history = [];
-    localStorage.setItem('manual_history', JSON.stringify(history));
-    updateHistoryUI();
-    showToast('Histórico limpo', 'info');
-  }
-}
-
-// Funções de UI
-function showToast(message, type = 'success') {
-  const container = $('#toast-container');
-  const toast = $(`<div class="custom-toast">${type === 'success' ? '✓' : 'ℹ️'} ${message}</div>`);
-  container.append(toast);
-  setTimeout(() => toast.fadeOut(300, () => toast.remove()), 3000);
-}
+// toggleFavorite, updateFavoritesUI, clearFavorites, addToHistory,
+// updateHistoryUI, clearHistory e showToast agora vêm de
+// assets/js/sidebar-direita.js (script centralizado).
 
 function showLoading(show) {
   if (show) $('#loading-overlay').fadeIn(200);
   else $('#loading-overlay').fadeOut(200);
+
+}
+
+function fecharControlSidebar() {
+  if (!$('body').hasClass('control-sidebar-slide-open')) return;
+  var csWidget = $('[data-widget="control-sidebar"]').data('lte.controlsidebar');
+  if (csWidget) {
+    $('[data-widget="control-sidebar"]').ControlSidebar('collapse');
+  } else {
+    $('body').removeClass('control-sidebar-slide-open');
+  }
 }
 
 function loadModule(moduleId) {
+  fecharControlSidebar();
+
   const module = modules[moduleId];
-  if (!module) return;
-  
+  if (!module) {
+    // Não é um módulo inline (dashboard/documentos/mapa/eca/...): tenta resolver
+    // pelo data/indice.json, que cobre matrícula, SEI, SERE, legislação etc.
+    carregarModuloExterno(moduleId);
+    return;
+  }
+
   showLoading(true);
   setTimeout(() => {
     $('#content-area').html(module.content);
@@ -823,20 +762,22 @@ function loadModule(moduleId) {
 // Busca data/indice.json e atualiza os contadores do dashboard
 let indiceCache = null;
 
-function loadDashboardCounts() {
-  if (indiceCache) {
-    renderDashboardCounts(indiceCache);
-    return;
-  }
-  fetch('data/indice.json')
+function garantirIndiceCarregado() {
+  if (indiceCache) return Promise.resolve(indiceCache);
+  return fetch('data/indice.json')
     .then(res => {
       if (!res.ok) throw new Error('Falha ao carregar indice.json');
       return res.json();
     })
     .then(data => {
       indiceCache = data;
-      renderDashboardCounts(data);
-    })
+      return data;
+    });
+}
+
+function loadDashboardCounts() {
+  garantirIndiceCarregado()
+    .then(data => renderDashboardCounts(data))
     .catch(err => {
       console.error('Erro ao carregar contadores do dashboard:', err);
       $('#dashboard-procedimentos-count').text('—');
@@ -849,6 +790,51 @@ function renderDashboardCounts(data) {
   const totalLegislacoes = data?.legislacoes?.total ?? 0;
   $('#dashboard-procedimentos-count').text(totalProcedimentos);
   $('#dashboard-legislacoes-count').text(totalLegislacoes);
+}
+
+// Procura um item (procedimento ou legislação) pelo id dentro do indice.json já carregado
+function buscarItemNoIndice(moduleId, data) {
+  const grupos = [data?.procedimentos?.itens, data?.legislacoes?.itens];
+  for (const lista of grupos) {
+    if (!lista) continue;
+    const encontrado = lista.find(item => item.id === moduleId);
+    if (encontrado) return encontrado;
+  }
+  return null;
+}
+
+// Esses módulos (matrícula, SEI, SERE, legislação) são páginas HTML completas
+// e autônomas (têm seu próprio <head>, sidebar, scripts) — não fragmentos pra
+// injetar dentro de #content-area. Por isso, em vez de fetch+innerHTML (que
+// causaria ids duplicados como #sidebar-container e quebraria o layout),
+// simplesmente navegamos para a URL real, igual a sidebar esquerda já faz.
+function carregarModuloExterno(moduleId) {
+  showLoading(true);
+  garantirIndiceCarregado()
+    .then(data => {
+      const item = buscarItemNoIndice(moduleId, data);
+      if (!item) {
+        showLoading(false);
+        $('#content-area').html(
+          '<div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> ' +
+          'Módulo não encontrado no índice (id: ' + moduleId + ').</div>'
+        );
+        return;
+      }
+      // Salva no histórico antes de navegar (a própria página de destino também
+      // grava o seu próprio addToHistory ao carregar, então isso é redundante
+      // mas inofensivo — mantém o id padronizado vindo do indice.json).
+      addToHistory(moduleId, item.titulo);
+      window.location.href = item.url;
+    })
+    .catch(err => {
+      console.error('Erro ao carregar indice.json:', err);
+      showLoading(false);
+      $('#content-area').html(
+        '<div class="alert alert-danger"><i class="fas fa-exclamation-triangle"></i> ' +
+        'Não foi possível carregar o índice de módulos.</div>'
+      );
+    });
 }
 
 // ===== Módulo Documentos e Modelos =====
@@ -1005,13 +991,8 @@ function carregarDocumentos() {
     });
 }
 
-function updateFavoriteStar(moduleId) {
-  $('.btn-favorite').each(function() {
-    const isFavorite = favorites.some(f => f.id === $(this).data('module'));
-    if (isFavorite) $(this).addClass('active text-warning');
-    else $(this).removeClass('active text-warning');
-  });
-}
+// updateFavoriteStar agora vem de assets/js/sidebar-direita.js
+
 
 function initializeChecklists() {
   $('.checklist-item').each(function() {
@@ -1095,38 +1076,18 @@ $(document).ready(function() {
     updateFavoritesUI();
     updateHistoryUI();
 
+    // Os botões #btn-toggle-favorites/#btn-toggle-history vêm de
+    // dentro de sidebar.html, carregada de forma assíncrona — por
+    // isso ligamos os eventos aqui, depois que ela já existe no DOM.
+    // (abrirSidebarDireita vem de assets/js/sidebar-direita.js)
     $('#btn-toggle-favorites').on('click', function(e) {
       e.preventDefault();
-      var csWidget = $('[data-widget="control-sidebar"]').data('lte.controlsidebar');
-      if (csWidget) {
-        if ($('body').hasClass('control-sidebar-slide-open')) {
-          // já aberta: só troca a aba
-        } else {
-          $('[data-widget="control-sidebar"]').ControlSidebar('show');
-        }
-      } else {
-        $('body').toggleClass('control-sidebar-slide-open');
-      }
-      setTimeout(function() {
-        bootstrap.Tab.getOrCreateInstance(document.getElementById('tab-favorites-btn')).show();
-      }, 50);
+      abrirSidebarDireita('favorites');
     });
 
     $('#btn-toggle-history').on('click', function(e) {
       e.preventDefault();
-      var csWidget = $('[data-widget="control-sidebar"]').data('lte.controlsidebar');
-      if (csWidget) {
-        if ($('body').hasClass('control-sidebar-slide-open')) {
-          // já aberta: só troca a aba
-        } else {
-          $('[data-widget="control-sidebar"]').ControlSidebar('show');
-        }
-      } else {
-        $('body').toggleClass('control-sidebar-slide-open');
-      }
-      setTimeout(function() {
-        bootstrap.Tab.getOrCreateInstance(document.getElementById('tab-history-btn')).show();
-      }, 50);
+      abrirSidebarDireita('history');
     });
   });
 
@@ -1134,10 +1095,7 @@ $(document).ready(function() {
 });
 
 
-window.toggleFavorite = toggleFavorite;
 window.loadModule = loadModule;
-window.clearFavorites = clearFavorites;
-window.clearHistory = clearHistory;
 window.printPage = printPage;
 </script>
 </body>
