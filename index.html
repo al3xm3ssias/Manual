@@ -226,6 +226,63 @@
       font-size: 0.72rem;
       color: #6c757d;
     }
+
+    /* Módulo Documentos e Modelos */
+    .doc-card-categoria .card-header {
+      cursor: pointer;
+    }
+    .doc-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid #eee;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .doc-item:last-child {
+      border-bottom: none;
+    }
+    .doc-item:hover {
+      background: #f8f9fa;
+    }
+    .doc-item-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .doc-item-icon {
+      font-size: 1.4rem;
+      width: 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .doc-item-icon.icon-pdf { color: #dc3545; }
+    .doc-item-icon.icon-word { color: #2b579a; }
+    .doc-item-icon.icon-excel { color: #1d6f42; }
+    .doc-item-icon.icon-outro { color: #6c757d; }
+    .doc-item-name {
+      font-size: 0.92rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .doc-item-size {
+      font-size: 0.75rem;
+      color: #999;
+      margin-left: 6px;
+    }
+    .doc-item-actions {
+      flex-shrink: 0;
+    }
+    .doc-categoria-badge {
+      font-size: 0.75rem;
+      font-weight: normal;
+    }
+    .doc-item.doc-hidden {
+      display: none;
+    }
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
@@ -592,6 +649,64 @@ const modules = {
         </div>
       </div>
     `
+  },
+  documentos: {
+    title: 'Documentos e Modelos',
+    content: `
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="card-title"><i class="fas fa-folder-open text-primary"></i> Documentos e Modelos</h3>
+        </div>
+        <div class="card-body">
+          <p class="text-muted mb-3">
+            Modelos de documentos, fichas, leis, decretos e informativos usados na rotina da secretaria escolar.
+            Arquivos em <strong>PDF</strong> abrem direto no navegador; os demais formatos (Word, Excel, ODT, ODS)
+            devem ser baixados para edição.
+          </p>
+
+          <div class="input-group mb-4">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input type="text" class="form-control" id="doc-search-input" placeholder="Filtrar por nome do documento...">
+          </div>
+
+          <div id="documentos-loading" class="text-center text-muted py-4">
+            <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+            Carregando documentos...
+          </div>
+
+          <div id="documentos-erro" class="alert alert-warning" style="display:none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            Não foi possível carregar a lista de documentos. Verifique se <code>data/documentos.json</code> existe.
+          </div>
+
+          <div id="documentos-container"></div>
+        </div>
+      </div>
+    `
+  },
+  mapa: {
+    title: 'Mapa das Escolas de Ponta Grossa',
+    content: `
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="card-title"><i class="fas fa-map-marked-alt text-primary"></i> Mapa das Escolas de Ponta Grossa</h3>
+          <a href="https://www.google.com/maps/d/viewer?mid=1JL0G6zzmn_NpF8-GFlzponiyPJbN1ZM&hl=pt-BR" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary">
+            <i class="fas fa-up-right-from-square"></i> Abrir no Google Maps
+          </a>
+        </div>
+        <div class="card-body p-0">
+          <div class="ratio ratio-16x9" style="--bs-aspect-ratio: 65%;">
+            <iframe
+              src="https://www.google.com/maps/d/embed?mid=1JL0G6zzmn_NpF8-GFlzponiyPJbN1ZM&hl=pt-BR&ll=-25.057372024236535%2C-50.137042949999994&z=17"
+              style="border:0;"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    `
   }
 };
 
@@ -699,6 +814,9 @@ function loadModule(moduleId) {
       loadDashboardCounts();
       initPixQR();
     }
+    if (moduleId === 'documentos') {
+      carregarDocumentos();
+    }
   }, 300);
 }
 
@@ -731,6 +849,160 @@ function renderDashboardCounts(data) {
   const totalLegislacoes = data?.legislacoes?.total ?? 0;
   $('#dashboard-procedimentos-count').text(totalProcedimentos);
   $('#dashboard-legislacoes-count').text(totalLegislacoes);
+}
+
+// ===== Módulo Documentos e Modelos =====
+let documentosCache = null;
+
+function iconePorTipoDocumento(tipo) {
+  switch (tipo) {
+    case 'pdf':   return { classe: 'icon-pdf',   icone: 'fa-file-pdf' };
+    case 'word':  return { classe: 'icon-word',  icone: 'fa-file-word' };
+    case 'excel': return { classe: 'icon-excel', icone: 'fa-file-excel' };
+    default:      return { classe: 'icon-outro', icone: 'fa-file' };
+  }
+}
+
+function escapeHtmlDocumentos(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function montarItemDocumento(arquivo) {
+  const tipoInfo = iconePorTipoDocumento(arquivo.tipo);
+  const urlEncoded = encodeURI(arquivo.url);
+  const nomeExibido = escapeHtmlDocumentos(arquivo.nome);
+
+  let acoes = '';
+  if (arquivo.tipo === 'pdf') {
+    acoes = `
+      <a href="${urlEncoded}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary" title="Abrir PDF">
+        <i class="fas fa-eye"></i> Abrir
+      </a>
+      <a href="${urlEncoded}" download class="btn btn-sm btn-outline-secondary" title="Baixar PDF">
+        <i class="fas fa-download"></i>
+      </a>`;
+  } else {
+    acoes = `
+      <a href="${urlEncoded}" download class="btn btn-sm btn-outline-secondary" title="Baixar arquivo">
+        <i class="fas fa-download"></i> Baixar
+      </a>`;
+  }
+
+  return `
+    <div class="doc-item" data-nome-busca="${escapeHtmlDocumentos(arquivo.nome_completo.toLowerCase())}">
+      <div class="doc-item-info">
+        <i class="fas ${tipoInfo.icone} doc-item-icon ${tipoInfo.classe}"></i>
+        <div>
+          <div class="doc-item-name" title="${escapeHtmlDocumentos(arquivo.nome_completo)}">${nomeExibido}</div>
+          <span class="badge bg-light text-dark doc-categoria-badge">.${arquivo.extensao}</span>
+          <span class="doc-item-size">${arquivo.tamanho_legivel}</span>
+        </div>
+      </div>
+      <div class="doc-item-actions">
+        ${acoes}
+      </div>
+    </div>`;
+}
+
+function montarCardCategoriaDocumento(categoria, index) {
+  const itensHtml = categoria.arquivos.map(montarItemDocumento).join('');
+  const collapseId = `doc-collapse-${categoria.slug}`;
+  const expandido = index === 0 ? 'show' : '';
+
+  return `
+    <div class="card doc-card-categoria mb-3">
+      <div class="card-header" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="${index === 0}">
+        <h3 class="card-title">
+          <i class="fas fa-folder text-warning"></i> ${escapeHtmlDocumentos(categoria.categoria)}
+          <span class="badge bg-secondary ms-2">${categoria.total}</span>
+        </h3>
+        <div class="card-tools">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </div>
+      <div id="${collapseId}" class="collapse ${expandido}">
+        <div class="card-body p-0">
+          ${itensHtml}
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderizarDocumentos(dados) {
+  const container = document.getElementById('documentos-container');
+  if (!container) return; // módulo não está mais na tela (usuário navegou antes de terminar o fetch)
+  if (!dados.categorias || dados.categorias.length === 0) {
+    container.innerHTML = '<p class="text-muted">Nenhum documento encontrado.</p>';
+    return;
+  }
+  container.innerHTML = dados.categorias.map(montarCardCategoriaDocumento).join('');
+}
+
+function configurarBuscaDocumentos() {
+  const input = document.getElementById('doc-search-input');
+  if (!input) return;
+  input.addEventListener('input', function () {
+    const termo = this.value.trim().toLowerCase();
+    const itens = document.querySelectorAll('#documentos-container .doc-item');
+    itens.forEach(function (item) {
+      const nome = item.getAttribute('data-nome-busca') || '';
+      if (termo === '' || nome.includes(termo)) {
+        item.classList.remove('doc-hidden');
+      } else {
+        item.classList.add('doc-hidden');
+      }
+    });
+
+    document.querySelectorAll('.doc-card-categoria').forEach(function (card) {
+      const algumVisivel = card.querySelectorAll('.doc-item:not(.doc-hidden)').length > 0;
+      card.style.display = algumVisivel ? '' : 'none';
+      if (termo !== '' && algumVisivel) {
+        const collapseEl = card.querySelector('.collapse');
+        if (collapseEl && !collapseEl.classList.contains('show')) {
+          collapseEl.classList.add('show');
+        }
+      }
+    });
+  });
+}
+
+function carregarDocumentos() {
+  const loadingEl = document.getElementById('documentos-loading');
+  const erroEl = document.getElementById('documentos-erro');
+  const containerEl = document.getElementById('documentos-container');
+
+  if (loadingEl) loadingEl.style.display = '';
+  if (erroEl) erroEl.style.display = 'none';
+  if (containerEl) containerEl.innerHTML = '';
+
+  // Usa cache se já carregado nesta sessão (evita refetch a cada clique no menu)
+  if (documentosCache) {
+    if (loadingEl) loadingEl.style.display = 'none';
+    renderizarDocumentos(documentosCache);
+    configurarBuscaDocumentos();
+    return;
+  }
+
+  fetch('data/documentos.json')
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function (dados) {
+      documentosCache = dados;
+      if (loadingEl) loadingEl.style.display = 'none';
+      renderizarDocumentos(dados);
+      configurarBuscaDocumentos();
+    })
+    .catch(function (err) {
+      console.error('Erro ao carregar documentos.json:', err);
+      if (loadingEl) loadingEl.style.display = 'none';
+      if (erroEl) erroEl.style.display = '';
+    });
 }
 
 function updateFavoriteStar(moduleId) {
