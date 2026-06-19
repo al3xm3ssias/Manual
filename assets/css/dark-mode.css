@@ -1,0 +1,496 @@
+/* ============================================================
+   DARK MODE — Manual do Escriturário Escolar
+   Arquivo único, incluído em todas as páginas HTML.
+   Ativado via atributo: <html data-theme="dark">
+   ============================================================ */
+
+html[data-theme="dark"] {
+  --bg-body: #16191d;
+  --bg-surface: #1e2227;
+  --bg-surface-2: #262b32;
+  --bg-hover: #2c323a;
+  --border-color: #343a40;
+  --text-main: #e4e6eb;
+  --text-muted: #9aa0a8;
+  --primary-color: #3d8bfd;
+  --link-color: #6ea8fe;
+}
+
+/* ---------- Base ---------- */
+html[data-theme="dark"] body {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+}
+
+html[data-theme="dark"] a {
+  color: var(--link-color);
+}
+
+html[data-theme="dark"] .text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* ---------- Navbar superior ---------- */
+html[data-theme="dark"] .main-header.navbar {
+  background-color: var(--bg-surface) !important;
+  border-bottom-color: var(--border-color) !important;
+}
+html[data-theme="dark"] .main-header .nav-link,
+html[data-theme="dark"] .main-header .navbar-nav > .nav-item > .nav-link {
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .form-control-navbar,
+html[data-theme="dark"] .form-control-navbar + .input-group-append .btn-navbar {
+  background-color: var(--bg-surface-2);
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+
+/* ---------- Conteúdo / Cards ---------- */
+html[data-theme="dark"] .content-wrapper {
+  background-color: var(--bg-body);
+}
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .modal-content {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+html[data-theme="dark"] .card-header,
+html[data-theme="dark"] .card-footer {
+  background-color: var(--bg-surface-2);
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+html[data-theme="dark"] .card-title {
+  color: var(--text-main);
+}
+
+/* ---------- Variáveis do Bootstrap 5 ----------
+   O Bootstrap usa essas variáveis internamente em vários componentes
+   (table, card, list-group, etc). Sobrescrevendo aqui, corrigimos de
+   uma vez vários lugares que não tinham regra própria. */
+html[data-theme="dark"] {
+  --bs-body-bg: var(--bg-body);
+  --bs-body-color: var(--text-main);
+  --bs-border-color: var(--border-color);
+  --bs-border-color-translucent: var(--border-color);
+  --bs-tertiary-bg: var(--bg-surface-2);
+  --bs-secondary-bg: var(--bg-surface-2);
+  --bs-light: var(--bg-surface-2);
+  --bs-light-rgb: 38, 43, 50;
+  --bs-dark: var(--text-main);
+
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--text-main);
+  --bs-table-border-color: var(--border-color);
+  --bs-table-striped-bg: rgba(255,255,255,0.04);
+  --bs-table-striped-color: var(--text-main);
+  --bs-table-hover-bg: rgba(255,255,255,0.06);
+  --bs-table-hover-color: var(--text-main);
+
+  --bs-card-bg: var(--bg-surface);
+  --bs-card-color: var(--text-main);
+  --bs-card-border-color: var(--border-color);
+  --bs-card-cap-bg: var(--bg-surface-2);
+
+  --bs-modal-bg: var(--bg-surface);
+  --bs-modal-color: var(--text-main);
+
+  --bs-breadcrumb-divider-color: var(--text-muted);
+}
+
+/* ---------- Tabelas ---------- */
+html[data-theme="dark"] table,
+html[data-theme="dark"] .table {
+  color: var(--text-main);
+  background-color: transparent;
+}
+html[data-theme="dark"] .table > :not(caption) > * > * {
+  background-color: var(--bs-table-bg);
+  color: var(--text-main);
+  border-bottom-color: var(--border-color);
+}
+html[data-theme="dark"] .table thead th {
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+html[data-theme="dark"] .table td,
+html[data-theme="dark"] .table th {
+  border-color: var(--border-color);
+}
+html[data-theme="dark"] .table-bordered > :not(caption) > * {
+  border-color: var(--border-color);
+}
+html[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: var(--bs-table-striped-bg);
+  color: var(--text-main);
+}
+
+/* ---------- Callouts do AdminLTE (Atenção / Importante / etc.) ---------- */
+html[data-theme="dark"] .callout {
+  background-color: var(--bg-surface-2) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .callout h5,
+html[data-theme="dark"] .callout p,
+html[data-theme="dark"] .callout strong {
+  color: var(--text-main) !important;
+}
+
+/* ---------- Alerts do Bootstrap ---------- */
+html[data-theme="dark"] .alert {
+  background-color: var(--bg-surface-2);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+html[data-theme="dark"] .alert-secondary {
+  background-color: var(--bg-surface-2);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+html[data-theme="dark"] .alert-info {
+  background-color: #102634;
+  color: #8fd3ff;
+  border-color: #1b3c52;
+}
+html[data-theme="dark"] .alert-warning {
+  background-color: #332a0d;
+  color: #ffd970;
+  border-color: #4d3f14;
+}
+html[data-theme="dark"] .alert-success {
+  background-color: #14301e;
+  color: #7fe3a3;
+  border-color: #1d4a2d;
+}
+html[data-theme="dark"] .alert-danger {
+  background-color: #341417;
+  color: #ff9aa3;
+  border-color: #501e23;
+}
+
+/* ---------- Badges utilitários (bg-light, bg-white, text-dark) ---------- */
+html[data-theme="dark"] .badge.bg-light,
+html[data-theme="dark"] .bg-light {
+  background-color: var(--bg-surface-2) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .bg-white {
+  background-color: var(--bg-surface) !important;
+}
+html[data-theme="dark"] .text-dark {
+  color: var(--text-main) !important;
+}
+
+/* ---------- Breadcrumb ---------- */
+html[data-theme="dark"] .breadcrumb-item.text-muted,
+html[data-theme="dark"] .breadcrumb-item.active {
+  color: var(--text-muted) !important;
+}
+
+/* ---------- Formulários ---------- */
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .form-select,
+html[data-theme="dark"] textarea {
+  background-color: var(--bg-surface-2);
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+html[data-theme="dark"] .form-control:focus {
+  background-color: var(--bg-surface-2);
+  color: var(--text-main);
+}
+html[data-theme="dark"] .form-control::placeholder {
+  color: var(--text-muted);
+}
+
+/* ---------- Busca global ---------- */
+html[data-theme="dark"] .search-results-dropdown {
+  background-color: var(--bg-surface);
+  border-color: var(--border-color);
+}
+html[data-theme="dark"] .search-result-item {
+  border-bottom-color: var(--border-color);
+  color: var(--text-main);
+}
+html[data-theme="dark"] .search-result-item:hover {
+  background-color: var(--bg-hover);
+}
+
+/* ---------- Toasts ---------- */
+html[data-theme="dark"] .custom-toast {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* ---------- Loading overlay ---------- */
+html[data-theme="dark"] .loading-spinner {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+}
+
+/* ---------- Checklist ---------- */
+html[data-theme="dark"] .checklist-item {
+  background-color: var(--bg-surface-2);
+  color: var(--text-main);
+}
+html[data-theme="dark"] .checklist-item.completed {
+  background-color: #1d3324;
+}
+
+/* ---------- Documentos / Modelos ---------- */
+html[data-theme="dark"] .doc-item {
+  border-bottom-color: var(--border-color);
+}
+html[data-theme="dark"] .doc-item:hover {
+  background-color: var(--bg-hover);
+}
+html[data-theme="dark"] .doc-item-size {
+  color: var(--text-muted);
+}
+html[data-theme="dark"] .doc-categoria-badge.bg-light {
+  background-color: var(--bg-surface-2) !important;
+  color: var(--text-main) !important;
+}
+
+/* ---------- PIX card ---------- */
+html[data-theme="dark"] .pix-card .card-body {
+  background-color: var(--bg-surface);
+}
+html[data-theme="dark"] .pix-key-box {
+  background-color: #163632;
+  color: #6fe0cd;
+}
+html[data-theme="dark"] .pix-label {
+  color: var(--text-muted);
+}
+
+/* ---------- Sidebar direita (já é dark por padrão no AdminLTE,
+   mantemos compatível mesmo assim) ---------- */
+html[data-theme="dark"] .favorite-item,
+html[data-theme="dark"] .history-item {
+  background-color: rgba(255,255,255,0.06);
+}
+html[data-theme="dark"] .favorite-item:hover,
+html[data-theme="dark"] .history-item:hover {
+  background-color: rgba(255,255,255,0.12);
+}
+
+/* ---------- Botões outline ----------
+   No tema claro eles usam o texto colorido sobre fundo transparente,
+   o que funciona em ambos os temas — o problema é que ficam com fundo
+   branco "herdado" do body em alguns navegadores/estado :hover. Forçamos
+   fundo transparente e mantemos a cor de cada variante. */
+html[data-theme="dark"] .btn-outline-secondary {
+  color: var(--text-main);
+  border-color: var(--border-color);
+  background-color: transparent;
+}
+html[data-theme="dark"] .btn-outline-secondary:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-main);
+}
+html[data-theme="dark"] .btn-outline-warning,
+html[data-theme="dark"] .btn-outline-primary,
+html[data-theme="dark"] .btn-outline-danger,
+html[data-theme="dark"] .btn-outline-success,
+html[data-theme="dark"] .btn-outline-info {
+  background-color: transparent;
+}
+html[data-theme="dark"] .btn-outline-warning:hover,
+html[data-theme="dark"] .btn-outline-primary:hover,
+html[data-theme="dark"] .btn-outline-danger:hover,
+html[data-theme="dark"] .btn-outline-success:hover,
+html[data-theme="dark"] .btn-outline-info:hover {
+  color: #16191d;
+}
+
+/* ---------- Scrollbar (Chrome/Edge) ---------- */
+html[data-theme="dark"] ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--bg-body);
+}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--bg-surface-2);
+  border-radius: 5px;
+}
+
+/* ---------- Botão de alternância (criado pelo dark-mode.js) ---------- */
+.dark-mode-toggle-btn {
+  cursor: pointer;
+}
+html[data-theme="dark"] .dark-mode-toggle-btn i.fa-moon {
+  display: none;
+}
+html:not([data-theme="dark"]) .dark-mode-toggle-btn i.fa-sun {
+  display: none;
+}
+
+/* ============================================================
+   CONTEÚDO DE PÁGINAS COM CLASSES/ESTILOS PRÓPRIOS EMBUTIDOS
+   (páginas geradas com mocks de tela do SERE: .sere-*, .pdf-item,
+   .nav-path, tabelas/inputs com style="background:#fff" inline, etc.)
+   Muitas dessas regras usam !important porque a página define o
+   estilo direto no atributo style="" do elemento, e isso só pode
+   ser vencido por uma regra de CSS marcada como !important.
+   ============================================================ */
+html[data-theme="dark"] .sere-callout {
+  background-color: var(--bg-surface-2) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .sere-form-mock {
+  background-color: var(--bg-surface-2) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .sere-form-mock table,
+html[data-theme="dark"] .sere-mock-table,
+html[data-theme="dark"] #page-content table {
+  background-color: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .sere-form-mock table td,
+html[data-theme="dark"] .sere-form-mock table th,
+html[data-theme="dark"] #page-content table td,
+html[data-theme="dark"] #page-content table th {
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .sere-mock-table th {
+  color: #fff !important; /* já tem fundo verde sólido, mantém texto branco */
+}
+html[data-theme="dark"] .sere-form-mock input,
+html[data-theme="dark"] .sere-form-mock select,
+html[data-theme="dark"] #page-content input[type="text"],
+html[data-theme="dark"] #page-content select {
+  background-color: var(--bg-surface) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .sere-field-label {
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .sere-field-value {
+  background-color: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .sere-mock-header {
+  background-color: var(--bg-surface-2) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .nav-path {
+  background-color: var(--bg-surface-2) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .confirm-box {
+  background-color: #332a0d !important;
+  border-color: #4d3f14 !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] #page-content .alert-success {
+  background-color: #14301e !important;
+  border-color: #1d4a2d !important;
+  color: #7fe3a3 !important;
+}
+html[data-theme="dark"] .pdf-item {
+  background-color: var(--bg-surface-2) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .pdf-name {
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .highlight-row {
+  background-color: #332a0d !important;
+}
+
+/* Pega qualquer elemento dentro do conteúdo da página que tenha um
+   fundo claro fixado via style="" inline (ex.: background:#fff,
+   background:#f9f9f9, background:#f4f4f4, background:#ecf0f1) — comum
+   em conteúdo de manual gerado/colado com estilos de tela mockada. */
+html[data-theme="dark"] #page-content [style*="background:#fff"],
+html[data-theme="dark"] #page-content [style*="background: #fff"],
+html[data-theme="dark"] #page-content [style*="background:#f9f9f9"],
+html[data-theme="dark"] #page-content [style*="background:#f4f4f4"],
+html[data-theme="dark"] #page-content [style*="background:#ecf0f1"],
+html[data-theme="dark"] #page-content [style*="background:#fcf8e3"],
+html[data-theme="dark"] #page-content [style*="background:#dff0d8"],
+html[data-theme="dark"] #page-content [style*="background:#d6ebdf"] {
+  background-color: var(--bg-surface-2) !important;
+  color: var(--text-main) !important;
+}
+
+/* ---------- List group (Bootstrap) ---------- */
+html[data-theme="dark"] .list-group-item {
+  background-color: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* ---------- Foco de botões/links ----------
+   O navegador desenha um anel de foco padrão (às vezes vermelho/laranja
+   forte dependendo do SO) que destoa do tema escuro. Substituímos por
+   um halo discreto e consistente. */
+html[data-theme="dark"] .btn:focus,
+html[data-theme="dark"] .btn:focus-visible,
+html[data-theme="dark"] a.btn:focus,
+html[data-theme="dark"] a.btn:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 0.2rem rgba(61, 139, 253, 0.45) !important;
+}
+
+/* Garante que texto e ícone dentro de botões coloridos (success, danger,
+   warning, etc.) fiquem sempre brancos, independente da regra global
+   de cor de link aplicada no modo escuro. */
+html[data-theme="dark"] .btn-success,
+html[data-theme="dark"] .btn-success i,
+html[data-theme="dark"] .btn-danger,
+html[data-theme="dark"] .btn-danger i,
+html[data-theme="dark"] .btn-primary,
+html[data-theme="dark"] .btn-primary i,
+html[data-theme="dark"] .btn-warning,
+html[data-theme="dark"] .btn-info,
+html[data-theme="dark"] .btn-info i {
+  color: #fff !important;
+}
+
+/* ---------- Footer ---------- */
+html[data-theme="dark"] .main-footer {
+  background-color: var(--bg-surface) !important;
+  border-top-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+
+/* ---------- Classes contextuais de tabela do Bootstrap
+   (table-secondary, table-light, table-active, etc.) — têm cor própria
+   fixada via CSS var --bs-table-bg que não pegamos antes. ---------- */
+html[data-theme="dark"] .table-secondary,
+html[data-theme="dark"] .table-secondary > * {
+  --bs-table-bg: #2c323a !important;
+  --bs-table-color: var(--text-main) !important;
+  background-color: #2c323a !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="dark"] .table-light,
+html[data-theme="dark"] .table-light > * {
+  --bs-table-bg: var(--bg-surface-2) !important;
+  --bs-table-color: var(--text-muted) !important;
+  background-color: var(--bg-surface-2) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .table-active,
+html[data-theme="dark"] .table-active > * {
+  --bs-table-bg: var(--bg-hover) !important;
+  background-color: var(--bg-hover) !important;
+  color: var(--text-main) !important;
+}
+
+/* ---------- Transição suave ao alternar ---------- */
+body, .card, .main-header, .content-wrapper, .form-control {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
