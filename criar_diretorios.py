@@ -9,6 +9,7 @@ DIRETORIOS = [
     "Informativos EFE",
     "Leis e Decretos",
     "Modelos de documentos da EFE",
+    "Redução de Carga horária",
 ]
 
 def main():

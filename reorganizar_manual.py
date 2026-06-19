@@ -49,7 +49,7 @@ PALAVRAS_CHAVE: list[tuple[list[str], str]] = [
     (["sere", "rco", "cadastro", "censo", "chamada", "letivo", "editar", "historico escolar", "historico","historicos"],            "sere"),
     (["sei", "processo", "cota"],                                                     "sei"),
     (["servidor", "justificativa", "quinzenal", "atestado", "declaração", "cat",
-      "compensação", "vale transporte", "ficha", "carta"],                            "servidores"),
+      "compensação", "vale transporte", "ficha", "carta","redução de carga horária"],                            "servidores"),
     (["legislação", "legislacao", "lei", "progressão"],                               "legislacao"),
 ]
 

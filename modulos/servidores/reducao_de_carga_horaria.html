@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="theme-color" content="#007bff">
+  <title>Redução de Carga Horária – Manual do Escriturário</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+
+  <link rel="icon" href="/Manual/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Manual/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/Manual/assets/img/apple-touch-icon.png">
+
+  <style>
+    :root{--primary-color:#007bff;--success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f4f6f9;}
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#007bff,#28a745);z-index:99999;width:0%;transition:width 0.1s linear;pointer-events:none;}
+    .back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:#007bff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.3s;font-size:16px;box-shadow:0 4px 14px rgba(0,123,255,0.35);border:none;z-index:1000;}
+    .back-to-top.visible{opacity:1;}
+    .page-info-card{border-radius:10px;border-left:5px solid var(--primary-color);margin-bottom:20px;}
+    .icon-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+    .toc-sticky{position:sticky;top:72px;}
+    .toc-nav a{display:block;padding:5px 14px;font-size:13px;color:#495057;text-decoration:none;border-left:3px solid transparent;transition:all 0.15s;}
+    .toc-nav a:hover,.toc-nav a.active{color:#007bff;border-left-color:#007bff;background:#f8f9fa;}
+    .lightbox-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);z-index:99990;display:none;align-items:center;justify-content:center;cursor:zoom-out;}
+    .lightbox-overlay.open{display:flex;}
+    .lightbox-overlay img{max-width:92%;max-height:92vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .lightbox-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;line-height:1;}
+    .img-zoomable{cursor:zoom-in;transition:transform 0.2s;}
+    .img-zoomable:hover{transform:scale(1.02);}
+    .toast-container{position:fixed;bottom:20px;right:20px;z-index:9998;}
+    .custom-toast{background:white;border-left:4px solid var(--primary-color);padding:12px 20px;margin-top:10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.2);animation:slideIn .3s ease;display:flex;align-items:center;gap:10px;}
+    @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    .favorite-item,.history-item{padding:8px;margin-bottom:5px;background:rgba(255,255,255,.1);border-radius:5px;cursor:pointer;transition:all .2s;}
+    .favorite-item:hover,.history-item:hover{background:rgba(255,255,255,.2);}
+    .search-results-dropdown{position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ddd;border-radius:4px;max-height:300px;overflow-y:auto;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+    .search-result-item{padding:10px;cursor:pointer;border-bottom:1px solid #eee;}
+    .search-result-item:hover{background:#f8f9fa;}
+    .btn-favorite{cursor:pointer;transition:all .2s;}
+    .btn-favorite:hover{transform:scale(1.1);}
+    .btn-favorite.active{color:var(--warning-color);}
+    .steps-container .step-num{width:36px;height:36px;border-radius:50%;background:#007bff;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;}
+    pre code{font-family:'Cascadia Code','Consolas','Monaco',monospace;}
+    @media print{.main-sidebar,.main-header,.control-sidebar,.main-footer,.back-to-top,#reading-progress{display:none!important;}.content-wrapper{margin-left:0!important;}}
+    @media(max-width:768px){.brand-text,.user-panel .info{display:none;}.toc-sticky{display:none;}}
+  </style>
+  <link rel="stylesheet" href="../../assets/css/dark-mode.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+  <script src="../../assets/js/dark-mode.js"></script>
+
+<div class="wrapper">
+
+  <div id="reading-progress"></div>
+
+  <!-- NAVBAR -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom shadow-sm">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-md-block">
+        <ol class="breadcrumb mb-0 ms-2" style="font-size:13px;align-items:center;background:none;padding:0;">
+          <li class="breadcrumb-item"><a href="../../index.html" class="text-decoration-none"><i class="fas fa-home me-1"></i>Início</a></li>
+          <li class="breadcrumb-item text-muted">Legislação – Servidores</li>
+          <li class="breadcrumb-item active">Redução de Carga Horária</li>
+        </ol>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item d-none d-md-inline-block">
+        <div class="input-group input-group-sm" style="position:relative;">
+          <input class="form-control form-control-navbar" type="search" id="global-search-input" placeholder="Buscar procedimentos..." autocomplete="off">
+          <div class="input-group-append"><button class="btn btn-navbar" type="button"><i class="fas fa-search"></i></button></div>
+          <div class="search-results-dropdown" id="search-dropdown" style="display:none;"></div>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" title="Imprimir" href="#" onclick="window.print();return false;"><i class="fas fa-print"></i></a></li>
+      <li class="nav-item">
+        <a class="nav-link btn-favorite" id="hdr-favorite" data-module="reducao_de_carga_horaria" title="Favoritar" onclick="toggleFavorite('reducao_de_carga_horaria','Redução de Carga Horária')"><i class="fas fa-star"></i></a>
+      </li>
+      <li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a></li>
+    </ul>
+  </nav>
+
+  <!-- SIDEBAR -->
+   <aside class="main-sidebar sidebar-dark-primary elevation-4" id="sidebar-container"></aside>
+    
+  </aside>
+
+  <!-- CONTENT WRAPPER -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <h1 class="m-0 d-flex align-items-center gap-2">
+              <i class="fas fa-file-alt text-danger me-1"></i>
+              Redução de Carga Horária
+            </h1>
+          </div>
+          <div class="col-auto">
+            <button onclick="window.print()" class="btn btn-outline-secondary btn-sm me-1">
+              <i class="fas fa-print me-1"></i>Imprimir
+            </button>
+            <button onclick="toggleFavorite('reducao_de_carga_horaria','Redução de Carga Horária')" class="btn btn-outline-warning btn-sm btn-favorite" data-module="reducao_de_carga_horaria">
+              <i class="fas fa-star me-1"></i>Favoritar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- MAIN CONTENT -->
+          <div class="col-xl-9">
+            <!-- Page info card -->
+            <div class="card page-info-card">
+              <div class="card-body">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="icon-circle bg-primary text-white">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h2 class="h4 mb-1">Redução de Carga Horária</h2>
+                    
+                    <div class="d-flex flex-wrap gap-3 small text-muted">
+                      <span><i class="fas fa-user me-1"></i>Secretaria Escolar</span>
+                      <span><i class="fas fa-calendar-alt me-1"></i>Atualizado em 2026-06-19</span>
+                      <span><i class="fas fa-folder me-1"></i>Legislação – Servidores</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CONTENT BLOCKS -->
+            <div id="page-content">
+  <style>
+    .sere-callout { border-left: 4px solid #00a65a; background: #f9f9f9; padding: 10px 15px; margin-bottom: 15px; border-radius: 2px; }
+    .sere-callout.callout-warning { border-left-color: #f39c12; }
+    .sere-callout.callout-info    { border-left-color: #00c0ef; }
+    .sere-callout.callout-danger  { border-left-color: #dd4b39; }
+    .sere-step-badge { display: inline-block; background: #00a65a; color: #fff; border-radius: 50%; width: 28px; height: 28px; text-align: center; line-height: 28px; font-weight: bold; font-size: 14px; margin-right: 8px; }
+    .sere-field-label { font-weight: 600; color: #444; }
+    .sere-field-value { font-family: monospace; background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #222; }
+    .sere-mock-table th { background-color: #00a65a !important; color: #fff; font-size: 12px; }
+    .sere-mock-table td { font-size: 12px; vertical-align: middle; }
+    .sere-mock-header { background: #d6ebdf; padding: 8px 12px; border-radius: 3px 3px 0 0; font-size: 12px; color: #333; margin-bottom: 0; }
+    .sere-section-title { font-size: 14px; font-weight: 700; color: #00a65a; border-bottom: 2px solid #00a65a; padding-bottom: 4px; margin: 20px 0 12px 0; }
+    .sere-form-mock { background: #d6ebdf; border: 1px solid #b2d4be; border-radius: 3px; padding: 14px 18px; margin-bottom: 14px; font-size: 13px; }
+    .sere-form-mock .row-field { margin-bottom: 7px; }
+    .nav-path { font-size: 13px; background: #ecf0f1; border-radius: 4px; padding: 8px 14px; margin-bottom: 18px; color: #555; }
+    .nav-path span { color: #00a65a; font-weight: 600; }
+    .doc-checklist li { margin-bottom: 6px; font-size: 13px; }
+    .doc-checklist li i { color: #00a65a; margin-right: 6px; }
+    .tab-modalidade .nav-link.active { background-color: #00a65a; color: #fff; border-color: #00a65a; }
+    .tab-modalidade .nav-link { color: #00a65a; }
+    .badge-tipo { font-size: 11px; padding: 3px 8px; border-radius: 3px; }
+    .badge-decreto { background-color: #00a65a; color: #fff; }
+    .badge-lei { background-color: #00c0ef; color: #fff; }
+    .rch-card { border: 1px solid #ddd; border-radius: 4px; margin-bottom: 16px; }
+    .rch-card-header { background: #f5f5f5; padding: 10px 15px; font-weight: 700; font-size: 13px; border-bottom: 1px solid #ddd; border-radius: 4px 4px 0 0; }
+    .rch-card-body { padding: 14px 15px; font-size: 13px; }
+    .step-line { border-left: 3px solid #00a65a; padding-left: 15px; margin-left: 14px; }
+    .step-item { margin-bottom: 18px; }
+    .step-item:last-child { margin-bottom: 0; }
+    .sei-nav { font-family: monospace; background: #2d2d2d; color: #e0e0e0; padding: 8px 12px; border-radius: 4px; font-size: 12px; margin: 6px 0; }
+    .sei-nav .arrow { color: #00a65a; margin: 0 4px; }
+  </style>
+
+  <div class="card card-info">
+    <div class="card-header">
+      <h3 class="card-title"><i class="fa fa-clock-o mr-2"></i>Redução de Carga Horária</h3>
+    </div>
+    <div class="card-body">
+
+      <div class="callout-info">
+        <i class="fa fa-info-circle mr-1"></i>
+        <strong>Sobre este procedimento:</strong> A redução de carga horária é um direito garantido por legislação municipal a servidores que sejam responsáveis por dependente com deficiência, ou que possuam deficiência própria. O processo é aberto via <strong>SEI</strong> e encaminhado à <strong>SMRH/DRH</strong>.
+      </div>
+
+      <!-- Abas de modalidade -->
+      <p class="sere-section-title"><i class="fa fa-th-list mr-1"></i> Modalidades de Redução</p>
+      <ul class="nav nav-tabs tab-modalidade mb-3" id="tabRCH" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="tab-dependente" data-bs-toggle="tab" data-bs-target="#rch-dependente" href="#rch-dependente" role="tab">
+            <i class="fa fa-child mr-1"></i> Para Cuidado de Dependente
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="tab-pcd" data-bs-toggle="tab" data-bs-target="#rch-pcd" href="#rch-pcd" role="tab">
+            <i class="fa fa-wheelchair mr-1"></i> Para Servidor com Deficiência
+          </a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- ABA 1: Dependente -->
+        <div class="tab-pane fade show active" id="rch-dependente" role="tabpanel">
+          <div class="rch-card">
+            <div class="rch-card-header">
+              <span class="badge badge-tipo badge-decreto mr-2">DECRETO Nº 21.822/2023</span>
+              Dispensa Parcial de Jornada — Cuidado de Dependente com Deficiência
+            </div>
+            <div class="rch-card-body">
+              <div class="sere-callout">
+                <strong>Direito garantido:</strong> O empregado público municipal que seja <strong>responsável legal por pessoa com deficiência</strong> (congênita ou adquirida, com incapacidade laboral permanente) tem direito à dispensa parcial da jornada, podendo chegar a <strong>até 50% da carga horária semanal</strong>, sem prejuízo da remuneração.
+              </div>
+              <div class="sere-callout callout-warning">
+                <i class="fa fa-exclamation-triangle mr-1"></i>
+                <strong>Atenção:</strong> Se deferida a redução, o servidor <u>não poderá exercer nenhuma outra atividade</u> (formal ou informal), além do cuidado ao dependente. Alterações de vínculo empregatício devem ser comunicadas imediatamente ao Serviço Social do DAS/SMARH.
+              </div>
+
+              <p class="sere-section-title"><i class="fa fa-file-text-o mr-1"></i> Documentação Necessária</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <strong style="font-size:13px; color:#444;"><i class="fa fa-id-card-o mr-1"></i> Documentos Administrativos</strong>
+                  <ul class="doc-checklist mt-2">
+                    <li><i class="fa fa-check-square"></i> Protocolo de requerimento devidamente preenchido</li>
+                    <li><i class="fa fa-check-square"></i> Cópia do RG do requerente</li>
+                    <li><i class="fa fa-check-square"></i> RG <em>ou</em> Certidão de Nascimento da pessoa com deficiência</li>
+                    <li><i class="fa fa-check-square"></i> Documento que comprove a <strong>responsabilidade legal</strong> sobre o dependente (original e cópia)</li>
+                    <li><i class="fa fa-check-square"></i> Comprovante de residência do requerente</li>
+                    <li><i class="fa fa-check-square"></i> Comprovante de residência do dependente <em>(somente se residirem em endereços diferentes)</em></li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <strong style="font-size:13px; color:#444;"><i class="fa fa-stethoscope mr-1"></i> Documentação Clínica</strong>
+                  <ul class="doc-checklist mt-2">
+                    <li><i class="fa fa-check-square"></i> <strong>Atestado Médico de Deficiência</strong> — emitido por especialista, contendo:
+                      <ul style="margin-top:4px; padding-left:16px;">
+                        <li>Nome completo da PcD</li>
+                        <li>Tipo e grau da deficiência, limitações, uso de órteses/próteses</li>
+                        <li>Codificações <strong>CID-10</strong> e <strong>CIF</strong></li>
+                        <li>Endereço, telefone e CRM do médico</li>
+                      </ul>
+                    </li>
+                    <li style="margin-top:8px;"><i class="fa fa-check-square"></i> <strong>Atestado de Acompanhamento</strong>, contendo:
+                      <ul style="margin-top:4px; padding-left:16px;">
+                        <li>Nome do responsável e descrição da assistência prestada</li>
+                        <li>Tipo e frequência da terapia (se houver reabilitação)</li>
+                        <li><em>ou</em> necessidade de auxílio continuado para atividades básicas diárias</li>
+                      </ul>
+                    </li>
+                    <li style="margin-top:8px;"><i class="fa fa-check-square"></i> Laudos de exames médicos e prontuários (quando solicitados)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="sere-callout callout-danger mt-3">
+                <i class="fa fa-times-circle mr-1"></i>
+                <strong>Atenção com a documentação:</strong> Documentos rasurados, incompletos ou ilegíveis resultarão em <strong>indeferimento ou interrupção do processo</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 2: PCD -->
+        <div class="tab-pane fade" id="rch-pcd" role="tabpanel">
+          <div class="rch-card">
+            <div class="rch-card-header">
+              <span class="badge badge-tipo badge-lei mr-2">LEI Nº 15.495/2025</span>
+              Redução de Jornada — Servidor Público com Deficiência (PcD)
+            </div>
+            <div class="rch-card-body">
+              <div class="sere-callout">
+                <strong>Direito garantido:</strong> O servidor público com deficiência lotado na administração direta e indireta do Poder Executivo e Legislativo tem direito à redução de <strong>30% a 50% da jornada de trabalho</strong>, sem prejuízo da remuneração, quando comprovada a necessidade pelo órgão competente.
+              </div>
+              <div class="sere-callout callout-info">
+                <i class="fa fa-info-circle mr-1"></i>
+                <strong>Definição legal de "servidor com deficiência":</strong> Aquele que possui impedimento de natureza física, mental, intelectual ou sensorial que possa obstruir sua participação plena e efetiva na sociedade em igualdade de condições, e que tenha ocorrido ou se estabilizado por tempo suficiente para não permitir recuperação ou que se altere, apesar de novos tratamentos.
+              </div>
+
+              <p class="sere-section-title"><i class="fa fa-file-text-o mr-1"></i> Documentação Necessária</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <strong style="font-size:13px; color:#444;"><i class="fa fa-id-card-o mr-1"></i> Documentos Administrativos</strong>
+                  <ul class="doc-checklist mt-2">
+                    <li><i class="fa fa-check-square"></i> Protocolo de requerimento devidamente preenchido</li>
+                    <li><i class="fa fa-check-square"></i> Cópia do RG do requerente</li>
+                    <li><i class="fa fa-check-square"></i> Comprovante de residência do requerente</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <strong style="font-size:13px; color:#444;"><i class="fa fa-stethoscope mr-1"></i> Documentação Clínica</strong>
+                  <ul class="doc-checklist mt-2">
+                    <li><i class="fa fa-check-square"></i> <strong>Atestado Médico de Deficiência</strong> — emitido por especialista, contendo:
+                      <ul style="margin-top:4px; padding-left:16px;">
+                        <li>Nome completo do requerente</li>
+                        <li>Tipo e grau da deficiência, limitações, uso de órteses/próteses</li>
+                        <li>Codificações <strong>CID-10</strong> e <strong>CIF</strong></li>
+                        <li>Endereço, telefone e CRM do médico</li>
+                      </ul>
+                    </li>
+                    <li style="margin-top:8px;"><i class="fa fa-check-square"></i> Laudos de exames médicos e prontuários (quando solicitados)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="sere-callout callout-danger mt-3">
+                <i class="fa fa-times-circle mr-1"></i>
+                <strong>Atenção com a documentação:</strong> Documentos rasurados, incompletos ou ilegíveis resultarão em <strong>indeferimento ou interrupção do processo</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tab-content -->
+
+      <!-- PROCEDIMENTO SEI -->
+      <p class="sere-section-title"><i class="fa fa-laptop mr-1"></i> Como Abrir o Processo no SEI</p>
+
+      <div class="sere-callout callout-info mb-3">
+        <i class="fa fa-info-circle mr-1"></i>
+        O processo deve ser aberto em nível <strong>PÚBLICO</strong>. Os anexos com documentos pessoais, atestados e laudos devem ser incluídos no modo <strong>RESTRITO</strong>.
+      </div>
+
+      <div class="step-line">
+
+        <div class="step-item">
+          <span class="sere-step-badge">1</span>
+          <strong>Iniciar o processo no SEI</strong>
+          <div class="mt-2 ml-4">
+            <div class="sei-nav">
+              Iniciar Processo
+              <span class="arrow">›</span>
+              Aba "Escolha de Processo"
+              <span class="arrow">›</span>
+              <span style="color:#6be08a; font-weight:bold;">SERVIDOR: DISPENSA PARCIAL DE JORNADA - RCH</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <span class="sere-step-badge">2</span>
+          <strong>Incluir o Requerimento de Redução de Carga Horária</strong>
+          <div class="mt-2 ml-4">
+            <div class="sei-nav">
+              Incluir Documento
+              <span class="arrow">›</span>
+              Tipo de Documento
+              <span class="arrow">›</span>
+              <span style="color:#6be08a; font-weight:bold;">REQUERIMENTO PARA REDUÇÃO DE CARGA HORÁRIA</span>
+            </div>
+            <p class="mt-2" style="font-size:13px; color:#555;">
+              O formulário está disponível para preenchimento e assinatura diretamente no SEI.
+              Caso o servidor não possua senha para assinar eletronicamente, o documento poderá ser preenchido, assinado manualmente e anexado ao processo.
+            </p>
+            <div class="sere-form-mock mt-2">
+              <div class="row-field"><span class="sere-field-label">Servidor:</span> <span style="color:#888;">Nome completo</span></div>
+              <div class="row-field"><span class="sere-field-label">Matrícula:</span> <span style="color:#888;">Nº da matrícula</span></div>
+              <div class="row-field"><span class="sere-field-label">Emprego Público:</span> <span style="color:#888;">Cargo/função</span></div>
+              <div class="row-field"><span class="sere-field-label">Secretaria/Fundação:</span> <span style="color:#888;">Local de lotação</span></div>
+              <div class="row-field"><span class="sere-field-label">Nome do dependente:</span> <span style="color:#888;">Nome da PcD</span></div>
+              <div class="row-field"><span class="sere-field-label">E-mail e Celular:</span> <span style="color:#888;">Contato do servidor</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <span class="sere-step-badge">3</span>
+          <strong>Incluir a Declaração de Único Vínculo Empregatício</strong>
+          <div class="mt-2 ml-4">
+            <div class="sei-nav">
+              Incluir Documento
+              <span class="arrow">›</span>
+              Tipo de Documento
+              <span class="arrow">›</span>
+              <span style="color:#6be08a; font-weight:bold;">DECLARAÇÃO ÚNICO VÍNCULO EMPREGATÍCIO</span>
+            </div>
+            <p class="mt-2" style="font-size:13px; color:#555;">
+              Disponível para preenchimento e assinatura no SEI. Caso necessário, pode ser assinado manualmente e anexado. O servidor declara que possui vínculo empregatício exclusivamente com a Prefeitura Municipal de Ponta Grossa.
+            </p>
+            <div class="sere-form-mock mt-2">
+              <div class="row-field"><span class="sere-field-label">Nome do servidor:</span> <span style="color:#888;">Nome completo</span></div>
+              <div class="row-field"><span class="sere-field-label">RG:</span> <span style="color:#888;">Número do documento</span></div>
+              <div class="row-field"><span class="sere-field-label">Telefones para contato:</span> <span style="color:#888;">Tel. de contato</span></div>
+              <div class="row-field"><span class="sere-field-label">Endereço para visita domiciliar:</span> <span style="color:#888;">Endereço completo</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <span class="sere-step-badge">4</span>
+          <strong>Anexar os documentos (modo Restrito)</strong>
+          <div class="mt-2 ml-4">
+            <p style="font-size:13px; color:#555;">Todos os documentos pessoais, atestados médicos e laudos devem ser anexados com classificação <strong>RESTRITA</strong>. Organize conforme a modalidade solicitada (ver seções acima).</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <span class="sere-step-badge">5</span>
+          <strong>Encaminhar o processo</strong>
+          <div class="mt-2 ml-4">
+            <div class="sei-nav">
+              Encaminhar Processo
+              <span class="arrow">›</span>
+              <span style="color:#6be08a; font-weight:bold;">SMRH / DRH</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /step-line -->
+
+      <!-- PRORROGAÇÃO -->
+      <p class="sere-section-title"><i class="fa fa-refresh mr-1"></i> Prorrogação da Redução</p>
+      <div class="sere-callout callout-warning">
+        <i class="fa fa-calendar mr-1"></i>
+        Os pedidos de <strong>prorrogação</strong> da redução de carga horária devem ser encaminhados ao Departamento de Recursos Humanos da SMRH com antecedência mínima de <strong>60 (sessenta) dias</strong> antes da data de encerramento da redução vigente.
+      </div>
+
+      <!-- CONTATO -->
+      <p class="sere-section-title"><i class="fa fa-phone mr-1"></i> Contato / Dúvidas</p>
+      <div class="sere-callout">
+        <strong>CTARH/SME — Coordenadoria Técnica Administrativa de Recursos Humanos</strong><br>
+        Rua Valério Ronchi, 55 — Uvaranas, Ponta Grossa/PR — CEP 84.030-320<br>
+        <i class="fa fa-phone mr-1"></i> (42) 3220-1010 | Ramais: <strong>3007 · 3121 · 3122</strong>
+      </div>
+
+    </div><!-- /card-body -->
+  </div><!-- /card -->
+</div><!-- /page-content -->
+      
+
+            <!-- FOOTER INFO -->
+            <div class="card mt-4 mb-4">
+              <div class="card-body text-muted small">
+                <i class="fas fa-info-circle me-1"></i>
+                Última atualização: <strong>2026-06-19</strong> — Autor: <strong>Secretaria Escolar</strong>
+                <span class="ms-3"><i class="fas fa-folder me-1"></i>Legislação – Servidores</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOC / RIGHT SIDEBAR -->
+          <div class="col-xl-3 d-none d-xl-block">
+            <div class="toc-sticky">
+              
+              <div class="card mt-3">
+                <div class="card-header py-2"><h6 class="mb-0 small"><i class="fas fa-share-alt me-1"></i>Ações rápidas</h6></div>
+                <div class="card-body py-2">
+                  <button onclick="window.print()" class="btn btn-outline-secondary btn-sm w-100 mb-2"><i class="fas fa-print me-1"></i>Imprimir</button>
+                  <button onclick="toggleFavorite('reducao_de_carga_horaria','Redução de Carga Horária')" class="btn btn-outline-warning btn-sm w-100 btn-favorite" data-module="reducao_de_carga_horaria"><i class="fas fa-star me-1"></i>Favoritar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- RIGHT SIDEBAR (Favoritos/Histórico) -->
+  <aside class="control-sidebar control-sidebar-dark" id="right-sidebar">
+    <div class="control-sidebar-bg"></div>
+    <div class="p-3 control-sidebar-content">
+      <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+        <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-fav"><i class="fas fa-star"></i> Favoritos</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-hist"><i class="fas fa-history"></i> Histórico</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-fav">
+          <div id="favorites-list" class="text-center text-muted"><i class="fas fa-star fa-2x mb-2 d-block"></i>Nenhum favorito ainda.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-favorites" style="display:none;" onclick="clearFavorites()"><i class="fas fa-trash"></i> Limpar favoritos</button>
+        </div>
+        <div class="tab-pane fade" id="tab-hist">
+          <div id="history-list" class="text-center text-muted"><i class="fas fa-history fa-2x mb-2 d-block"></i>Seu histórico aparecerá aqui.</div>
+          <button class="btn btn-sm btn-outline-danger btn-block mt-3" id="btn-clear-history" style="display:none;" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar histórico</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lightbox-img" src="" alt=""></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <footer class="main-footer">
+    <strong>Manual do Escriturário Escolar</strong> — Sistema de Apoio à Secretaria
+    <div class="float-end d-none d-sm-block">Última atualização: 2026-06-19</div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+<script src="../../assets/js/sidebar-direita.js"></script>
+<script>
+const PAGE_ID = 'reducao_de_carga_horaria';
+const PAGE_TITLE = 'Redução de Carga Horária';
+
+// toggleFavorite, updateFavoriteStar, updateFavoritesUI, clearFavorites,
+// addToHistory, updateHistoryUI, clearHistory e showToast agora vêm de
+// ../../assets/js/sidebar-direita.js (script centralizado).
+
+
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('reading-progress').style.width=Math.min(pct,100)+'%';
+  document.getElementById('back-to-top').classList.toggle('visible',d.scrollTop>300);
+  document.querySelectorAll('[id^="section-"]').forEach(sec=>{
+    const link=document.querySelector('.toc-nav a[href="#'+sec.id+'"]');if(!link)return;
+    const rect=sec.getBoundingClientRect();link.classList.toggle('active',rect.top<=80&&rect.bottom>0);
+  });
+});
+
+
+
+
+$(document).ready(function() {
+ 
+  // Sobe 2 níveis: procedimentos/ -> modulos/ -> Manual/
+  $('aside#sidebar-container').load('../../sidebar.html', function() {
+
+    $('[data-widget="treeview"]').Treeview('init');
+    $('.nav-link.active').trigger('click');
+
+    // abrirSidebarDireita vem de ../../assets/js/sidebar-direita.js
+    // e já abre a control-sidebar E troca para a aba correta.
+    $('#btn-toggle-favorites').click(function(e) {
+      e.preventDefault();
+      abrirSidebarDireita('favorites');
+    });
+
+    $('#btn-toggle-history').click(function(e) {
+      e.preventDefault();
+      abrirSidebarDireita('history');
+    });
+
+  });
+
+
+});
+
+
+
+
+function openLightbox(src){const lb=document.getElementById('lightbox');lb.classList.add('open');document.getElementById('lightbox-img').src=src;}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+
+const allPages=[
+  {id:"pre_matricula",title:"Pré-Matrícula"},
+  {id:"documentacao",title:"Documentação Necessária – Matrícula"},
+  {id:"matriculas",title:"Matrícula"},
+  {id:"transferencia-entrada",title:"Transferência – Entrada"},
+  {id:"transferencia-saida",title:"Transferência – Saída"},
+  {id:"historicos",title:"Históricos Escolares"},
+  {id:"declaracoes",title:"Declarações"},
+  {id:"reducao_de_carga_horaria",title:"Redução de Carga Horária"}
+];
+const si=document.getElementById('global-search-input');
+const sd=document.getElementById('search-dropdown');
+if(si&&sd){
+  si.addEventListener('input',()=>{
+    const q=si.value.toLowerCase();if(q.length<2){sd.style.display='none';return;}
+    const r=allPages.filter(p=>p.title.toLowerCase().includes(q));
+    if(r.length){sd.innerHTML=r.map(p=>`<div class="search-result-item" onclick="location.href='${p.id}.html'"><i class="fas fa-file-alt me-2"></i>${p.title}</div>`).join('');sd.style.display='';}
+    else{sd.innerHTML='<div class="p-2 text-muted">Nenhum resultado</div>';sd.style.display='';}
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.input-group'))sd.style.display='none';});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  updateFavoriteStar(PAGE_ID);
+  addToHistory(PAGE_ID,PAGE_TITLE);
+  updateFavoritesUI();
+  updateHistoryUI();
+});
+</script>
+</body>
+</html>

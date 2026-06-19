@@ -1,7 +1,7 @@
 {
-  "gerado_em": "2026-06-18T11:17:58",
-  "total_categorias": 6,
-  "total_arquivos": 48,
+  "gerado_em": "2026-06-19T10:42:17",
+  "total_categorias": 7,
+  "total_arquivos": 54,
   "total_ignorados": 8,
   "categorias": [
     {
@@ -395,8 +395,44 @@
     {
       "categoria": "Leis e Decretos",
       "slug": "leis-e-decretos",
-      "total": 6,
+      "total": 10,
       "arquivos": [
+        {
+          "nome": "Anexo_l___PROTOCOLO_DE_CIENCIA_PARA_RECEBIMENTO_DOS_DOCUMENTOS.docx",
+          "nome_completo": "Anexo_l___PROTOCOLO_DE_CIENCIA_PARA_RECEBIMENTO_DOS_DOCUMENTOS.docx.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Leis e Decretos/Anexo_l___PROTOCOLO_DE_CIENCIA_PARA_RECEBIMENTO_DOS_DOCUMENTOS.docx.pdf",
+          "tamanho_bytes": 111634,
+          "tamanho_legivel": "109 KB"
+        },
+        {
+          "nome": "Anexo_ll___CIENCIA_PARA_RECEBIMENTO_DO_EDITAL",
+          "nome_completo": "Anexo_ll___CIENCIA_PARA_RECEBIMENTO_DO_EDITAL.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Leis e Decretos/Anexo_ll___CIENCIA_PARA_RECEBIMENTO_DO_EDITAL.pdf",
+          "tamanho_bytes": 98325,
+          "tamanho_legivel": "96 KB"
+        },
+        {
+          "nome": "Decreto-21822-2023-Ponta-grossa-PR-compilada-[29-06-2023]",
+          "nome_completo": "Decreto-21822-2023-Ponta-grossa-PR-compilada-[29-06-2023].pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Leis e Decretos/Decreto-21822-2023-Ponta-grossa-PR-compilada-[29-06-2023].pdf",
+          "tamanho_bytes": 65429,
+          "tamanho_legivel": "64 KB"
+        },
+        {
+          "nome": "EDITAL_PROGRESSAO_HORIZONTAL_2025_ASSINADO",
+          "nome_completo": "EDITAL_PROGRESSAO_HORIZONTAL_2025_ASSINADO.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Leis e Decretos/EDITAL_PROGRESSAO_HORIZONTAL_2025_ASSINADO.pdf",
+          "tamanho_bytes": 220305,
+          "tamanho_legivel": "215 KB"
+        },
         {
           "nome": "FICHA_DE_CONTROLE_DE_TITULOS___PROGRESSAO_HORIZONTAL___PROFESSORES_2025",
           "nome_completo": "FICHA_DE_CONTROLE_DE_TITULOS___PROGRESSAO_HORIZONTAL___PROFESSORES_2025.docx",
@@ -475,6 +511,31 @@
           "url": "modulos/documentos/Modelos de documentos da EFE/PLANILHA ESCOLA completa.ods",
           "tamanho_bytes": 20429,
           "tamanho_legivel": "20 KB"
+        }
+      ]
+    },
+    {
+      "categoria": "Redução de Carga horária",
+      "slug": "reducao-de-carga-horaria",
+      "total": 2,
+      "arquivos": [
+        {
+          "nome": "DECLARAÇÃO PARA ÚNICO VINCULO EMPREGATÍCIO",
+          "nome_completo": "DECLARAÇÃO PARA ÚNICO VINCULO EMPREGATÍCIO.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Redução de Carga horária/DECLARAÇÃO PARA ÚNICO VINCULO EMPREGATÍCIO.pdf",
+          "tamanho_bytes": 262557,
+          "tamanho_legivel": "256 KB"
+        },
+        {
+          "nome": "Requerimento de Redução de Carga Horária",
+          "nome_completo": "Requerimento de Redução de Carga Horária.pdf",
+          "extensao": "pdf",
+          "tipo": "pdf",
+          "url": "modulos/documentos/Redução de Carga horária/Requerimento de Redução de Carga Horária.pdf",
+          "tamanho_bytes": 257584,
+          "tamanho_legivel": "252 KB"
         }
       ]
     }

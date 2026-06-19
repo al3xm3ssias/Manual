@@ -1,6 +1,6 @@
 {
   "procedimentos": {
-    "total": 39,
+    "total": 40,
     "itens": [
       {
         "id": "pre_matricula",
@@ -135,8 +135,20 @@
         "secao": "Censo Escolar",
         "icone": "fas fa-chart-bar nav-icon text-info"
       },
-     
-      
+      {
+        "id": "cadastro_alunos",
+        "titulo": "Cadastro dos Alunos",
+        "url": "/Manual/modulos/sere/cadastro_alunos.html",
+        "secao": "Censo Escolar",
+        "icone": "fas fa-child nav-icon text-success"
+      },
+      {
+        "id": "cadastro_funcionarios",
+        "titulo": "Cadastro dos Funcionários",
+        "url": "/Manual/modulos/sere/cadastro_funcionarios.html",
+        "secao": "Censo Escolar",
+        "icone": "fas fa-id-badge nav-icon text-primary"
+      },
       {
         "id": "cadastro_da_escola",
         "titulo": "Cadastro da Escola",
@@ -262,6 +274,13 @@
         "url": "/Manual/modulos/servidores/ficha_epi.html",
         "secao": "Documentação - Servidores",
         "icone": "fas fa-hard-hat nav-icon text-warning"
+      },
+      {
+        "id": "reducao_de_carga_horaria",
+        "titulo": "Redução de Carga Horária",
+        "url": "/Manual/modulos/servidores/reducao_de_carga_horaria.html",
+        "secao": "Documentação - Servidores",
+        "icone": "fas fa-clock nav-icon text-warning"
       }
     ]
   },
